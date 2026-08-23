@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 6
+names: ['NG', 'ika', 'maguro', 'salmon', 'tai', 'tamago']
+
+roboflow:
+  workspace: kokkyyy
+  project: tgs_sushi
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/kokkyyy/tgs_sushi/dataset/1

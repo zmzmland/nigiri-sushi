@@ -1,0 +1,10 @@
+# にぎり寿司 — 画像認識側の依存パッケージ
+#
+# セットアップ.command が、この一覧をもとに .venv を作ります。
+# 手動で入れる場合:
+#     python3 -m venv .venv
+#     source .venv/bin/activate
+#     pip install -r requirements.txt
+
+ultralytics>=8.3.0
+opencv-python>=4.10.0

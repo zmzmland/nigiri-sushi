@@ -1,0 +1,13 @@
+{
+  "camera_url": 0,
+  "model_path": "models/best.pt",
+  "conf": 0.5,
+  "iou": 0.5,
+  "agnostic_nms": true,
+  "match_mode": "lcs",
+  "ng_class": "NG",
+  "preview_every": 1,
+  "camera_warmup": 6.0,
+  "reconnect_attempts": 10,
+  "reconnect_wait": 2.0
+}

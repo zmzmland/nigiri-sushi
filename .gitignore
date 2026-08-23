@@ -1,0 +1,98 @@
+# =========================================
+#  にぎり寿司 — Git 管理から除外するもの
+# =========================================
+#
+# ここに書いたファイルは GitHub にアップロードされません。
+# 「各自の環境で自動生成されるもの」と「重すぎるもの」が対象です。
+# 迷ったら消さず、増やさず、このままにしておいてください。
+
+
+# --- Unity が自動生成するフォルダ -------------------
+# Library は 3.7GB あります。絶対に含めないでください。
+# 各自の Unity が初回起動時に作り直します。
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+.utmp/
+
+# Unity が作る一時ファイル
+*.log
+sysinfo.txt
+crashlytics-build.properties
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+*.unitypackage
+*.apk
+*.aab
+*.app
+
+# クラッシュログ
+mono_crash*.json
+
+# --- IDE が自動生成するもの -------------------------
+# Unity が開くたびに作り直すので、共有すると衝突します。
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+.vs/
+.idea/
+.vscode/
+.gradle/
+ExportedObj/
+
+# --- macOS -----------------------------------------
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# --- Python（画像認識） -----------------------------
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# 各自のカメラ番号が入るので共有しない。
+# config.example.json をコピーして使ってください。
+ImageSearch/config.json
+
+# 学習の途中経過。1回あたり数十MBあり、各自の環境で再生成されます。
+# 採用したモデルだけ ImageSearch/models/ に置いて共有します。
+ImageSearch/runs/
+ImageSearch/ztest-xx/
+
+# ultralytics が自動でダウンロードします
+ImageSearch/yolov8n.pt
+
+# Unity と受け渡しするファイル（本来は ~/TGS_ImageSearch/ にあります）
+ImageSearch/result.txt
+ImageSearch/order.txt
+ImageSearch/capture_trigger.txt
+*.tmp
+
+# --- このプロジェクト固有 ---------------------------
+# 古いバックアップ。共有する必要はありません。
+dont'tough/
+train-7/
+_to_delete/
+*.bak
+*_backup.py
+*_backup.json

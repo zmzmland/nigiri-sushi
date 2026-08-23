@@ -1,0 +1,13 @@
+path: ./TGS_sushi
+
+train: train/images
+val: valid/images
+test: test/images
+
+names:
+  0: NG
+  1: ika
+  2: maguro
+  3: salmon
+  4: tai
+  5: tamago

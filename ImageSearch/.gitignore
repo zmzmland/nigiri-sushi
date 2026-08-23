@@ -1,0 +1,16 @@
+# カメラの接続情報が入るため、Git には含めない
+config.json
+
+# Unity と受け渡しするファイルの残骸（本来は ~/TGS_ImageSearch/ にある）
+result.txt
+order.txt
+capture_trigger.txt
+*.tmp
+
+# 学習の中間生成物
+runs/
+*.pt
+__pycache__/
+
+# 退避フォルダ
+_to_delete/
