@@ -20,6 +20,24 @@ public static class GamePaths
     public static string OrderPath   => Path.Combine(BaseDir, "order.txt");
     public static string TriggerPath => Path.Combine(BaseDir, "capture_trigger.txt");
 
+    /// <summary>
+    /// Python が生きている印。main.py が1秒ごとに書き換えます。
+    /// 更新が止まったら、画像認識が落ちたと判断できます。
+    /// </summary>
+    public static string HeartbeatPath => Path.Combine(BaseDir, "heartbeat.txt");
+
+    /// <summary>
+    /// 自動判定のカウントダウン。Python が "3" "2" "1" と書き、
+    /// 判定していない間はファイルごと消えます。
+    /// </summary>
+    public static string CountdownPath => Path.Combine(BaseDir, "countdown.txt");
+
+    /// <summary>
+    /// ランキングの保存先。ビルドしたアプリでも Editor でも同じ場所を見ます。
+    /// 中身はただの JSON なので、テキストエディタで開いて確認・削除できます。
+    /// </summary>
+    public static string RankingPath => Path.Combine(BaseDir, "ranking.json");
+
     static GamePaths()
     {
         string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -72,6 +90,24 @@ public static class GamePaths
         {
             Debug.LogError($"[GamePaths] 書き込み失敗: {path} / {e.Message}");
             return false;
+        }
+    }
+
+    /// <summary>
+    /// そのファイルが最後に書き換えられてから何秒経ったか。
+    /// ファイルが無い・読めない場合は非常に大きい値を返します。
+    /// heartbeat.txt の鮮度を見るために使います。
+    /// </summary>
+    public static double SecondsSinceWrite(string path)
+    {
+        try
+        {
+            if (!File.Exists(path)) return double.MaxValue;
+            return (DateTime.UtcNow - File.GetLastWriteTimeUtc(path)).TotalSeconds;
+        }
+        catch (Exception)
+        {
+            return double.MaxValue;
         }
     }
 

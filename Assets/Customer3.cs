@@ -5,15 +5,17 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// 1面（Game Scene）の客。
-/// 修正点:
-///   * ファイルパスを GamePaths に統一（persistentDataPath をやめ、Python と同じ場所を見る）
-///   * 注文提示が終わるまで result.txt を受け付けないようにした（古い結果での誤遷移防止）
-///   * タイマーを Time.time ベースにして実時間とズレないようにした
-///   * 「同じものが3連続しない」を、履歴全体ではなく直前2件で判定するよう修正
-///   * 結果受信時に ResultData.isProcessing を false に戻す
+/// 3面（Game Scene 3）の客。
+///
+/// Customer2.cs をベースにした3面専用版です。2面との違いはこの3点だけです。
+///   * タイムを ResultData.scene3Time に記録する（1面・2面のタイムを消さない）
+///   * 最終スコアを 1面 + 2面 + 3面 の合計時間で計算する
+///   * 判定が終わったら ResultScene へ進む
+///
+/// 4人目を足したくなったら、このファイルを複製して
+/// scene3Time → scene4Time に読み替えてください。
 /// </summary>
-public class Customer : MonoBehaviour
+public class Customer3 : MonoBehaviour
 {
     [Header("Move Settings")]
     public float targetX = 0f;
@@ -50,37 +52,33 @@ public class Customer : MonoBehaviour
     public float fadeTime = 1.5f;
 
     [Header("Result File Watch Settings")]
-    [Tooltip("Python が result.txt を書き込むまでのポーリング間隔（秒）")]
     public float resultCheckInterval = 0.2f;
 
     [Tooltip("判定を受け付け始めてからこの秒数、結果が来なければ警告を出す")]
     public float noResultWarnAfter = 90f;
 
     [Header("Speed Bonus Table")]
-    [Tooltip("1面の経過時間がこの値以下なら、下の金額をボーナスにする（昇順で並べること）")]
-    public float[] timeThresholds = { 30f, 40f, 50f, 60f, 70f };
+    [Tooltip("1面+2面+3面の合計時間がこの値以下なら、下の金額をボーナスにする（昇順で並べること）")]
+    public float[] timeThresholds = { 70f, 85f, 100f, 115f, 130f };
 
-    [Tooltip("上の各段階でもらえるボーナス（円）")]
-    public int[] timeBonusAmounts = { 1000, 750, 500, 250, 0 };
+    [Tooltip("上の各段階でもらえるボーナス（円）。ここが最終結果になります")]
+    public int[] timeBonusAmounts = { 3000, 2000, 1000, 500, 0 };
 
     [Header("Scene Flow")]
-    public string nextSceneName = "WaitScene";
-
-    [Tooltip("WaitScene のあとに進む面。3面化に伴い、WaitScene を使い回すために必要")]
-    public string sceneAfterWait = "Game Scene 2";
+    public string nextSceneName = "ResultScene";
 
     private RectTransform rectTransform;
     private Image image;
     private CanvasGroup bubbleCanvasGroup;
 
-    // 差し替え前（横向きのとき）の枠の大きさ。正面の絵はこれを基準に合わせる
+    // 差し替え前（横向きのとき）の枠の大きさ
     private Vector2 baseSize;
 
     private readonly List<Sprite> orderHistory = new List<Sprite>();
 
     private float timerStart = -1f;
     private float elapsedTime = 0f;
-    private bool ordersReady = false;   // 注文提示が終わったか
+    private bool ordersReady = false;
     private bool judged = false;
 
     // 判定待ちが長引いていないかの監視用
@@ -91,12 +89,12 @@ public class Customer : MonoBehaviour
 
     void Start()
     {
-        ResultData.ResetAll();
-
-        // 前回の残骸を消してから開始する
+        // 3面では ResultData をリセットしない（1面・2面のスコアを引き継ぐ）
         GamePaths.SafeWrite(GamePaths.ResultPath, "");
         GamePaths.SafeWrite(GamePaths.OrderPath, "");
         GamePaths.SafeDelete(GamePaths.TriggerPath);
+        ResultData.isProcessing = false;
+        ResultData.ordersReady = false;
 
         rectTransform = GetComponent<RectTransform>();
         image = GetComponent<Image>();
@@ -110,7 +108,6 @@ public class Customer : MonoBehaviour
         {
             bubbleCanvasGroup = speechBubble.GetComponent<CanvasGroup>();
             speechBubble.SetActive(false);
-
             if (bubbleCanvasGroup != null) bubbleCanvasGroup.alpha = 1f;
             else Debug.LogError("SpeechBubble に CanvasGroup が付いていません");
         }
@@ -119,9 +116,6 @@ public class Customer : MonoBehaviour
         resultWatchCoroutine = StartCoroutine(WatchResultFile());
     }
 
-    // =========================
-    // メインの流れ
-    // =========================
     IEnumerator CustomerFlow()
     {
         yield return new WaitForSeconds(1f);
@@ -152,14 +146,11 @@ public class Customer : MonoBehaviour
 
         yield return StartCoroutine(MultipleOrders());
 
-        ordersReady = true;   // ここから判定受付開始
+        ordersReady = true;
 
         yield return StartCoroutine(FadeOutBubble());
     }
 
-    // =========================
-    // 注文（同じものが3連続しない）
-    // =========================
     IEnumerator MultipleOrders()
     {
         if (orderSprites == null || orderSprites.Length == 0)
@@ -169,7 +160,14 @@ public class Customer : MonoBehaviour
             yield break;
         }
 
-        ResultData.totalOrders = orderCount;
+        if (orderImage == null)
+        {
+            Debug.LogError("OrderImage が設定されていません");
+            ordersReady = true;
+            yield break;
+        }
+
+        ResultData.totalOrders += orderCount;
 
         for (int i = 0; i < orderCount; i++)
         {
@@ -178,7 +176,7 @@ public class Customer : MonoBehaviour
 
             if (speechBubble != null) speechBubble.SetActive(true);
             if (bubbleCanvasGroup != null) bubbleCanvasGroup.alpha = 1f;
-            if (orderImage != null) orderImage.sprite = order;
+            orderImage.sprite = order;
 
             yield return new WaitForSeconds(showTime);
 
@@ -190,7 +188,7 @@ public class Customer : MonoBehaviour
         SaveOrderFile();
     }
 
-    /// <summary>直前2件と同じものは選ばない（=3連続を防ぐ）。</summary>
+    /// <summary>直前2件と同じものは選ばない。試行上限つきなのでフリーズしない。</summary>
     private Sprite PickNextOrder()
     {
         const int maxAttempts = 50;
@@ -208,13 +206,9 @@ public class Customer : MonoBehaviour
             if (!wouldBeThreeInARow) return candidate;
         }
 
-        // 種類が足りない等で選べなかった場合はそのまま返す
         return orderSprites[Random.Range(0, orderSprites.Length)];
     }
 
-    // =========================
-    // result.txt の監視
-    // =========================
     IEnumerator WatchResultFile()
     {
         var wait = new WaitForSeconds(resultCheckInterval);
@@ -229,9 +223,6 @@ public class Customer : MonoBehaviour
             if (!ordersReady)
             {
                 // ★ 注文提示中に判定された結果は、ここで確実に捨てる。
-                //   以前は読み飛ばすだけだったため result.txt が残り、
-                //   注文が出そろった瞬間にそれを拾って、寿司を1貫も
-                //   置いていないのに次の面へ飛ぶ事故になっていた。
                 string stale = GamePaths.SafeRead(GamePaths.ResultPath);
                 if (!string.IsNullOrEmpty(stale))
                 {
@@ -259,31 +250,24 @@ public class Customer : MonoBehaviour
 
             point = Mathf.Clamp(point, 0, orderCount);
 
-            ResultData.correctCount = point;
-            ResultData.score        = point * ResultData.PricePerPiece;
+            ResultData.correctCount += point;
+            ResultData.score        += point * ResultData.PricePerPiece;
 
             elapsedTime = (timerStart < 0f) ? 0f : Time.time - timerStart;
-            ResultData.scene1Time = elapsedTime;
+            ResultData.scene3Time   = elapsedTime;   // scene1Time / scene2Time は触らない
             ResultData.isProcessing = false;
 
-            Debug.Log($"1面 正解 {point}/{orderCount}  time={elapsedTime:F1}s");
+            Debug.Log($"3面 正解 {point}/{orderCount}  time={elapsedTime:F1}s");
 
             CalculateFinalScore();
 
             GamePaths.SafeWrite(GamePaths.ResultPath, "");
-
-            // WaitScene に「次はここへ」と伝えてから移る
-            ResultData.nextAfterWait = sceneAfterWait;
-
             SceneManager.LoadScene(nextSceneName);
             yield break;
         }
     }
 
-    /// <summary>
-    /// 判定を受け付け始めてから結果が来ない状態が続いたら、一度だけ警告する。
-    /// Python が落ちていると永久に待ち続けてしまうため。
-    /// </summary>
+    /// <summary>判定待ちが長引いたら一度だけ警告する（Python 停止の検知）。</summary>
     private void WarnIfWaitingTooLong()
     {
         if (warnedLongWait || readySince < 0f) return;
@@ -296,9 +280,6 @@ public class Customer : MonoBehaviour
             "  復旧できない場合は Ctrl+Shift+N でこの面を飛ばせます。");
     }
 
-    // =========================
-    // フェード
-    // =========================
     IEnumerator FadeOutBubble()
     {
         yield return new WaitForSeconds(fadeDelay);
@@ -316,17 +297,18 @@ public class Customer : MonoBehaviour
         if (speechBubble != null) speechBubble.SetActive(false);
     }
 
-    // =========================
-    // 売上（1面時点の暫定値）
-    // =========================
     void CalculateFinalScore()
     {
-        int bonus = 0;
+        float totalTime =
+            ResultData.scene1Time +
+            ResultData.scene2Time +
+            ResultData.scene3Time;
 
+        int bonus = 0;
         int n = Mathf.Min(timeThresholds.Length, timeBonusAmounts.Length);
         for (int i = 0; i < n; i++)
         {
-            if (elapsedTime <= timeThresholds[i])
+            if (totalTime <= timeThresholds[i])
             {
                 bonus = timeBonusAmounts[i];
                 break;
@@ -335,11 +317,10 @@ public class Customer : MonoBehaviour
 
         ResultData.timeBonusYen = bonus;
         ResultData.finalScore   = ResultData.score + bonus;
+
+        Debug.Log($"totalTime={totalTime:F1}  bonus=+{bonus}円  合計={ResultData.finalScore}円");
     }
 
-    // =========================
-    // 注文履歴の保存
-    // =========================
     void SaveOrderFile()
     {
         var sb = new System.Text.StringBuilder();

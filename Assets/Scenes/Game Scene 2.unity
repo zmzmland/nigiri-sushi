@@ -836,8 +836,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 441, y: -75.615}
-  m_SizeDelta: {x: 100, y: 320.7704}
+  m_AnchoredPosition: {x: 485.97375, y: -40}
+  m_SizeDelta: {x: 189.9475, y: 320.7704}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2103205266
 MonoBehaviour:
@@ -859,7 +859,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3849163848834848141, guid: e5c533b5d06de485892ddb64bb9a2f4f, type: 3}
+  m_Sprite: {fileID: 7047888579345826262, guid: aa6830d5e87374a7e9db8dea5b8f6683, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -891,7 +891,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Customer2
   targetX: 0
   moveTime: 1
-  customerSprite: {fileID: 117316716822047659, guid: 59472cfc099db42febc1408987d74777, type: 3}
+  customerSprite: {fileID: -1929520615644162986, guid: 25f451091415f4dbeaeb1ce9831179fb, type: 3}
+  fitMode: 1
+  frontScale: 1
+  frontOffset: {x: 0, y: 0}
+  keepFeetOnGround: 1
   speechBubble: {fileID: 127425542}
   orderImage: {fileID: 1968209937}
   orderSprites:
@@ -905,6 +909,21 @@ MonoBehaviour:
   hideTime: 0.5
   fadeDelay: 2
   fadeTime: 1.5
+  resultCheckInterval: 0.2
+  timeThresholds:
+  - 40
+  - 50
+  - 60
+  - 70
+  - 80
+  timeMultipliers:
+  - 1.2
+  - 1.15
+  - 1.1
+  - 1.05
+  - 1
+  nextSceneName: WaitScene
+  sceneAfterWait: Game Scene 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

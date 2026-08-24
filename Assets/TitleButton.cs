@@ -37,15 +37,10 @@ public class TitleButton : MonoBehaviour
 
     private void ResetScore()
     {
-        ResultData.score = 0;
-        ResultData.correctCount = 0;
-        ResultData.totalOrders = 0;
-        ResultData.clearTime = 0f;
-        ResultData.scene1Time = 0f;
-        ResultData.scene2Time = 0f;
-        ResultData.timeBonus = 1f;
-        ResultData.finalScore = 0;
-        ResultData.isProcessing = false;
+        // 以前はここで項目を1つずつ消していましたが、面が増えるたびに
+        // 書き忘れる（実際 scene3Time が漏れていた）ので、
+        // ResultData 側の ResetAll に一本化しました。
+        ResultData.ResetAll();
 
         // 前回の判定結果が残っていると、次のプレイ開始直後に
         // 誤って拾ってしまうので消しておく。
