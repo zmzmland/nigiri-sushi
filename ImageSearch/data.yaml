@@ -1,13 +1,13 @@
-path: ./TGS_sushi
+train: ../train/images
+val: ../valid/images
+test: ../test/images
 
-train: train/images
-val: valid/images
-test: test/images
+nc: 12
+names: ['aji', 'anago', 'ebi', 'hotate', 'ika', 'ikura', 'maguro', 'makizusi', 'natto', 'salmon', 'tako', 'tamago']
 
-names:
-  0: NG
-  1: ika
-  2: maguro
-  3: salmon
-  4: tai
-  5: tamago
+roboflow:
+  workspace: greenfox2409-gmail-com
+  project: tgs-drqjb
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/greenfox2409-gmail-com/tgs-drqjb/dataset/1

@@ -96,3 +96,11 @@ _to_delete/
 *.bak
 *_backup.py
 *_backup.json
+
+# 画像認識班から受け取った学習一式（40MB）。
+# 採用したモデルは ImageSearch/models/best.pt として共有しているので、
+# データセットと学習ログまで共有する必要はありません。
+/内覧会/
+
+# 差し替え前のモデルの控え。手元の保険なので共有しません。
+ImageSearch/models/best_旧模型.pt

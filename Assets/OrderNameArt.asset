@@ -29,7 +29,35 @@ MonoBehaviour:
     kana: {fileID: 21300000, guid: 0e25626c0ebe94e99b678e7b7109afd4, type: 3}
     kanji: {fileID: 21300000, guid: fbc086956803246ada1ccd76a7258440, type: 3}
     english: {fileID: 21300000, guid: dde9a9fbf555a45fcb003d0a512c01d5, type: 3}
-  - spriteName: 
-    kana: {fileID: 0}
-    kanji: {fileID: 0}
-    english: {fileID: 0}
+  - spriteName: ikura
+    kana: {fileID: 21300000, guid: cc9c5ffe931914d38934f819030d0715, type: 3}
+    kanji: {fileID: 21300000, guid: 83af5391cf43b4361b79ed0155b70fab, type: 3}
+    english: {fileID: 21300000, guid: da9e050a9cca647a28a9b2f32b0b3941, type: 3}
+  - spriteName: hotate
+    kana: {fileID: 21300000, guid: 94f5f16e879ea43298a94b55e5155198, type: 3}
+    kanji: {fileID: 21300000, guid: 7898868cdcaa24d8985208169a1dfc39, type: 3}
+    english: {fileID: 21300000, guid: b35d1d70638ba443cacaae889f9aeeac, type: 3}
+  - spriteName: ebi
+    kana: {fileID: 21300000, guid: e40c6d238149140028d74c6dff8ff7d0, type: 3}
+    kanji: {fileID: 21300000, guid: 56cdd313d2bcf42b58bc9eb972b0f373, type: 3}
+    english: {fileID: 21300000, guid: 0f2677ed8da754cf8a2fd12bfb207f38, type: 3}
+  - spriteName: makizusi
+    kana: {fileID: 21300000, guid: 40ec3ed7afe434862941137ca594e785, type: 3}
+    kanji: {fileID: 21300000, guid: 36bb414ec80374fb3abd9cbf7960ca8f, type: 3}
+    english: {fileID: 21300000, guid: d5e99b5c392fc487a9638b82baccc918, type: 3}
+  - spriteName: anago
+    kana: {fileID: 21300000, guid: 3a4c68cc853a04572a44fc313418c8f7, type: 3}
+    kanji: {fileID: 21300000, guid: 4a18e79c74f464137b91aa16b78ae456, type: 3}
+    english: {fileID: 21300000, guid: 3a1ab04872913481ba12a5bd67fcceb7, type: 3}
+  - spriteName: nattou
+    kana: {fileID: 21300000, guid: 1c7f9506121cc4c0ca317f125c38e97d, type: 3}
+    kanji: {fileID: 21300000, guid: 19ee928ef71494894afcda88ba58dac8, type: 3}
+    english: {fileID: 21300000, guid: 0f4bf9b23f0b4495392ddd2cfa4dae47, type: 3}
+  - spriteName: azi
+    kana: {fileID: 21300000, guid: c8580b8e16f2441c0b8aa22df2fc36f6, type: 3}
+    kanji: {fileID: 21300000, guid: 075001e32a4e24c0f945f4794e2074b7, type: 3}
+    english: {fileID: 21300000, guid: 7f46bdf2a94db4b248ed7648269ea0c6, type: 3}
+  - spriteName: tako
+    kana: {fileID: 21300000, guid: e70e3180174d04f8593c5ee8b091b332, type: 3}
+    kanji: {fileID: 21300000, guid: c43c41775304e4138ba3d815af059490, type: 3}
+    english: {fileID: 21300000, guid: bf6e9f8bd29c145bb8d9985538d13413, type: 3}

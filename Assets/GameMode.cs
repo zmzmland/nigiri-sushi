@@ -98,6 +98,11 @@ public static class GameMode
         { "tako",   "蛸"   },
         { "uni",    "雲丹" },
         { "ikura",  "いくら" },   // イクラに定まった漢字は無いので、かな表記
+        { "hotate", "帆立" },
+        { "anago",  "穴子" },
+        { "aji",    "鯵"   },
+        { "natto",  "納豆" },
+        { "makizusi", "巻寿司" },
     };
 
     private static readonly Dictionary<string, string> Kana = new Dictionary<string, string>
@@ -111,6 +116,11 @@ public static class GameMode
         { "tako",   "タコ"   },
         { "uni",    "ウニ"   },
         { "ikura",  "イクラ" },
+        { "hotate", "ホタテ" },
+        { "anago",  "アナゴ" },
+        { "aji",    "アジ"   },
+        { "natto",  "ナットウ" },
+        { "makizusi", "マキズシ" },
     };
 
     private static readonly Dictionary<string, string> English = new Dictionary<string, string>
@@ -124,6 +134,11 @@ public static class GameMode
         { "tako",   "OCTOPUS"   },
         { "uni",    "SEA URCHIN"},
         { "ikura",  "SALMON ROE"},
+        { "hotate", "SCALLOP"   },
+        { "anago",  "CONGER EEL"},
+        { "aji",    "HORSE MACKEREL" },
+        { "natto",  "NATTO"     },
+        { "makizusi", "SUSHI ROLL" },
     };
 
     /// <summary>

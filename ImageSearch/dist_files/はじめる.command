@@ -22,14 +22,24 @@ echo "  にぎり寿司"
 echo "================================================"
 echo ""
 
-# ---------- セットアップ済みか ----------
+# ---------- Python の準備を確認 ----------
+# .venv があればそれを使う。無い場合は、システムの python3 に
+# ライブラリが入っていればそのまま続行する（開発機ではこの形が多い）。
+USE_VENV=1
+
 if [ ! -d "$VENV" ]; then
-  echo "✗ セットアップがまだです。"
-  echo ""
-  echo "  先に「セットアップ.command」をダブルクリックしてください。"
-  echo ""
-  read -n 1 -s -r -p "何かキーを押すと閉じます..."
-  exit 1
+  USE_VENV=0
+
+  if python3 -c "import ultralytics, cv2" 2>/dev/null; then
+    echo "△ .venv がありませんが、システムの python3 で動かします"
+  else
+    echo "✗ セットアップがまだです。"
+    echo ""
+    echo "  先に「セットアップ.command」をダブルクリックしてください。"
+    echo ""
+    read -n 1 -s -r -p "何かキーを押すと閉じます..."
+    exit 1
+  fi
 fi
 
 if [ ! -d "$APP" ]; then
@@ -59,8 +69,10 @@ rm -f "$SHARED/heartbeat.txt"
 echo "✓ 共有フォルダを初期化しました"
 
 # ---------- 画像認識を起動 ----------
-# shellcheck disable=SC1091
-source "$VENV/bin/activate"
+if [ "$USE_VENV" = "1" ]; then
+  # shellcheck disable=SC1091
+  source "$VENV/bin/activate"
+fi
 
 echo "✓ 画像認識を起動します..."
 echo ""

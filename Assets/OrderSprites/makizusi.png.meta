@@ -1,34 +1,34 @@
 fileFormatVersion: 2
-guid: 3e1297ec6a2be4166b3b1a7523b23581
+guid: 358d0c71e84354024947ec8ba18d28fe
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8642740267926351189
-    second: kaisenmaki_0
+      213: -6535057428575179384
+    second: makizusi_0
   - first:
-      213: -2631147491227234748
-    second: kaisenmaki_1
+      213: 7770756039998307072
+    second: makizusi_1
   - first:
-      213: -531775743288089015
-    second: kaisenmaki_2
+      213: 3800318033141679078
+    second: makizusi_2
   - first:
-      213: -6557499258703161855
-    second: kaisenmaki_3
+      213: -5465179470651526678
+    second: makizusi_3
   - first:
-      213: -20078031492722690
-    second: kaisenmaki_4
+      213: -1566265407787537664
+    second: makizusi_4
   - first:
-      213: -3171954080843901205
-    second: kaisenmaki_5
+      213: 7173143230929499855
+    second: makizusi_5
   - first:
-      213: -5032262389488271943
-    second: kaisenmaki_6
+      213: 7693694090667584118
+    second: makizusi_6
   - first:
-      213: 4578724047691072833
-    second: kaisenmaki_7
+      213: 636278320592003044
+    second: makizusi_7
   - first:
-      213: -1951924334905204438
-    second: kaisenmaki_8
+      213: 3269705889236793636
+    second: makizusi_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -70,7 +70,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -137,7 +137,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: kaisenmaki_0
+      name: makizusi_0
       rect:
         serializedVersion: 2
         x: 9
@@ -152,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 55de6b38b7e21f770800000000000000
-      internalID: 8642740267926351189
+      spriteID: 88daff694efce45a0800000000000000
+      internalID: -6535057428575179384
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kaisenmaki_1
+      name: makizusi_1
       rect:
         serializedVersion: 2
         x: 173
@@ -174,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 44e8db11c494c7bd0800000000000000
-      internalID: -2631147491227234748
+      spriteID: 00bf158727547db60800000000000000
+      internalID: 7770756039998307072
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kaisenmaki_2
+      name: makizusi_2
       rect:
         serializedVersion: 2
         x: 364
@@ -196,14 +196,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 946e42967c0ce98f0800000000000000
-      internalID: -531775743288089015
+      spriteID: 6e3cbeebd117db430800000000000000
+      internalID: 3800318033141679078
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kaisenmaki_3
+      name: makizusi_3
       rect:
         serializedVersion: 2
         x: 502
@@ -218,14 +218,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1065c16da251ff4a0800000000000000
-      internalID: -6557499258703161855
+      spriteID: ae1fe0a2a38c724b0800000000000000
+      internalID: -5465179470651526678
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kaisenmaki_4
+      name: makizusi_4
       rect:
         serializedVersion: 2
         x: 676
@@ -240,14 +240,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eff4611032ba8bff0800000000000000
-      internalID: -20078031492722690
+      spriteID: 00b67d8f8e1834ae0800000000000000
+      internalID: -1566265407787537664
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kaisenmaki_5
+      name: makizusi_5
       rect:
         serializedVersion: 2
         x: 1007
@@ -262,14 +262,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: be6d277b194faf3d0800000000000000
-      internalID: -3171954080843901205
+      spriteID: fc6fc8a73cf1c8360800000000000000
+      internalID: 7173143230929499855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kaisenmaki_6
+      name: makizusi_6
       rect:
         serializedVersion: 2
         x: 1346
@@ -284,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9bd3ef1d400d92ab0800000000000000
-      internalID: -5032262389488271943
+      spriteID: 67a63c4330e75ca60800000000000000
+      internalID: 7693694090667584118
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kaisenmaki_7
+      name: makizusi_7
       rect:
         serializedVersion: 2
         x: 1680
@@ -306,14 +306,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1454a232345ea8f30800000000000000
-      internalID: 4578724047691072833
+      spriteID: 4ef1b2de2c384d800800000000000000
+      internalID: 636278320592003044
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kaisenmaki_8
+      name: makizusi_8
       rect:
         serializedVersion: 2
         x: 1680
@@ -328,8 +328,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a21e88db82f59e4e0800000000000000
-      internalID: -1951924334905204438
+      spriteID: 42936ffbe24506d20800000000000000
+      internalID: 3269705889236793636
       vertices: []
       indices: 
       edges: []
@@ -338,7 +338,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -348,15 +348,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      kaisenmaki_0: 8642740267926351189
-      kaisenmaki_1: -2631147491227234748
-      kaisenmaki_2: -531775743288089015
-      kaisenmaki_3: -6557499258703161855
-      kaisenmaki_4: -20078031492722690
-      kaisenmaki_5: -3171954080843901205
-      kaisenmaki_6: -5032262389488271943
-      kaisenmaki_7: 4578724047691072833
-      kaisenmaki_8: -1951924334905204438
+      makizusi_0: -6535057428575179384
+      makizusi_1: 7770756039998307072
+      makizusi_2: 3800318033141679078
+      makizusi_3: -5465179470651526678
+      makizusi_4: -1566265407787537664
+      makizusi_5: 7173143230929499855
+      makizusi_6: 7693694090667584118
+      makizusi_7: 636278320592003044
+      makizusi_8: 3269705889236793636
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
