@@ -300,7 +300,7 @@ public class OrderBoard : MonoBehaviour
         text.enableAutoSizing = true;
         text.fontSizeMin = 12f;
         text.fontSizeMax = 72f;
-        text.enableWordWrapping = true;
+        text.textWrappingMode = TextWrappingModes.Normal;
         text.raycastTarget = false;
         text.text = "";
 

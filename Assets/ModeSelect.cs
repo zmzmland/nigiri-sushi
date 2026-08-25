@@ -164,10 +164,14 @@ public class ModeSelect : MonoBehaviour
                     heightScale: 0.6f);
     }
 
+    /// <summary>
+    /// Canvas の子に置かれていなかったときの保険。
+    /// ふつうは GetComponentInParent で見つかるので、ここは通りません。
+    /// </summary>
     private Canvas FindAnyCanvas()
     {
 #if UNITY_2023_1_OR_NEWER
-        return Object.FindFirstObjectByType<Canvas>();
+        return Object.FindAnyObjectByType<Canvas>();
 #else
         return Object.FindObjectOfType<Canvas>();
 #endif

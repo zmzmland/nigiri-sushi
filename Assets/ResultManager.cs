@@ -203,7 +203,7 @@ public class ResultManager : MonoBehaviour
         totalText.fontSize = totalFontSize;
         totalText.color = totalColor;
         totalText.alignment = TextAlignmentOptions.Right;
-        totalText.enableWordWrapping = false;
+        totalText.textWrappingMode = TextWrappingModes.NoWrap;
         totalText.raycastTarget = false;
         totalText.text = "";
     }

@@ -65,21 +65,53 @@ public class GameAudio : MonoBehaviour
     [Tooltip("BGM を切り替えるときのフェード秒数")]
     public float bgmFadeTime = 0.6f;
 
-    [Tooltip("判定のあとに正解音・不正解音を鳴らす。" +
-             "オフにすると拍子木だけになります")]
-    public bool playResultChime = false;
 
-    [Header("効果音（空なら Resources/Audio から自動で読み込み）")]
+    // 音は「チェック」と「音源」が対になっています。
+    // チェックを外すと、その音だけ鳴らなくなります（音源は消えません）。
+    // 音源が空なら Resources/Audio から名前で自動的に読み込みます。
+
+    [Header("ボタン")]
+    [Tooltip("「始め」「営業再開」を押したとき")]
+    public bool useClick = true;
     public AudioClip seClick;
+
+    [Header("客が来たとき")]
+    public bool useCustomer = true;
+    public AudioClip seCustomer;
+
+    [Header("注文が出るとき")]
+    [Tooltip("吹き出しが出るたび／リザルトの明細1行ごと")]
+    public bool useOrder = true;
     public AudioClip seOrder;
+
+    [Header("自動判定のカウントダウン")]
+    [Tooltip("3・2・1 の数字が変わるたび")]
+    public bool useCountdown = true;
     public AudioClip seCountdown;
+
+    [Header("判定の瞬間")]
+    [Tooltip("拍子木")]
+    public bool useJudge = true;
     public AudioClip seJudge;
+
+    [Header("判定のあとの正解音・不正解音")]
+    [Tooltip("既定はオフ。入れると判定の0.35秒後に鳴ります")]
+    public bool playResultChime = false;
     public AudioClip seCorrect;
     public AudioClip seWrong;
-    public AudioClip seCustomer;
+
+    [Header("リザルトの売上に応じた音")]
+    [Tooltip("下の Result Tiers で段を決めます")]
+    public bool useResult = true;
+
+    [Header("番付入り")]
+    [Tooltip("いまは使っていません。売上の音と重なるため")]
+    public bool useRankIn = true;
     public AudioClip seRankIn;
 
     [Header("BGM")]
+    [Tooltip("外すと BGM が一切鳴りません")]
+    public bool useBgm = true;
     public AudioClip bgmTitle;
     public AudioClip bgmGame;
     public AudioClip bgmResult;
@@ -209,9 +241,12 @@ public class GameAudio : MonoBehaviour
     {
         AudioClip clip = null;
 
-        foreach (SceneBgm b in bgmTable)
+        if (useBgm)
         {
-            if (b != null && b.sceneName == sceneName) { clip = b.clip; break; }
+            foreach (SceneBgm b in bgmTable)
+            {
+                if (b != null && b.sceneName == sceneName) { clip = b.clip; break; }
+            }
         }
 
         // 同じ曲なら鳴らし直さない。
@@ -282,12 +317,12 @@ public class GameAudio : MonoBehaviour
 
     // --- static な入口。GameAudio が無くても安全に何も起きない ---
 
-    public static void Click()        { if (I != null) I.PlayOne(I.seClick); }
-    public static void Order()        { if (I != null) I.PlayOne(I.seOrder); }
-    public static void Countdown()    { if (I != null) I.PlayOne(I.seCountdown, 0.7f); }
-    public static void Judge()        { if (I != null) I.PlayOne(I.seJudge); }
-    public static void CustomerCome() { if (I != null) I.PlayOne(I.seCustomer); }
-    public static void RankIn()       { if (I != null) I.PlayOne(I.seRankIn); }
+    public static void Click()        { if (I != null && I.useClick)     I.PlayOne(I.seClick); }
+    public static void Order()        { if (I != null && I.useOrder)     I.PlayOne(I.seOrder); }
+    public static void Countdown()    { if (I != null && I.useCountdown) I.PlayOne(I.seCountdown, 0.7f); }
+    public static void Judge()        { if (I != null && I.useJudge)     I.PlayOne(I.seJudge); }
+    public static void CustomerCome() { if (I != null && I.useCustomer)  I.PlayOne(I.seCustomer); }
+    public static void RankIn()       { if (I != null && I.useRankIn)    I.PlayOne(I.seRankIn); }
 
     /// <summary>
     /// リザルトで、売上に応じた音を鳴らす。
@@ -295,7 +330,7 @@ public class GameAudio : MonoBehaviour
     /// </summary>
     public static void Result(int score)
     {
-        if (I == null || I.resultTiers == null) return;
+        if (I == null || !I.useResult || I.resultTiers == null) return;
 
         ResultTier hit = null;
 
@@ -321,7 +356,7 @@ public class GameAudio : MonoBehaviour
     {
         if (I == null) return;
 
-        I.PlayOne(I.seJudge);
+        if (I.useJudge) I.PlayOne(I.seJudge);
 
         if (!I.playResultChime) return;
 

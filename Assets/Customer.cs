@@ -196,7 +196,7 @@ public class Customer : MonoBehaviour
         ResultData.totalOrders = orderCount;
 
         // 先に注文を全部決めてしまう。注文票に一度に並べられるようにするため。
-        for (int i = 0; i < orderCount; i++) orderHistory.Add(PickNextOrder());
+        PickOrders();
 
         // 板前モードは注文票を出さない（覚える勝負）
         if (GameMode.KeepOrderBoard)
@@ -309,26 +309,50 @@ public class Customer : MonoBehaviour
         }
     }
 
-    /// <summary>直前2件と同じものは選ばない（=3連続を防ぐ）。</summary>
-    private Sprite PickNextOrder()
+    /// <summary>
+    /// この客の注文をまとめて決める。
+    ///
+    /// 同じネタが2回出ないよう、種類の中から重複なしで選びます。
+    /// ネタの種類が注文数より少ないときだけ重複を許し、警告を出します。
+    /// </summary>
+    private void PickOrders()
     {
-        const int maxAttempts = 50;
+        orderHistory.Clear();
 
-        for (int attempt = 0; attempt < maxAttempts; attempt++)
+        // 同じスプライトが複数登録されていても1種として数える
+        var kinds = new List<Sprite>();
+        foreach (Sprite s in orderSprites)
         {
-            Sprite candidate = orderSprites[Random.Range(0, orderSprites.Length)];
-
-            int n = orderHistory.Count;
-            bool wouldBeThreeInARow =
-                n >= 2 &&
-                orderHistory[n - 1] == candidate &&
-                orderHistory[n - 2] == candidate;
-
-            if (!wouldBeThreeInARow) return candidate;
+            if (s != null && !kinds.Contains(s)) kinds.Add(s);
         }
 
-        // 種類が足りない等で選べなかった場合はそのまま返す
-        return orderSprites[Random.Range(0, orderSprites.Length)];
+        if (kinds.Count == 0)
+        {
+            Debug.LogError("orderSprites に有効なスプライトがありません");
+            return;
+        }
+
+        var pool = new List<Sprite>(kinds);
+        bool warned = false;
+
+        for (int i = 0; i < orderCount; i++)
+        {
+            if (pool.Count == 0)
+            {
+                if (!warned)
+                {
+                    warned = true;
+                    Debug.LogWarning(
+                        $"ネタが {kinds.Count} 種しかないのに注文数が {orderCount} です。" +
+                        "同じネタが複数回出ます。Order Sprites を増やすか Order Count を減らしてください。");
+                }
+                pool.AddRange(kinds);
+            }
+
+            int k = Random.Range(0, pool.Count);
+            orderHistory.Add(pool[k]);
+            pool.RemoveAt(k);
+        }
     }
 
     // =========================

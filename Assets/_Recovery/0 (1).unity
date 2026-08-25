@@ -1331,23 +1331,15 @@ MonoBehaviour:
   bgmVolume: 0.35
   seVolume: 0.8
   bgmFadeTime: 0.6
-  useClick: 1
-  seClick: {fileID: 0}
-  useCustomer: 0
-  seCustomer: {fileID: 0}
-  useOrder: 0
-  seOrder: {fileID: 0}
-  useCountdown: 1
-  seCountdown: {fileID: 0}
-  useJudge: 1
-  seJudge: {fileID: 8300000, guid: 36d5d9313439847b68cd527531956487, type: 3}
   playResultChime: 0
+  seClick: {fileID: 0}
+  seOrder: {fileID: 0}
+  seCountdown: {fileID: 0}
+  seJudge: {fileID: 8300000, guid: 36d5d9313439847b68cd527531956487, type: 3}
   seCorrect: {fileID: 0}
   seWrong: {fileID: 0}
-  useResult: 1
-  useRankIn: 1
+  seCustomer: {fileID: 0}
   seRankIn: {fileID: 0}
-  useBgm: 1
   bgmTitle: {fileID: 8300000, guid: 06c318c656f1244d9a3fa64a42f23af3, type: 3}
   bgmGame: {fileID: 8300000, guid: cd9410f1bc96f45439ac2b4b31e7a3a8, type: 3}
   bgmResult: {fileID: 8300000, guid: 22854fa663b3448d982bbc6f7cdbc84c, type: 3}

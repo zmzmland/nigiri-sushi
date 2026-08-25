@@ -242,8 +242,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.0362, y: 4.5149}
-  m_SizeDelta: {x: 802.0764, y: 522.0299}
+  m_AnchoredPosition: {x: 1.6, y: 4.5}
+  m_SizeDelta: {x: 793, y: 522}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &602746717
 MonoBehaviour:
@@ -533,8 +533,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9.4122, y: -193.89467}
-  m_SizeDelta: {x: 795.32, y: 125.2035}
+  m_AnchoredPosition: {x: 4.9261, y: -193.89467}
+  m_SizeDelta: {x: 786.35, y: 125.2035}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1305279151
 MonoBehaviour:
@@ -761,8 +761,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchoredPosition: {x: 0, y: 7}
+  m_SizeDelta: {x: 125, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1968209937
 MonoBehaviour:
@@ -955,11 +955,11 @@ MonoBehaviour:
     slotSprite: {fileID: -5553725807225320140, guid: 9bdc56d80b1bf4fcb8786c562f2bd2dc, type: 3}
     sliceImages: 0
     position: 1
-    margin: 20
+    margin: 5
     offsetX: 0
     autoSize: 0
     fixedSize: {x: 640, y: 100}
-    slotSize: 100
+    slotSize: 80
     spacing: 12
     padding: 14
     slotInset: 10
