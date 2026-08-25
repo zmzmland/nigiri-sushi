@@ -29,6 +29,9 @@ public class RankingBoard : MonoBehaviour
     [Tooltip("見出しの文字。空にすると見出しを出しません")]
     public string heading = "番付";
 
+    [Tooltip("見出しにモード名を付ける（「板前 の番付」のように）")]
+    public bool showModeInHeading = true;
+
     [Tooltip("順位を漢数字にする（一位・二位…）。外すと 1位・2位…")]
     public bool useKanjiNumbers = true;
 
@@ -82,7 +85,7 @@ public class RankingBoard : MonoBehaviour
         if (resetHeldFor >= resetHoldSeconds)
         {
             resetHeldFor = 0f;
-            RankingData.Clear();
+            RankingData.ClearAll();   // 3モードまとめて消す
             Refresh();
         }
     }
@@ -98,7 +101,9 @@ public class RankingBoard : MonoBehaviour
 
         if (!string.IsNullOrEmpty(heading))
         {
-            sb.AppendLine(heading);
+            sb.AppendLine(showModeInHeading
+                ? $"{GameMode.DisplayName} の{heading}"
+                : heading);
         }
 
         if (list.entries.Count == 0)

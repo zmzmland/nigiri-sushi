@@ -1,0 +1,624 @@
+fileFormatVersion: 2
+guid: ee1249f47256b4b668034844c48a8400
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3421733408563107603
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_0"
+  - first:
+      213: 4104428724316109656
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_1"
+  - first:
+      213: 3278135732057813604
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_2"
+  - first:
+      213: -4878501011850869443
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_3"
+  - first:
+      213: 5308128683979739734
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_4"
+  - first:
+      213: 1121122644912737464
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_5"
+  - first:
+      213: 4415555355391612998
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_6"
+  - first:
+      213: 3378729855298319494
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_7"
+  - first:
+      213: 4747614512638830181
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_8"
+  - first:
+      213: 7619395727435873194
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_9"
+  - first:
+      213: 3470025466963274075
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_10"
+  - first:
+      213: 737983250998537456
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_11"
+  - first:
+      213: -9180212832713534322
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_12"
+  - first:
+      213: 8241477845213554349
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_13"
+  - first:
+      213: 7175111974626382557
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_14"
+  - first:
+      213: 2348289931519588269
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_15"
+  - first:
+      213: -7053511654172732157
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_16"
+  - first:
+      213: 6297139303909698920
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_17"
+  - first:
+      213: -4216009449407526361
+    second: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_18"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 356
+        height: 332
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de86282189f8380d0800000000000000
+      internalID: -3421733408563107603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_1"
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 52
+        width: 260
+        height: 238
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85b75c6bd2cd5f830800000000000000
+      internalID: 4104428724316109656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_2"
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 223
+        width: 113
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46232da74174e7d20800000000000000
+      internalID: 3278135732057813604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_3"
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 55
+        width: 208
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d35ce385d251c4cb0800000000000000
+      internalID: -4878501011850869443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_4"
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 232
+        width: 116
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6529ca61ae24aa940800000000000000
+      internalID: 5308128683979739734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_5"
+      rect:
+        serializedVersion: 2
+        x: 1614
+        y: 55
+        width: 152
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bc8ba70b170f8f00800000000000000
+      internalID: 1121122644912737464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_6"
+      rect:
+        serializedVersion: 2
+        x: 3051
+        y: 57
+        width: 168
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 648d03c7334374d30800000000000000
+      internalID: 4415555355391612998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_7"
+      rect:
+        serializedVersion: 2
+        x: 3719
+        y: 59
+        width: 85
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6843011f6e8a3ee20800000000000000
+      internalID: 3378729855298319494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_8"
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 159
+        width: 125
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 566a35cce3ae2e140800000000000000
+      internalID: 4747614512638830181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_9"
+      rect:
+        serializedVersion: 2
+        x: 1786
+        y: 50
+        width: 129
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aabb1f87b088db960800000000000000
+      internalID: 7619395727435873194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_10"
+      rect:
+        serializedVersion: 2
+        x: 1936
+        y: 56
+        width: 145
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b59a7e7f6c1082030800000000000000
+      internalID: 3470025466963274075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_11"
+      rect:
+        serializedVersion: 2
+        x: 2105
+        y: 56
+        width: 112
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fca4f55bd7dd3a00800000000000000
+      internalID: 737983250998537456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_12"
+      rect:
+        serializedVersion: 2
+        x: 2262
+        y: 60
+        width: 135
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8490a74115599080800000000000000
+      internalID: -9180212832713534322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_13"
+      rect:
+        serializedVersion: 2
+        x: 2574
+        y: 59
+        width: 151
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da6a43c5f6c9f5270800000000000000
+      internalID: 8241477845213554349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_14"
+      rect:
+        serializedVersion: 2
+        x: 2750
+        y: 53
+        width: 128
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd2d147535e139360800000000000000
+      internalID: 7175111974626382557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_15"
+      rect:
+        serializedVersion: 2
+        x: 2899
+        y: 52
+        width: 128
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da7f9dd304dc69020800000000000000
+      internalID: 2348289931519588269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_16"
+      rect:
+        serializedVersion: 2
+        x: 3222
+        y: 60
+        width: 135
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 305d4f98584ec1e90800000000000000
+      internalID: -7053511654172732157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_17"
+      rect:
+        serializedVersion: 2
+        x: 3376
+        y: 56
+        width: 145
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86d20be45dee36750800000000000000
+      internalID: 6297139303909698920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_18"
+      rect:
+        serializedVersion: 2
+        x: 3542
+        y: 60
+        width: 135
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72acf5e3eb9bd75c0800000000000000
+      internalID: -4216009449407526361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_0": -3421733408563107603
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_1": 4104428724316109656
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_10": 3470025466963274075
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_11": 737983250998537456
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_12": -9180212832713534322
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_13": 8241477845213554349
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_14": 7175111974626382557
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_15": 2348289931519588269
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_16": -7053511654172732157
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_17": 6297139303909698920
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_18": -4216009449407526361
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_2": 3278135732057813604
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_3": -4878501011850869443
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_4": 5308128683979739734
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_5": 1121122644912737464
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_6": 4415555355391612998
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_7": 3378729855298319494
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_8": 4747614512638830181
+      "\u9BF5\u3000\u30A2\u30B7\u3099\u3000horse mackerel_9": 7619395727435873194
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

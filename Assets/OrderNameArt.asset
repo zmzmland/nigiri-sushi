@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559c33c9ac246447f909bbfc1f56d441, type: 3}
+  m_Name: OrderNameArt
+  m_EditorClassIdentifier: Assembly-CSharp::OrderNameArtSet
+  entries:
+  - spriteName: maguro
+    kana: {fileID: 21300000, guid: 6e5599381cd924b36a39e5daa17e12c3, type: 3}
+    kanji: {fileID: 21300000, guid: 6d2c1935ffd764ec68b5dcad6307439a, type: 3}
+    english: {fileID: 21300000, guid: 61077358b02d34fd2a5e864541d7d44d, type: 3}
+  - spriteName: tamago
+    kana: {fileID: 21300000, guid: 8a8e34641d3de45ce9a1c94a8c7d6037, type: 3}
+    kanji: {fileID: 21300000, guid: d8a1f5b044b63403d9fef175c745be41, type: 3}
+    english: {fileID: 21300000, guid: 92d5b1d5d215a440cb194a640733b1cd, type: 3}
+  - spriteName: ika
+    kana: {fileID: 21300000, guid: a58594393151946aca4665f16003d5a9, type: 3}
+    kanji: {fileID: 21300000, guid: 93e225518f6c941728e56afc9f0d5819, type: 3}
+    english: {fileID: 21300000, guid: cf9b384832093445ea36ee18974ec88d, type: 3}
+  - spriteName: salmon
+    kana: {fileID: 21300000, guid: 0e25626c0ebe94e99b678e7b7109afd4, type: 3}
+    kanji: {fileID: 21300000, guid: fbc086956803246ada1ccd76a7258440, type: 3}
+    english: {fileID: 21300000, guid: dde9a9fbf555a45fcb003d0a512c01d5, type: 3}
+  - spriteName: 
+    kana: {fileID: 0}
+    kanji: {fileID: 0}
+    english: {fileID: 0}

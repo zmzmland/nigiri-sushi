@@ -1,0 +1,416 @@
+fileFormatVersion: 2
+guid: be94af00948e54ff68f807083ab098af
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6578373917997312677
+    second: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_0"
+  - first:
+      213: -5276341661344948471
+    second: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_1"
+  - first:
+      213: 9072209958642822097
+    second: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_2"
+  - first:
+      213: 5180959595531489312
+    second: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_3"
+  - first:
+      213: 5371421237992495411
+    second: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_4"
+  - first:
+      213: -5910472924976412183
+    second: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_5"
+  - first:
+      213: -3604250486641957833
+    second: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_6"
+  - first:
+      213: 6302031931711303675
+    second: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_7"
+  - first:
+      213: -3154678505036180776
+    second: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_8"
+  - first:
+      213: -8991543209442283263
+    second: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_9"
+  - first:
+      213: 5477314866918122646
+    second: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_10"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_0"
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 5
+        width: 249
+        height: 339
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5aaace589341b4b50800000000000000
+      internalID: 6578373917997312677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_1"
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 0
+        width: 348
+        height: 340
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90f90f9d63ba6c6b0800000000000000
+      internalID: -5276341661344948471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_2"
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 48
+        width: 217
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dbaaa804e6f6ed70800000000000000
+      internalID: 9072209958642822097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_3"
+      rect:
+        serializedVersion: 2
+        x: 1293
+        y: 51
+        width: 243
+        height: 261
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0205e4f5d4776e740800000000000000
+      internalID: 5180959595531489312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_4"
+      rect:
+        serializedVersion: 2
+        x: 2427
+        y: 229
+        width: 69
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 339188d282f1b8a40800000000000000
+      internalID: 5371421237992495411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_5"
+      rect:
+        serializedVersion: 2
+        x: 2549
+        y: 53
+        width: 145
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e987349038c9fda0800000000000000
+      internalID: -5910472924976412183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_6"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 36
+        width: 53
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7346d2e47412bfdc0800000000000000
+      internalID: -3604250486641957833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_7"
+      rect:
+        serializedVersion: 2
+        x: 1918
+        y: 52
+        width: 112
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bff22dcf6a0557750800000000000000
+      internalID: 6302031931711303675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_8"
+      rect:
+        serializedVersion: 2
+        x: 2058
+        y: 2
+        width: 188
+        height: 213
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d212c62d945834d0800000000000000
+      internalID: -3154678505036180776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_9"
+      rect:
+        serializedVersion: 2
+        x: 2236
+        y: 48
+        width: 140
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 101fd9a171f973380800000000000000
+      internalID: -8991543209442283263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_10"
+      rect:
+        serializedVersion: 2
+        x: 2415
+        y: 46
+        width: 70
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 694ee95f9d4530c40800000000000000
+      internalID: 5477314866918122646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_0": 6578373917997312677
+      "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_1": -5276341661344948471
+      "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_10": 5477314866918122646
+      "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_2": 9072209958642822097
+      "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_3": 5180959595531489312
+      "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_4": 5371421237992495411
+      "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_5": -5910472924976412183
+      "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_6": -3604250486641957833
+      "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_7": 6302031931711303675
+      "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_8": -3154678505036180776
+      "\u70CF\u8CCA\u3000\u30A4\u30AB\u3000squid_9": -8991543209442283263
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

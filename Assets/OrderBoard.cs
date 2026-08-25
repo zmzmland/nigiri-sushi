@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// 注文票の見た目の設定。Customer の Inspector に出ます。
@@ -62,6 +63,21 @@ public class OrderBoardSettings
     public float slotInset = 8f;
 
     // ---------------------------------------------------------
+    [Header("文字で出すとき（板前・English モード）")]
+
+    [Tooltip("名前の画像の表。登録があれば、フォントより優先して使われます")]
+    public OrderNameArtSet nameArt;
+
+    [Tooltip("画像が無いネタで使うフォント。NotoSansJP SDF をドラッグしてください")]
+    public TMP_FontAsset labelFont;
+
+    [Tooltip("文字の色")]
+    public Color labelColor = Color.white;
+
+    [Tooltip("文字を出すモードのとき、枠の横幅を何倍にするか（英語は長いので広めに）")]
+    public float textSlotWidthScale = 1.9f;
+
+    // ---------------------------------------------------------
     [Header("色（画像を使わないとき用）")]
 
     [Tooltip("札の色。Board Sprite を入れているときは無視されます" +
@@ -102,8 +118,12 @@ public class OrderBoard : MonoBehaviour
     // 枠の画像（背景）と、その中に入る寿司の画像
     private readonly List<Image> frames = new List<Image>();
     private readonly List<Image> sushi  = new List<Image>();
+    private readonly List<TextMeshProUGUI> labels = new List<TextMeshProUGUI>();
 
     private OrderBoardSettings cfg;
+
+    /// <summary>イラストではなく文字で出すモードか。</summary>
+    private bool UseText => GameMode.Style != OrderStyle.イラスト;
 
     /// <summary>
     /// 注文票を作る。owner は Canvas の下にいる必要があります（客そのものでOK）。
@@ -212,7 +232,9 @@ public class OrderBoard : MonoBehaviour
             slot.transform.SetParent(transform, false);
 
             var le = slot.GetComponent<LayoutElement>();
-            le.preferredWidth  = cfg.slotSize;
+            le.preferredWidth  = UseText
+                ? cfg.slotSize * Mathf.Max(1f, cfg.textSlotWidthScale)
+                : cfg.slotSize;
             le.preferredHeight = cfg.slotSize;
 
             var frame = slot.GetComponent<Image>();
@@ -254,7 +276,35 @@ public class OrderBoard : MonoBehaviour
             img.enabled = false;          // 注文されるまで出さない
 
             sushi.Add(img);
+
+            // --- 文字（板前・English モードのとき使う） ---
+            labels.Add(UseText ? BuildLabel(slot.transform) : null);
         }
+    }
+
+    private TextMeshProUGUI BuildLabel(Transform parent)
+    {
+        var go = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
+        go.transform.SetParent(parent, false);
+
+        var rt = go.GetComponent<RectTransform>();
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = new Vector2(cfg.slotInset, cfg.slotInset);
+        rt.offsetMax = new Vector2(-cfg.slotInset, -cfg.slotInset);
+
+        var text = go.GetComponent<TextMeshProUGUI>();
+        if (cfg.labelFont != null) text.font = cfg.labelFont;
+        text.color = cfg.labelColor;
+        text.alignment = TextAlignmentOptions.Center;
+        text.enableAutoSizing = true;
+        text.fontSizeMin = 12f;
+        text.fontSizeMax = 72f;
+        text.enableWordWrapping = true;
+        text.raycastTarget = false;
+        text.text = "";
+
+        return text;
     }
 
     // -----------------------------------------------------
@@ -265,9 +315,25 @@ public class OrderBoard : MonoBehaviour
     {
         if (index < 0 || index >= sushi.Count || sprite == null) return;
 
-        sushi[index].sprite = sprite;
-        sushi[index].color = Color.white;
-        sushi[index].enabled = true;
+        // 文字モードのときは、まず「名前の画像」を探す。
+        // 無ければフォントで文字として出す。
+        Sprite art = UseText && cfg.nameArt != null
+            ? cfg.nameArt.Find(sprite.name, GameMode.Style)
+            : null;
+
+        Sprite shown = art != null ? art : (UseText ? null : sprite);
+
+        if (shown != null)
+        {
+            sushi[index].sprite = shown;
+            sushi[index].color = Color.white;
+            sushi[index].enabled = true;
+            if (labels[index] != null) labels[index].text = "";
+        }
+        else if (labels[index] != null)
+        {
+            labels[index].text = GameMode.LabelFor(sprite);
+        }
 
         // 枠の画像を使っていない場合、埋まった枠は少し明るくする
         if (cfg != null && cfg.slotSprite == null)

@@ -1,0 +1,416 @@
+fileFormatVersion: 2
+guid: d5e99b5c392fc487a9638b82baccc918
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2416388747479852597
+    second: kaisenmaki_en_0
+  - first:
+      213: -8574178132687923334
+    second: kaisenmaki_en_1
+  - first:
+      213: 8507111703452296313
+    second: kaisenmaki_en_2
+  - first:
+      213: 1787478223843333859
+    second: kaisenmaki_en_3
+  - first:
+      213: 5603753802277248287
+    second: kaisenmaki_en_4
+  - first:
+      213: 138312901993559675
+    second: kaisenmaki_en_5
+  - first:
+      213: 943364805967977045
+    second: kaisenmaki_en_6
+  - first:
+      213: -1808811149144853699
+    second: kaisenmaki_en_7
+  - first:
+      213: 6803378118592110824
+    second: kaisenmaki_en_8
+  - first:
+      213: 4586345430387104037
+    second: kaisenmaki_en_9
+  - first:
+      213: -5996854771116500823
+    second: kaisenmaki_en_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: kaisenmaki_en_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 15
+        width: 111
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 536a9c463ccb88120800000000000000
+      internalID: 2416388747479852597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kaisenmaki_en_1
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 18
+        width: 134
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a77d6309a66620980800000000000000
+      internalID: -8574178132687923334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kaisenmaki_en_2
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 11
+        width: 127
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 974a7dc85055f0670800000000000000
+      internalID: 8507111703452296313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kaisenmaki_en_3
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 16
+        width: 135
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e69def59f56ec810800000000000000
+      internalID: 1787478223843333859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kaisenmaki_en_4
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 9
+        width: 129
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1dda79a46884cd40800000000000000
+      internalID: 5603753802277248287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kaisenmaki_en_5
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 9
+        width: 129
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b76fd2ff9d26be100800000000000000
+      internalID: 138312901993559675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kaisenmaki_en_6
+      rect:
+        serializedVersion: 2
+        x: 959
+        y: 16
+        width: 147
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55a9359fa41871d00800000000000000
+      internalID: 943364805967977045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kaisenmaki_en_7
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 15
+        width: 145
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d337475e7dfc5e6e0800000000000000
+      internalID: -1808811149144853699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kaisenmaki_en_8
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 9
+        width: 129
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e0295f5a547a6e50800000000000000
+      internalID: 6803378118592110824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kaisenmaki_en_9
+      rect:
+        serializedVersion: 2
+        x: 1622
+        y: 17
+        width: 87
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52995739ed8f5af30800000000000000
+      internalID: 4586345430387104037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kaisenmaki_en_10
+      rect:
+        serializedVersion: 2
+        x: 1782
+        y: 17
+        width: 86
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a89efdbb54e6cca0800000000000000
+      internalID: -5996854771116500823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      kaisenmaki_en_0: 2416388747479852597
+      kaisenmaki_en_1: -8574178132687923334
+      kaisenmaki_en_10: -5996854771116500823
+      kaisenmaki_en_2: 8507111703452296313
+      kaisenmaki_en_3: 1787478223843333859
+      kaisenmaki_en_4: 5603753802277248287
+      kaisenmaki_en_5: 138312901993559675
+      kaisenmaki_en_6: 943364805967977045
+      kaisenmaki_en_7: -1808811149144853699
+      kaisenmaki_en_8: 6803378118592110824
+      kaisenmaki_en_9: 4586345430387104037
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

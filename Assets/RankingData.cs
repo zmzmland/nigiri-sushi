@@ -135,12 +135,28 @@ public static class RankingData
     // -----------------------------------------------------
     //  全消し（展示の開始前などに使う）
     // -----------------------------------------------------
+    /// <summary>3つのモードすべての番付を消す。</summary>
+    public static void ClearAll()
+    {
+        foreach (GameModeId id in System.Enum.GetValues(typeof(GameModeId)))
+        {
+            ClearFile(GamePaths.RankingPathFor(id.ToString()));
+        }
+        Debug.LogWarning("[Ranking] すべてのモードの番付を消去しました");
+    }
+
+    /// <summary>いま選ばれているモードの番付だけ消す。</summary>
     public static void Clear()
+    {
+        ClearFile(GamePaths.RankingPath);
+        Debug.LogWarning($"[Ranking] {GameMode.DisplayName} の番付を消去しました");
+    }
+
+    private static void ClearFile(string path)
     {
         try
         {
-            if (File.Exists(GamePaths.RankingPath)) File.Delete(GamePaths.RankingPath);
-            Debug.LogWarning("[Ranking] ランキングを消去しました");
+            if (File.Exists(path)) File.Delete(path);
         }
         catch (Exception e)
         {

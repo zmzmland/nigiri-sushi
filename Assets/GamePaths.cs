@@ -36,7 +36,17 @@ public static class GamePaths
     /// ランキングの保存先。ビルドしたアプリでも Editor でも同じ場所を見ます。
     /// 中身はただの JSON なので、テキストエディタで開いて確認・削除できます。
     /// </summary>
-    public static string RankingPath => Path.Combine(BaseDir, "ranking.json");
+    public static string RankingPath => RankingPathFor(GameMode.RankingKey);
+
+    /// <summary>
+    /// モードごとの番付の保存先。
+    /// 見習いと板前では難易度が違うので、記録を混ぜません。
+    /// </summary>
+    public static string RankingPathFor(string modeKey)
+    {
+        if (string.IsNullOrEmpty(modeKey)) modeKey = "default";
+        return Path.Combine(BaseDir, $"ranking_{modeKey}.json");
+    }
 
     static GamePaths()
     {

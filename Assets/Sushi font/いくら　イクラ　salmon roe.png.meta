@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: 67f5aca047a9f4957ad4b99116a4c5fa
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5669230497218166005
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_0"
+  - first:
+      213: -2601432752553819974
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_1"
+  - first:
+      213: -2604205898439354777
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_2"
+  - first:
+      213: -4474743478955179415
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_3"
+  - first:
+      213: 8475559837807083271
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_4"
+  - first:
+      213: 4841648043890433026
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_5"
+  - first:
+      213: -5199522667346455318
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_6"
+  - first:
+      213: -4314526347775947950
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_7"
+  - first:
+      213: -8814322032747365076
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_8"
+  - first:
+      213: -7391785640758853070
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_9"
+  - first:
+      213: -9068043424328375488
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_10"
+  - first:
+      213: 4184878309453170268
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_11"
+  - first:
+      213: -7135352673486106024
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_12"
+  - first:
+      213: -2634304574828590709
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_13"
+  - first:
+      213: -6932498658702749586
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_14"
+  - first:
+      213: 5650341126250545663
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_15"
+  - first:
+      213: 242881701949850240
+    second: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_16"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_0"
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 120
+        width: 118
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fcff70b9172dae40800000000000000
+      internalID: 5669230497218166005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_1"
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 7
+        width: 210
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab086fcc1bad5ebd0800000000000000
+      internalID: -2601432752553819974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_2"
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 0
+        width: 206
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7669b8578800cdbd0800000000000000
+      internalID: -2604205898439354777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_3"
+      rect:
+        serializedVersion: 2
+        x: 1305
+        y: 10
+        width: 217
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96281eb938486e1c0800000000000000
+      internalID: -4474743478955179415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_4"
+      rect:
+        serializedVersion: 2
+        x: 1605
+        y: 9
+        width: 222
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70ffe0d54cc3f9570800000000000000
+      internalID: 8475559837807083271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_5"
+      rect:
+        serializedVersion: 2
+        x: 1934
+        y: 7
+        width: 240
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20cdd876e3df03340800000000000000
+      internalID: 4841648043890433026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_6"
+      rect:
+        serializedVersion: 2
+        x: 1959
+        y: 191
+        width: 181
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae4193baea597d7b0800000000000000
+      internalID: -5199522667346455318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_7"
+      rect:
+        serializedVersion: 2
+        x: 2874
+        y: 17
+        width: 86
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25b40c26529bf14c0800000000000000
+      internalID: -4314526347775947950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_8"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 22
+        width: 126
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2db13ebfcc3da580800000000000000
+      internalID: -8814322032747365076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_9"
+      rect:
+        serializedVersion: 2
+        x: 2540
+        y: 14
+        width: 112
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2324cb28f1a1b6990800000000000000
+      internalID: -7391785640758853070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_10"
+      rect:
+        serializedVersion: 2
+        x: 2705
+        y: 11
+        width: 128
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0432715dc86d72280800000000000000
+      internalID: -9068043424328375488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_11"
+      rect:
+        serializedVersion: 2
+        x: 3009
+        y: 17
+        width: 151
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c56813766aca31a30800000000000000
+      internalID: 4184878309453170268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_12"
+      rect:
+        serializedVersion: 2
+        x: 3181
+        y: 8
+        width: 129
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8521ab55c822afc90800000000000000
+      internalID: -7135352673486106024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_13"
+      rect:
+        serializedVersion: 2
+        x: 3329
+        y: 10
+        width: 158
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b89c72342f1117bd0800000000000000
+      internalID: -2634304574828590709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_14"
+      rect:
+        serializedVersion: 2
+        x: 3651
+        y: 14
+        width: 145
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e60962a2331dacf90800000000000000
+      internalID: -6932498658702749586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_15"
+      rect:
+        serializedVersion: 2
+        x: 3821
+        y: 8
+        width: 129
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff1c1f9415b0a6e40800000000000000
+      internalID: 5650341126250545663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_16"
+      rect:
+        serializedVersion: 2
+        x: 3977
+        y: 18
+        width: 134
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 082c92ffe93ee5300800000000000000
+      internalID: 242881701949850240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_0": 5669230497218166005
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_1": -2601432752553819974
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_10": -9068043424328375488
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_11": 4184878309453170268
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_12": -7135352673486106024
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_13": -2634304574828590709
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_14": -6932498658702749586
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_15": 5650341126250545663
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_16": 242881701949850240
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_2": -2604205898439354777
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_3": -4474743478955179415
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_4": 8475559837807083271
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_5": 4841648043890433026
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_6": -5199522667346455318
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_7": -4314526347775947950
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_8": -8814322032747365076
+      "\u3044\u304F\u3089\u3000\u30A4\u30AF\u30E9\u3000salmon roe_9": -7391785640758853070
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

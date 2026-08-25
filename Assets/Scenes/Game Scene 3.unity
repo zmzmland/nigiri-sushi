@@ -900,6 +900,8 @@ MonoBehaviour:
   keepFeetOnGround: 1
   speechBubble: {fileID: 127425542}
   orderImage: {fileID: 1968209937}
+  nameArt: {fileID: 11400000, guid: 73d5d4d6ff7ac48c4b8fa3eb08bb272e, type: 2}
+  orderFont: {fileID: 11400000, guid: 4494f5cd66f52489e9575b1c46d238ef, type: 2}
   orderBoard:
     show: 1
     revealProgressively: 1
@@ -915,6 +917,10 @@ MonoBehaviour:
     spacing: 12
     padding: 14
     slotInset: 10
+    nameArt: {fileID: 0}
+    labelFont: {fileID: 0}
+    labelColor: {r: 1, g: 1, b: 1, a: 1}
+    textSlotWidthScale: 1.9
     boardColor: {r: 0.16, g: 0.1, b: 0.06, a: 0.78}
     tintBoard: 0
     emptySlotColor: {r: 1, g: 1, b: 1, a: 0.12}

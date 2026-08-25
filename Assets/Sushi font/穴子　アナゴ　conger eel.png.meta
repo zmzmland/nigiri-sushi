@@ -1,0 +1,546 @@
+fileFormatVersion: 2
+guid: 66d742c926ac346d1aea84c63582c169
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8313827231349314635
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_0"
+  - first:
+      213: 1272899160530162620
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_1"
+  - first:
+      213: -1212203905258146322
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_2"
+  - first:
+      213: -7921778350425253324
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_3"
+  - first:
+      213: 7504495045455747952
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_4"
+  - first:
+      213: -8746936733766174226
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_5"
+  - first:
+      213: -4724718039627641856
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_6"
+  - first:
+      213: 1881246284257821920
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_7"
+  - first:
+      213: 2584982340075469106
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_8"
+  - first:
+      213: 1659558915508357298
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_9"
+  - first:
+      213: 9143965987134248124
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_10"
+  - first:
+      213: 7813956057768511858
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_11"
+  - first:
+      213: -185475128838041919
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_12"
+  - first:
+      213: 5892660758056617569
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_13"
+  - first:
+      213: -8037099659758646244
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_14"
+  - first:
+      213: 7886877215937054740
+    second: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_15"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 46
+        width: 110
+        height: 201
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bb647f7e2a5f9c80800000000000000
+      internalID: -8313827231349314635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_1"
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 188
+        width: 222
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb31b4ada0f3aa110800000000000000
+      internalID: 1272899160530162620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_2"
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 44
+        width: 185
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee53fbf78f26d2fe0800000000000000
+      internalID: -1212203905258146322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_3"
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 26
+        width: 307
+        height: 289
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43ad589cf80301290800000000000000
+      internalID: -7921778350425253324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_4"
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 45
+        width: 260
+        height: 238
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07b911bbb72552860800000000000000
+      internalID: 7504495045455747952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_5"
+      rect:
+        serializedVersion: 2
+        x: 1291
+        y: 49
+        width: 254
+        height: 238
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee93d074263ac9680800000000000000
+      internalID: -8746936733766174226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_6"
+      rect:
+        serializedVersion: 2
+        x: 1613
+        y: 74
+        width: 271
+        height: 235
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00c4d10c9fd6e6eb0800000000000000
+      internalID: -4724718039627641856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_7"
+      rect:
+        serializedVersion: 2
+        x: 2220
+        y: 45
+        width: 128
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e4063c37878b1a10800000000000000
+      internalID: 1881246284257821920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_8"
+      rect:
+        serializedVersion: 2
+        x: 2387
+        y: 43
+        width: 129
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2393bd21eb3bfd320800000000000000
+      internalID: 2584982340075469106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_9"
+      rect:
+        serializedVersion: 2
+        x: 2535
+        y: 45
+        width: 158
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b845ba7a00f70710800000000000000
+      internalID: 1659558915508357298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_10"
+      rect:
+        serializedVersion: 2
+        x: 2695
+        y: 0
+        width: 148
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb414655e94e5ee70800000000000000
+      internalID: 9143965987134248124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_11"
+      rect:
+        serializedVersion: 2
+        x: 2863
+        y: 53
+        width: 135
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 279cdc962afb07c60800000000000000
+      internalID: 7813956057768511858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_12"
+      rect:
+        serializedVersion: 2
+        x: 3017
+        y: 49
+        width: 145
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ce40fe5a5f0d6df0800000000000000
+      internalID: -185475128838041919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_13"
+      rect:
+        serializedVersion: 2
+        x: 3343
+        y: 53
+        width: 135
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16649d12dbfe6c150800000000000000
+      internalID: 5892660758056617569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_14"
+      rect:
+        serializedVersion: 2
+        x: 3503
+        y: 53
+        width: 135
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1c4cab117c767090800000000000000
+      internalID: -8037099659758646244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_15"
+      rect:
+        serializedVersion: 2
+        x: 3680
+        y: 52
+        width: 85
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 418cc0b9a01d37d60800000000000000
+      internalID: 7886877215937054740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_0": -8313827231349314635
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_1": 1272899160530162620
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_10": 9143965987134248124
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_11": 7813956057768511858
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_12": -185475128838041919
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_13": 5892660758056617569
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_14": -8037099659758646244
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_15": 7886877215937054740
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_2": -1212203905258146322
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_3": -7921778350425253324
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_4": 7504495045455747952
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_5": -8746936733766174226
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_6": -4724718039627641856
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_7": 1881246284257821920
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_8": 2584982340075469106
+      "\u7A74\u5B50\u3000\u30A2\u30CA\u30B3\u3099\u3000conger eel_9": 1659558915508357298
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 /// <summary>
 /// 3面（Game Scene 3）の客。
@@ -40,6 +41,15 @@ public class Customer3 : MonoBehaviour
     [Header("Speech Bubble")]
     public GameObject speechBubble;
     public Image orderImage;
+
+    [Header("Order Display")]
+    [Tooltip("注文の名前を画像で出すための表。Project で作った " +
+             "「注文の文字画像」アセットをドラッグしてください")]
+    public OrderNameArtSet nameArt;
+
+    [Tooltip("画像が無いネタを文字で出すときのフォント。" +
+             "NotoSansJP SDF をドラッグしてください")]
+    public TMP_FontAsset orderFont;
 
     [Header("Order Board")]
     [Tooltip("画面上に注文票を出す。覚えなくても遊べるようになります")]
@@ -92,6 +102,9 @@ public class Customer3 : MonoBehaviour
     // 実行時に生成する注文票
     private OrderBoard board;
 
+    // 吹き出しに文字を出すとき用（漢字・英語モード）
+    private TextMeshProUGUI orderText;
+
     private Coroutine resultWatchCoroutine;
 
     void Start()
@@ -106,6 +119,8 @@ public class Customer3 : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         image = GetComponent<Image>();
         baseSize = CustomerSpriteFit.CaptureBaseSize(rectTransform, name);
+
+        PrepareOrderDisplay();
 
         if (speechBubble == null)
         {
@@ -181,8 +196,12 @@ public class Customer3 : MonoBehaviour
         // 先に注文を全部決めてしまう。注文票に一度に並べられるようにするため。
         for (int i = 0; i < orderCount; i++) orderHistory.Add(PickNextOrder());
 
-        board = OrderBoard.Create(this, orderCount, orderBoard);
-        if (board != null && !orderBoard.revealProgressively) board.FillAll(orderHistory);
+        // 板前モードは注文票を出さない（覚える勝負）
+        if (GameMode.KeepOrderBoard)
+        {
+            board = OrderBoard.Create(this, orderCount, orderBoard);
+            if (board != null && !orderBoard.revealProgressively) board.FillAll(orderHistory);
+        }
 
         for (int i = 0; i < orderCount; i++)
         {
@@ -192,7 +211,7 @@ public class Customer3 : MonoBehaviour
 
             if (speechBubble != null) speechBubble.SetActive(true);
             if (bubbleCanvasGroup != null) bubbleCanvasGroup.alpha = 1f;
-            orderImage.sprite = order;
+            ShowOrder(order);
             GameAudio.Order();
 
             yield return new WaitForSeconds(showTime);
@@ -203,6 +222,89 @@ public class Customer3 : MonoBehaviour
         }
 
         SaveOrderFile();
+    }
+
+    // =========================
+    // 注文の見せ方（イラスト / 漢字 / 英語）
+    // =========================
+    /// <summary>
+    /// モードに応じて、吹き出しの中身を絵にするか文字にするかを決める。
+    /// 文字モードのときは、絵の代わりに TextMeshPro を作って重ねる。
+    /// </summary>
+    private void PrepareOrderDisplay()
+    {
+        // 注文票にも同じものを使わせる（別々にドラッグしなくて済むように）
+        if (orderBoard != null)
+        {
+            if (orderBoard.labelFont == null) orderBoard.labelFont = orderFont;
+            if (orderBoard.nameArt == null)   orderBoard.nameArt   = nameArt;
+        }
+
+        if (GameMode.Style == OrderStyle.イラスト || orderImage == null) return;
+
+        // 文字画像は横長なので、つぶれないように枠に合わせる
+        orderImage.preserveAspect = true;
+
+        var go = new GameObject("OrderText", typeof(RectTransform), typeof(TextMeshProUGUI));
+        go.transform.SetParent(orderImage.transform, false);
+
+        var rt = go.GetComponent<RectTransform>();
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = Vector2.zero;
+        rt.offsetMax = Vector2.zero;
+
+        orderText = go.GetComponent<TextMeshProUGUI>();
+
+        if (orderFont != null) orderText.font = orderFont;
+        else Debug.LogWarning("Order Font が未設定です。日本語が □ になるなら " +
+                              "NotoSansJP SDF を入れてください");
+
+        orderText.color = Color.black;   // 吹き出しは白なので黒文字
+        orderText.alignment = TextAlignmentOptions.Center;
+        orderText.enableAutoSizing = true;
+        orderText.fontSizeMin = 14f;
+        orderText.fontSizeMax = 90f;
+        orderText.raycastTarget = false;
+        orderText.text = "";
+    }
+
+    /// <summary>
+    /// 吹き出しに1件ぶんの注文を出す。
+    /// 優先順は「名前の画像」→「寿司のイラスト」→「フォントの文字」。
+    /// </summary>
+    private void ShowOrder(Sprite order)
+    {
+        Sprite art = (nameArt != null && GameMode.Style != OrderStyle.イラスト)
+            ? nameArt.Find(order.name, GameMode.Style)
+            : null;
+
+        // 1) 名前の画像がある（筆文字など）
+        if (art != null)
+        {
+            if (orderImage != null) { orderImage.enabled = true; orderImage.sprite = art; }
+            if (orderText != null) orderText.text = "";
+            return;
+        }
+
+        // 2) イラストモード
+        if (GameMode.Style == OrderStyle.イラスト)
+        {
+            if (orderImage != null) { orderImage.enabled = true; orderImage.sprite = order; }
+            return;
+        }
+
+        // 3) 画像が無い文字モード → フォントで出す
+        if (orderText != null)
+        {
+            orderText.text = GameMode.LabelFor(order);
+            if (orderImage != null) orderImage.enabled = false;
+        }
+        else if (orderImage != null)
+        {
+            orderImage.enabled = true;
+            orderImage.sprite = order;
+        }
     }
 
     /// <summary>直前2件と同じものは選ばない。試行上限つきなのでフリーズしない。</summary>
