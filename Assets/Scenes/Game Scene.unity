@@ -605,6 +605,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CaptureTrigger
   processingTimeout: 6
   cooldown: 0.5
+  heartbeatTimeout: 8
+  showStatus: 1
 --- !u!4 &1373938867
 Transform:
   m_ObjectHideFlags: 0
@@ -944,30 +946,45 @@ MonoBehaviour:
   keepFeetOnGround: 1
   speechBubble: {fileID: 127425542}
   orderImage: {fileID: 1968209937}
+  orderBoard:
+    show: 1
+    revealProgressively: 1
+    boardSprite: {fileID: 3130519249551293970, guid: e58c6dcdfa7a14693aeb645214203101, type: 3}
+    slotSprite: {fileID: -5553725807225320140, guid: 9bdc56d80b1bf4fcb8786c562f2bd2dc, type: 3}
+    sliceImages: 0
+    position: 1
+    margin: 20
+    offsetX: 0
+    autoSize: 0
+    fixedSize: {x: 640, y: 100}
+    slotSize: 100
+    spacing: 12
+    padding: 14
+    slotInset: 10
+    boardColor: {r: 0.16, g: 0.1, b: 0.06, a: 0.78}
+    tintBoard: 0
+    emptySlotColor: {r: 1, g: 1, b: 1, a: 0.12}
+    tintSlot: 0
   orderSprites:
   - {fileID: 21300000, guid: 1a35f8cb5a06a4bfe90ff5438db6eccc, type: 3}
   - {fileID: 21300000, guid: abbd8939db99642b7b0bbd2b90fda0c8, type: 3}
   - {fileID: 21300000, guid: 0c2fc1aacdebd4d9eac1e2a21a2655e9, type: 3}
   - {fileID: 21300000, guid: 10e0d6b891edb4a67bd67c6071c73fc7, type: 3}
   - {fileID: 21300000, guid: a5fe9f210d9874b97ae3c85a2818e948, type: 3}
-  orderCount: 5
+  orderCount: 3
   showTime: 2
   hideTime: 0.5
   fadeDelay: 2
   fadeTime: 1.5
   resultCheckInterval: 0.2
+  noResultWarnAfter: 90
   timeThresholds:
   - 30
   - 40
   - 50
   - 60
   - 70
-  timeMultipliers:
-  - 1.2
-  - 1.15
-  - 1.1
-  - 1.05
-  - 1
+  timeBonusAmounts: e8030000ee020000f4010000fa00000000000000
   nextSceneName: WaitScene
   sceneAfterWait: Game Scene 2
 --- !u!1660057539 &9223372036854775807

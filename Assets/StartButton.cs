@@ -3,8 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour
 {
+    [Tooltip("押したときに進むシーン")]
+    public string nextSceneName = "Game Scene";
+
     public void StartGame()
     {
-        SceneManager.LoadScene("Game Scene");
+        GameAudio.Click();
+        SceneManager.LoadScene(nextSceneName);
     }
 }

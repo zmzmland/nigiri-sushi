@@ -20,6 +20,7 @@ public class TitleButton : MonoBehaviour
 
     public void GoToTitle()
     {
+        GameAudio.Click();
         ResetScore();
 
         Debug.Log($"タイトルへ戻ります: {titleSceneName}");
@@ -29,6 +30,7 @@ public class TitleButton : MonoBehaviour
     /// <summary>もう一度プレイする場合はこちらを OnClick に登録する。</summary>
     public void Retry()
     {
+        GameAudio.Click();
         ResetScore();
 
         Debug.Log("最初からやり直します");

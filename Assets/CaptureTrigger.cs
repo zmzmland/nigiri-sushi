@@ -151,7 +151,12 @@ public class CaptureTrigger : MonoBehaviour
         lastCountdownCheck = Time.time;
 
         string text = GamePaths.SafeRead(GamePaths.CountdownPath);
-        countdownText = string.IsNullOrEmpty(text) ? "" : text;
+        string next = string.IsNullOrEmpty(text) ? "" : text;
+
+        // 数字が変わった瞬間だけ「コッ」と鳴らす
+        if (next != countdownText && !string.IsNullOrEmpty(next)) GameAudio.Countdown();
+
+        countdownText = next;
     }
 
     // =========================================================

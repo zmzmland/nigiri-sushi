@@ -36,6 +36,8 @@ public class ResultManager : MonoBehaviour
                 ResultData.totalOrders);
 
             ResultData.scoreRegistered = true;
+
+            if (ResultData.lastRank <= highlightRank) GameAudio.RankIn();
         }
 
         // "N0" で 5000 → "5,000" のように3桁区切りになります

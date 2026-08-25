@@ -39,6 +39,10 @@ public class Customer : MonoBehaviour
     public GameObject speechBubble;
     public Image orderImage;
 
+    [Header("Order Board")]
+    [Tooltip("画面上に注文票を出す。覚えなくても遊べるようになります")]
+    public OrderBoardSettings orderBoard = new OrderBoardSettings();
+
     [Header("Order Settings")]
     public Sprite[] orderSprites;
     public int orderCount = 5;
@@ -86,6 +90,9 @@ public class Customer : MonoBehaviour
     // 判定待ちが長引いていないかの監視用
     private float readySince = -1f;
     private bool warnedLongWait = false;
+
+    // 実行時に生成する注文票
+    private OrderBoard board;
 
     private Coroutine resultWatchCoroutine;
 
@@ -148,6 +155,8 @@ public class Customer : MonoBehaviour
                 fitMode, frontScale, frontOffset, keepFeetOnGround);
         }
 
+        GameAudio.CustomerCome();
+
         timerStart = Time.time;
 
         yield return StartCoroutine(MultipleOrders());
@@ -171,14 +180,22 @@ public class Customer : MonoBehaviour
 
         ResultData.totalOrders = orderCount;
 
+        // 先に注文を全部決めてしまう。注文票に一度に並べられるようにするため。
+        for (int i = 0; i < orderCount; i++) orderHistory.Add(PickNextOrder());
+
+        board = OrderBoard.Create(this, orderCount, orderBoard);
+        if (board != null && !orderBoard.revealProgressively) board.FillAll(orderHistory);
+
         for (int i = 0; i < orderCount; i++)
         {
-            Sprite order = PickNextOrder();
-            orderHistory.Add(order);
+            Sprite order = orderHistory[i];
+
+            if (board != null && orderBoard.revealProgressively) board.Set(i, order);
 
             if (speechBubble != null) speechBubble.SetActive(true);
             if (bubbleCanvasGroup != null) bubbleCanvasGroup.alpha = 1f;
             if (orderImage != null) orderImage.sprite = order;
+            GameAudio.Order();
 
             yield return new WaitForSeconds(showTime);
 
@@ -258,6 +275,8 @@ public class Customer : MonoBehaviour
             ResultData.ordersReady = false;   // 遷移中に撮影されないようにする
 
             point = Mathf.Clamp(point, 0, orderCount);
+
+            GameAudio.JudgeResult(point, orderCount);
 
             ResultData.correctCount = point;
             ResultData.score        = point * ResultData.PricePerPiece;
