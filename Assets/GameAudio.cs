@@ -3,6 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 売上に応じて鳴らすリザルトの音。
+/// Min Score 以上なら、その段の音が鳴ります。
+/// 上から順に判定するので、金額の大きいものを上に並べてください。
+/// </summary>
+[System.Serializable]
+public class ResultTier
+{
+    [Tooltip("段の名前。表示には使いません。分かりやすさのためだけ")]
+    public string name = "";
+
+    [Tooltip("この金額以上ならこの音")]
+    public int minScore = 0;
+
+    [Tooltip("鳴らす音。空なら Resources/Audio から自動で読み込みます")]
+    public AudioClip clip;
+
+    [Tooltip("clip が空のときに Resources/Audio から探す名前")]
+    public string clipName = "";
+}
+
 /// <summary>シーン名と、そこで流す BGM の対応。</summary>
 [System.Serializable]
 public class SceneBgm
@@ -44,6 +65,10 @@ public class GameAudio : MonoBehaviour
     [Tooltip("BGM を切り替えるときのフェード秒数")]
     public float bgmFadeTime = 0.6f;
 
+    [Tooltip("判定のあとに正解音・不正解音を鳴らす。" +
+             "オフにすると拍子木だけになります")]
+    public bool playResultChime = false;
+
     [Header("効果音（空なら Resources/Audio から自動で読み込み）")]
     public AudioClip seClick;
     public AudioClip seOrder;
@@ -61,6 +86,10 @@ public class GameAudio : MonoBehaviour
 
     [Tooltip("シーンごとの BGM。空のままなら既定の割り当てを使います")]
     public List<SceneBgm> bgmTable = new List<SceneBgm>();
+
+    [Header("リザルトの音（売上で変わる）")]
+    [Tooltip("上から順に「この金額以上か」を見ます。空のままなら既定の3段階を使います")]
+    public List<ResultTier> resultTiers = new List<ResultTier>();
 
     private AudioSource bgmSource;
     private AudioSource seSource;
@@ -92,6 +121,7 @@ public class GameAudio : MonoBehaviour
 
         LoadMissingClips();
         BuildDefaultTable();
+        BuildDefaultResultTiers();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
         ApplyBgmFor(SceneManager.GetActiveScene().name);
@@ -136,6 +166,34 @@ public class GameAudio : MonoBehaviour
             new SceneBgm { sceneName = "Game Scene 2", clip = bgmGame   },
             new SceneBgm { sceneName = "Game Scene 3", clip = bgmGame   },
             new SceneBgm { sceneName = "ResultScene",  clip = bgmResult },
+        };
+    }
+
+    /// <summary>
+    /// リザルトの段が未設定なら、既定の3段階を作る。
+    ///
+    /// 3面 × 3貫 × 500円 = 4,500円 に、スピードボーナス最大 3,000円 を足して
+    /// 満点は 7,500円。それを目安に区切っています。
+    /// 注文数を変えたら、この金額も Inspector で調整してください。
+    /// </summary>
+    private void BuildDefaultResultTiers()
+    {
+        if (resultTiers != null && resultTiers.Count > 0)
+        {
+            // 手で設定されている場合も、空の clip は名前から補う
+            foreach (ResultTier tr in resultTiers)
+            {
+                if (tr != null && tr.clip == null && !string.IsNullOrEmpty(tr.clipName))
+                    tr.clip = Load(tr.clipName);
+            }
+            return;
+        }
+
+        resultTiers = new List<ResultTier>
+        {
+            new ResultTier { name = "大入り",   minScore = 6000, clip = Load("se_result_high") },
+            new ResultTier { name = "まずまず", minScore = 3000, clip = Load("se_result_mid")  },
+            new ResultTier { name = "これから", minScore = 0,    clip = Load("se_result_low")  },
         };
     }
 
@@ -232,14 +290,40 @@ public class GameAudio : MonoBehaviour
     public static void RankIn()       { if (I != null) I.PlayOne(I.seRankIn); }
 
     /// <summary>
-    /// 判定の結果に応じた音。拍子木を鳴らしてから、少し遅れて結果音を出す。
-    /// 半分以上正解なら明るい音、そうでなければ落ちる音。
+    /// リザルトで、売上に応じた音を鳴らす。
+    /// どの段に当たったかは Console にも出します（調整の目安に）。
+    /// </summary>
+    public static void Result(int score)
+    {
+        if (I == null || I.resultTiers == null) return;
+
+        ResultTier hit = null;
+
+        foreach (ResultTier tr in I.resultTiers)
+        {
+            if (tr == null) continue;
+            if (score >= tr.minScore) { hit = tr; break; }
+        }
+
+        if (hit == null) return;
+
+        Debug.Log($"[Audio] 売上 {score:N0}円 → 「{hit.name}」");
+        I.PlayOne(hit.clip);
+    }
+
+    /// <summary>
+    /// 判定のときの音。拍子木を鳴らします。
+    ///
+    /// 正解音・不正解音は既定でオフにしてあります。
+    /// 鳴らしたくなったら Inspector の Play Result Chime を入れてください。
     /// </summary>
     public static void JudgeResult(int correct, int total)
     {
         if (I == null) return;
 
         I.PlayOne(I.seJudge);
+
+        if (!I.playResultChime) return;
 
         bool good = total <= 0 || correct * 2 >= total;
         AudioClip clip = good ? I.seCorrect : I.seWrong;

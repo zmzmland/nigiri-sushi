@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.999995, y: 183}
+  m_AnchoredPosition: {x: -5.999995, y: 155}
   m_SizeDelta: {x: 274.0371, y: 71.6912}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &269656790
@@ -239,6 +239,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResultManager
   scoreText: {fileID: 1989139383}
+  totalText: {fileID: 0}
+  startDelay: 0.5
+  lineInterval: 0.55
+  totalDelay: 0.7
+  countUp: 1
+  countUpTime: 0.9
+  totalFontSize: 64
+  totalColor: {r: 0, g: 0, b: 0, a: 1}
+  totalSize: {x: 550, y: 320}
+  totalRightMargin: 50
   highlightRank: 5
   minScoreToRegister: 1
 --- !u!1 &636664235
@@ -275,8 +285,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 36}
-  m_SizeDelta: {x: 384.76, y: 420.3676}
+  m_AnchoredPosition: {x: 0, y: 5.0501}
+  m_SizeDelta: {x: 384.76, y: 430.4679}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &636664237
 MonoBehaviour:
@@ -1033,7 +1043,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00000047684, y: 114}
+  m_AnchoredPosition: {x: -0.00000047684, y: 94.154}
   m_SizeDelta: {x: 350.0494, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1989139383

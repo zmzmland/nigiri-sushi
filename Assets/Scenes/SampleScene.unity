@@ -1331,10 +1331,11 @@ MonoBehaviour:
   bgmVolume: 0.35
   seVolume: 0.8
   bgmFadeTime: 0.6
+  playResultChime: 0
   seClick: {fileID: 0}
   seOrder: {fileID: 0}
   seCountdown: {fileID: 0}
-  seJudge: {fileID: 0}
+  seJudge: {fileID: 8300000, guid: 36d5d9313439847b68cd527531956487, type: 3}
   seCorrect: {fileID: 0}
   seWrong: {fileID: 0}
   seCustomer: {fileID: 0}
@@ -1343,6 +1344,19 @@ MonoBehaviour:
   bgmGame: {fileID: 8300000, guid: cd9410f1bc96f45439ac2b4b31e7a3a8, type: 3}
   bgmResult: {fileID: 8300000, guid: 22854fa663b3448d982bbc6f7cdbc84c, type: 3}
   bgmTable: []
+  resultTiers:
+  - name: "\u5927\u5165\u308A"
+    minScore: 6000
+    clip: {fileID: 8300000, guid: acf2f1d68a0904be08f852883bbceb25, type: 3}
+    clipName: 
+  - name: "\u307E\u305A\u307E\u305A"
+    minScore: 3000
+    clip: {fileID: 8300000, guid: cea76417691d0498793c49db23883dc9, type: 3}
+    clipName: 
+  - name: "\u3053\u308C\u304B\u3089"
+    minScore: 0
+    clip: {fileID: 8300000, guid: 9c779775cdd9247049d28e43fee91ddd, type: 3}
+    clipName: 
 --- !u!4 &1734564019
 Transform:
   m_ObjectHideFlags: 0
