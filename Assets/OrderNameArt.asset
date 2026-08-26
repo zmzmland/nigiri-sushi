@@ -49,11 +49,11 @@ MonoBehaviour:
     kana: {fileID: 21300000, guid: 3a4c68cc853a04572a44fc313418c8f7, type: 3}
     kanji: {fileID: 21300000, guid: 4a18e79c74f464137b91aa16b78ae456, type: 3}
     english: {fileID: 21300000, guid: 3a1ab04872913481ba12a5bd67fcceb7, type: 3}
-  - spriteName: nattou
+  - spriteName: natto
     kana: {fileID: 21300000, guid: 1c7f9506121cc4c0ca317f125c38e97d, type: 3}
     kanji: {fileID: 21300000, guid: 19ee928ef71494894afcda88ba58dac8, type: 3}
     english: {fileID: 21300000, guid: 0f4bf9b23f0b4495392ddd2cfa4dae47, type: 3}
-  - spriteName: azi
+  - spriteName: aji
     kana: {fileID: 21300000, guid: c8580b8e16f2441c0b8aa22df2fc36f6, type: 3}
     kanji: {fileID: 21300000, guid: 075001e32a4e24c0f945f4794e2074b7, type: 3}
     english: {fileID: 21300000, guid: 7f46bdf2a94db4b248ed7648269ea0c6, type: 3}

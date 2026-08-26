@@ -12,7 +12,13 @@ cd "$(dirname "$0")" || exit 1
 BASE="$(pwd)"
 
 VENV="$BASE/ImageSearch/.venv"
-APP="$BASE/にぎり寿司.app"
+
+# 同じフォルダにある .app を自動で探す。
+# アプリ名を「にぎり寿司」「Nigiri-sushi」どちらにしても動くようにするため。
+APP=""
+for candidate in "$BASE"/*.app; do
+  [ -d "$candidate" ] && APP="$candidate" && break
+done
 
 # 画像認識の準備ができるまで待つ上限（秒）
 READY_TIMEOUT=45
@@ -42,9 +48,9 @@ if [ ! -d "$VENV" ]; then
   fi
 fi
 
-if [ ! -d "$APP" ]; then
-  echo "✗ にぎり寿司.app が見つかりません。"
-  echo "  このスクリプトと同じフォルダに置いてください。"
+if [ -z "$APP" ] || [ ! -d "$APP" ]; then
+  echo "✗ ゲーム本体（.app）が見つかりません。"
+  echo "  このスクリプトと同じフォルダに .app を置いてください。"
   echo ""
   read -n 1 -s -r -p "何かキーを押すと閉じます..."
   exit 1
