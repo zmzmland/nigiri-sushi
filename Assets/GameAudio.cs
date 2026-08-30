@@ -223,8 +223,8 @@ public class GameAudio : MonoBehaviour
 
         resultTiers = new List<ResultTier>
         {
-            new ResultTier { name = "大入り",   minScore = 6000, clip = Load("se_result_high") },
-            new ResultTier { name = "まずまず", minScore = 3000, clip = Load("se_result_mid")  },
+            new ResultTier { name = "大入り",   minScore = 7000, clip = Load("se_result_high") },
+            new ResultTier { name = "まずまず", minScore = 4000, clip = Load("se_result_mid")  },
             new ResultTier { name = "これから", minScore = 0,    clip = Load("se_result_low")  },
         };
     }

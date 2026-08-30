@@ -904,6 +904,9 @@ MonoBehaviour:
   orderFont: {fileID: 11400000, guid: 4494f5cd66f52489e9575b1c46d238ef, type: 2}
   orderBoard:
     show: 1
+    lifetime: 1
+    fadeDelay: 1
+    fadeTime: 1.2
     revealProgressively: 1
     boardSprite: {fileID: 3130519249551293970, guid: e58c6dcdfa7a14693aeb645214203101, type: 3}
     slotSprite: {fileID: -5553725807225320140, guid: 9bdc56d80b1bf4fcb8786c562f2bd2dc, type: 3}
@@ -938,7 +941,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 208291ffc77f44e04bc346dda62985ff, type: 3}
   - {fileID: 21300000, guid: 40613d7b7cdca449abb61750348e82dd, type: 3}
   - {fileID: 21300000, guid: a5fe9f210d9874b97ae3c85a2818e948, type: 3}
-  orderCount: 5
+  orderCount: 4
   showTime: 3
   hideTime: 0.5
   fadeDelay: 2

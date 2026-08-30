@@ -44,22 +44,19 @@ public class ModeSelect : MonoBehaviour
     [Header("進む先")]
     public string nextSceneName = "Game Scene";
 
-    [Header("見習いモードの注文の見せ方")]
-    [Tooltip("イラスト＝寿司の絵。カタカナ＝「マグロ」の文字。" +
-             "文字画像を用意したなら カタカナ にできます")]
-    public OrderStyle apprenticeStyle = OrderStyle.イラスト;
+    [Header("日本語モードの注文の見せ方")]
+    [Tooltip("カタカナ＝「マグロ」。漢字＝「鮪」。イラスト＝寿司の絵。" +
+             "小さい子も来るならカタカナが読みやすいです")]
+    public OrderStyle japaneseStyle = OrderStyle.カタカナ;
 
     [Header("文言")]
-    public string headingText = "腕前をえらぶ";
+    public string headingText = "ことばをえらぶ";
 
-    public string apprenticeMain = "みならい";
-    public string apprenticeSub  = "え で ちゅうもん　ずっと でてる";
-
-    public string chefMain = "板前";
-    public string chefSub  = "漢字で注文　おぼえて にぎる";
+    public string japaneseMain = "日本語";
+    public string japaneseSub  = "注文はカタカナで出ます";
 
     public string englishMain = "ENGLISH";
-    public string englishSub  = "Orders in English, stays on screen";
+    public string englishSub  = "Orders are shown in English";
 
     public string backText = "もどる";
 
@@ -99,7 +96,7 @@ public class ModeSelect : MonoBehaviour
 
     private void Choose(GameModeId id)
     {
-        GameMode.ApprenticeStyle = apprenticeStyle;
+        GameMode.JapaneseStyle = japaneseStyle;
         GameMode.Current = id;
         GameAudio.Click();
         Debug.Log($"モード: {GameMode.DisplayName}");
@@ -149,14 +146,11 @@ public class ModeSelect : MonoBehaviour
         BuildHeading(panel.transform);
 
         // --- モードのボタン ---
-        BuildButton(panel.transform, apprenticeMain, apprenticeSub,
-                    () => Choose(GameModeId.見習い));
-
-        BuildButton(panel.transform, chefMain, chefSub,
-                    () => Choose(GameModeId.板前));
+        BuildButton(panel.transform, japaneseMain, japaneseSub,
+                    () => Choose(GameModeId.日本語));
 
         BuildButton(panel.transform, englishMain, englishSub,
-                    () => Choose(GameModeId.English));
+                    () => Choose(GameModeId.英語));
 
         // --- もどる ---
         BuildButton(panel.transform, backText, "",

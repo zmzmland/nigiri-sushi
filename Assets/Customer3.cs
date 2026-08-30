@@ -196,7 +196,7 @@ public class Customer3 : MonoBehaviour
         // 先に注文を全部決めてしまう。注文票に一度に並べられるようにするため。
         PickOrders();
 
-        // 板前モードは注文票を出さない（覚える勝負）
+        // 注文票を出すかどうかは、この面の Order Board → Lifetime で決まります
         if (GameMode.KeepOrderBoard)
         {
             board = OrderBoard.Create(this, orderCount, orderBoard);
@@ -222,6 +222,12 @@ public class Customer3 : MonoBehaviour
         }
 
         SaveOrderFile();
+
+        // 「注文が終わったら消える」設定なら、ここで札を下げる
+        if (board != null && orderBoard.lifetime == OrderBoardLifetime.注文が終わったら消える)
+        {
+            board.FadeOutAndHide();
+        }
     }
 
     // =========================

@@ -4,9 +4,8 @@ using UnityEngine;
 /// <summary>遊ぶモード。タイトルの選択画面で決まります。</summary>
 public enum GameModeId
 {
-    見習い,
-    板前,
-    English,
+    日本語,
+    英語,
 }
 
 /// <summary>注文の見せ方。</summary>
@@ -22,12 +21,14 @@ public enum OrderStyle
 /// いま選ばれているモードと、その設定。
 ///
 /// static なのでシーンをまたいでも残ります。
-/// タイトルで選ばれなかった場合は「板前」で動きます。
+/// タイトルで選ばれなかった場合は「日本語」で動きます。
 ///
 /// 【モードの中身】
-///   見習い  … イラストで注文。注文票が判定まで残る
-///   板前    … 漢字で注文。注文票なし（覚える）
-///   English … 英語で注文。注文票が判定まで残る
+///   日本語 … 日本語で注文（既定はカタカナ）。注文票が判定まで残る
+///   英語   … 英語で注文。注文票が判定まで残る
+///
+/// 日本語モードの表記（カタカナ / 漢字 / イラスト）は、
+/// タイトルの ModeSelect の Inspector で切り替えられます。
 ///
 /// 【ネタを増やすとき】
 ///   下の Kanji / English の表に1行足してください。
@@ -35,14 +36,14 @@ public enum OrderStyle
 /// </summary>
 public static class GameMode
 {
-    public static GameModeId Current = GameModeId.板前;
+    public static GameModeId Current = GameModeId.日本語;
 
     /// <summary>
-    /// 見習いモードで注文をどう見せるか。
+    /// 日本語モードで注文をどう見せるか。
     /// タイトルの ModeSelect の Inspector から変えられます。
-    /// イラストのままでも、カタカナの画像を使ってもかまいません。
+    /// カタカナ / 漢字 / イラスト から選べます。
     /// </summary>
-    public static OrderStyle ApprenticeStyle = OrderStyle.イラスト;
+    public static OrderStyle JapaneseStyle = OrderStyle.カタカナ;
 
     // =====================================================
     //  モードごとの設定
@@ -52,19 +53,14 @@ public static class GameMode
     {
         get
         {
-            switch (Current)
-            {
-                case GameModeId.見習い:  return ApprenticeStyle;
-                case GameModeId.English: return OrderStyle.英語;
-                default:                 return OrderStyle.漢字;
-            }
+            return Current == GameModeId.英語 ? OrderStyle.英語 : JapaneseStyle;
         }
     }
 
-    /// <summary>注文票を出すか（判定まで残るか）。</summary>
-    public static bool KeepOrderBoard => Current != GameModeId.板前;
+    /// <summary>注文票を出すか（判定まで残るか）。どちらのモードでも出します。</summary>
+    public static bool KeepOrderBoard = true;
 
-    /// <summary>番付を分けるための名前。ranking_見習い.json のように使われます。</summary>
+    /// <summary>番付を分けるための名前。ranking_日本語.json のように使われます。</summary>
     public static string RankingKey => Current.ToString();
 
     /// <summary>画面に出すモード名。</summary>
@@ -72,12 +68,7 @@ public static class GameMode
     {
         get
         {
-            switch (Current)
-            {
-                case GameModeId.見習い:  return "みならい";
-                case GameModeId.English: return "ENGLISH";
-                default:                 return "板前";
-            }
+            return Current == GameModeId.英語 ? "ENGLISH" : "日本語";
         }
     }
 

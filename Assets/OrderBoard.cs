@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,11 +11,28 @@ using TMPro;
 /// Board Sprite / Slot Sprite にドラッグしてください。
 /// 何も入れなければ、下の色設定で単色の板が出ます。
 /// </summary>
+public enum OrderBoardLifetime
+{
+    判定まで残す,
+    注文が終わったら消える,
+    出さない,
+}
+
 [System.Serializable]
 public class OrderBoardSettings
 {
     [Tooltip("注文票を出すか。外すと今までどおり吹き出しだけになります")]
     public bool show = true;
+
+    [Header("いつまで出しておくか")]
+    [Tooltip("判定まで残す＝ずっと見える／注文が終わったら消える＝提示後にフェードアウト／出さない")]
+    public OrderBoardLifetime lifetime = OrderBoardLifetime.判定まで残す;
+
+    [Tooltip("消え始めるまでの待ち（秒）")]
+    public float fadeDelay = 1.0f;
+
+    [Tooltip("消えるのにかける時間（秒）")]
+    public float fadeTime = 1.2f;
 
     [Tooltip("注文されるたびに1枠ずつ埋める。外すと最初から全部見えます")]
     public bool revealProgressively = true;
@@ -132,6 +150,7 @@ public class OrderBoard : MonoBehaviour
     public static OrderBoard Create(Component owner, int count, OrderBoardSettings settings)
     {
         if (owner == null || settings == null || !settings.show || count <= 0) return null;
+        if (settings.lifetime == OrderBoardLifetime.出さない) return null;
 
         Canvas canvas = owner.GetComponentInParent<Canvas>();
         if (canvas == null)
@@ -146,6 +165,7 @@ public class OrderBoard : MonoBehaviour
             typeof(CanvasRenderer),
             typeof(Image),
             typeof(HorizontalLayoutGroup),
+            typeof(CanvasGroup),
             typeof(OrderBoard));
 
         go.transform.SetParent(canvas.transform, false);
@@ -342,6 +362,38 @@ public class OrderBoard : MonoBehaviour
             c.a = Mathf.Min(1f, c.a + 0.10f);
             frames[index].color = c;
         }
+    }
+
+    // -----------------------------------------------------
+    //  消す
+    // -----------------------------------------------------
+    /// <summary>
+    /// しばらく待ってからフェードアウトする。
+    /// 2面のように「注文を聞いたら札が下げられる」演出に使います。
+    /// </summary>
+    public void FadeOutAndHide()
+    {
+        if (cfg == null) return;
+        StartCoroutine(FadeRoutine(cfg.fadeDelay, cfg.fadeTime));
+    }
+
+    private IEnumerator FadeRoutine(float delay, float time)
+    {
+        var group = GetComponent<CanvasGroup>();
+        if (group == null) yield break;
+
+        if (delay > 0f) yield return new WaitForSeconds(delay);
+
+        float t = 0f;
+        while (t < time)
+        {
+            t += Time.deltaTime;
+            group.alpha = Mathf.Lerp(1f, 0f, time <= 0f ? 1f : t / time);
+            yield return null;
+        }
+
+        group.alpha = 0f;
+        gameObject.SetActive(false);
     }
 
     /// <summary>まとめて全部入れる。</summary>
