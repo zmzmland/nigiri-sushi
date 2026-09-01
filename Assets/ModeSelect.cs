@@ -49,18 +49,48 @@ public class ModeSelect : MonoBehaviour
              "小さい子も来るならカタカナが読みやすいです")]
     public OrderStyle japaneseStyle = OrderStyle.カタカナ;
 
+    [Header("寿司で選ぶ")]
+    [Tooltip("まな板に寿司を置いてモードを選べるようにする")]
+    public bool enableSushiSelect = true;
+
+    [Tooltip("これを置くと日本語モード")]
+    public string japaneseClass = "salmon";
+
+    [Tooltip("これを置くと英語モード")]
+    public string englishClass = "ebi";
+
+    [Tooltip("この秒数、見え続けたら決定する")]
+    public float sushiHoldSeconds = 1.2f;
+
+    [Tooltip("detect.txt を読む間隔（秒）")]
+    public float sushiPollInterval = 0.15f;
+
+    [Tooltip("寿司が見えているときにボタンを光らせる色")]
+    public Color highlightColor = new Color(0.95f, 0.75f, 0.30f, 1f);
+
     [Header("文言")]
     public string headingText = "ことばをえらぶ";
 
     public string japaneseMain = "日本語";
-    public string japaneseSub  = "注文はカタカナで出ます";
+    public string japaneseSub  = "サーモンを置く　または クリック";
 
     public string englishMain = "ENGLISH";
-    public string englishSub  = "Orders are shown in English";
+    public string englishSub  = "Place SHRIMP, or click";
 
     public string backText = "もどる";
 
     private GameObject panel;
+
+    // 寿司で選ぶための状態
+    private Image japaneseButton;
+    private Image englishButton;
+    private Color buttonBaseColor;
+    private string seeing = null;     // いま見えているモード用の寿司
+    private float seeingSince = -1f;
+    private float lastPoll = -999f;
+
+    /// <summary>いま選択画面が開いているか。</summary>
+    public bool IsOpen => panel != null && panel.activeSelf;
 
     void Awake()
     {
@@ -77,7 +107,74 @@ public class ModeSelect : MonoBehaviour
         if (panel == null || !panel.activeSelf) return;
 
         var kb = Keyboard.current;
-        if (kb != null && kb.escapeKey.wasPressedThisFrame) Hide();
+        if (kb != null && kb.escapeKey.wasPressedThisFrame) { Hide(); return; }
+
+        if (enableSushiSelect) WatchSushi();
+    }
+
+    // =====================================================
+    //  寿司でモードを選ぶ
+    // =====================================================
+    private void WatchSushi()
+    {
+        if (Time.time - lastPoll >= sushiPollInterval)
+        {
+            lastPoll = Time.time;
+
+            // Python が動いていなければ何もしない（クリックで選べます）
+            bool alive = GamePaths.SecondsSinceWrite(GamePaths.HeartbeatPath) <= 8.0;
+            string found = alive ? FindMoveSushi() : null;
+
+            if (found != seeing)
+            {
+                seeing = found;
+                seeingSince = found == null ? -1f : Time.time;
+            }
+        }
+
+        float progress = 0f;
+        if (seeing != null && seeingSince >= 0f)
+        {
+            progress = sushiHoldSeconds <= 0f
+                ? 1f
+                : Mathf.Clamp01((Time.time - seeingSince) / sushiHoldSeconds);
+        }
+
+        Highlight(japaneseButton, seeing == japaneseClass ? progress : 0f);
+        Highlight(englishButton,  seeing == englishClass  ? progress : 0f);
+
+        if (progress >= 1f)
+        {
+            if (seeing == japaneseClass) Choose(GameModeId.日本語);
+            else if (seeing == englishClass) Choose(GameModeId.英語);
+        }
+    }
+
+    /// <summary>detect.txt から、モード選択に使うネタを探す。</summary>
+    private string FindMoveSushi()
+    {
+        string text = GamePaths.SafeRead(GamePaths.DetectPath);
+        if (string.IsNullOrEmpty(text)) return null;
+
+        bool ja = false, en = false;
+        foreach (string line in text.Split('\n'))
+        {
+            string n = line.Trim();
+            if (n == japaneseClass) ja = true;
+            if (n == englishClass)  en = true;
+        }
+
+        // 両方置かれていたら決めない（迷っている状態とみなす）
+        if (ja && en) return null;
+        if (ja) return japaneseClass;
+        if (en) return englishClass;
+        return null;
+    }
+
+    private void Highlight(Image img, float progress)
+    {
+        if (img == null) return;
+        img.color = Color.Lerp(buttonBaseColor, highlightColor, progress);
     }
 
     // =====================================================
@@ -87,6 +184,13 @@ public class ModeSelect : MonoBehaviour
     {
         if (panel == null) Build();
         if (panel != null) panel.SetActive(true);
+
+        // 前回の残りで即決定されないよう、状態を戻す
+        seeing = null;
+        seeingSince = -1f;
+        lastPoll = -999f;
+        Highlight(japaneseButton, 0f);
+        Highlight(englishButton, 0f);
     }
 
     public void Hide()
@@ -146,11 +250,13 @@ public class ModeSelect : MonoBehaviour
         BuildHeading(panel.transform);
 
         // --- モードのボタン ---
-        BuildButton(panel.transform, japaneseMain, japaneseSub,
-                    () => Choose(GameModeId.日本語));
+        japaneseButton = BuildButton(panel.transform, japaneseMain, japaneseSub,
+                                     () => Choose(GameModeId.日本語));
 
-        BuildButton(panel.transform, englishMain, englishSub,
-                    () => Choose(GameModeId.英語));
+        englishButton = BuildButton(panel.transform, englishMain, englishSub,
+                                    () => Choose(GameModeId.英語));
+
+        buttonBaseColor = japaneseButton != null ? japaneseButton.color : buttonColor;
 
         // --- もどる ---
         BuildButton(panel.transform, backText, "",
@@ -191,9 +297,9 @@ public class ModeSelect : MonoBehaviour
         text.fontSizeMax = 52f;
     }
 
-    private void BuildButton(Transform parent, string main, string sub,
-                             UnityEngine.Events.UnityAction onClick,
-                             float heightScale = 1f)
+    private Image BuildButton(Transform parent, string main, string sub,
+                              UnityEngine.Events.UnityAction onClick,
+                              float heightScale = 1f)
     {
         var go = new GameObject($"Button_{main}",
             typeof(RectTransform), typeof(CanvasRenderer), typeof(Image),
@@ -240,7 +346,7 @@ public class ModeSelect : MonoBehaviour
         mainText.fontSizeMax = 44f;
         mainText.raycastTarget = false;
 
-        if (string.IsNullOrEmpty(sub)) return;
+        if (string.IsNullOrEmpty(sub)) return img;
 
         // --- 説明 ---
         var subGo = new GameObject("Sub", typeof(RectTransform), typeof(TextMeshProUGUI));
@@ -261,5 +367,7 @@ public class ModeSelect : MonoBehaviour
         subText.fontSizeMin = 10f;
         subText.fontSizeMax = 20f;
         subText.raycastTarget = false;
+
+        return img;
     }
 }

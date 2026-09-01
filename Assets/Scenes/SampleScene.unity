@@ -738,7 +738,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1.8116, y: -14.684192}
-  m_SizeDelta: {x: 1000.5326, y: 542.1509}
+  m_SizeDelta: {x: 1000, y: 542}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &640129951
 MonoBehaviour:
@@ -1315,6 +1315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1707533765}
   - component: {fileID: 1707533766}
+  - component: {fileID: 1707533767}
   m_Layer: 5
   m_Name: ModeSelect
   m_TagString: Untagged
@@ -1362,12 +1363,41 @@ MonoBehaviour:
   spacing: 50
   nextSceneName: Game Scene
   japaneseStyle: 1
+  enableSushiSelect: 1
+  japaneseClass: salmon
+  englishClass: ebi
+  sushiHoldSeconds: 1.2
+  sushiPollInterval: 0.15
+  highlightColor: {r: 0.95, g: 0.75, b: 0.3, a: 1}
   headingText: "\u8A00\u8A9E\u3092\u9078\u3076"
   japaneseMain: "\u65E5\u672C\u8A9E"
-  japaneseSub: 
+  japaneseSub: "\u30B5\u30FC\u30E2\u30F3\u3092\u7F6E\u304F\u3068\u59CB\u307E\u308A\u307E\u3059"
   englishMain: ENGLISH
-  englishSub: 
+  englishSub: It starts when you place the shrimp.
   backText: "\u3082\u3069\u308B"
+--- !u!114 &1707533767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707533764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca006e1160df48b6a81bef04fbf1526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartBySushi
+  enableSushiStart: 1
+  triggerClass: maguro
+  holdSeconds: 1.2
+  pollInterval: 0.15
+  openModeSelect: 1
+  nextSceneName: Game Scene
+  showGuide: 1
+  waitingText: "\u307E\u306A\u677F\u306B\u300C\u30DE\u30B0\u30ED\u300D\u3092\u7F6E\u304F\u3068\u59CB\u307E\u308A\u307E\u3059"
+  detectedText: "\u30DE\u30B0\u30ED\u3092\u78BA\u8A8D\u3057\u307E\u3057\u305F"
+  offlineText: "\u753B\u50CF\u8A8D\u8B58\u306E\u6E96\u5099\u4E2D\u3067\u3059\uFF08\u300C\u59CB\u3081\u300D\u3067\u3082\u958B\u59CB\u3067\u304D\u307E\u3059\uFF09"
+  bottomMargin: 90
 --- !u!1 &1734564017
 GameObject:
   m_ObjectHideFlags: 0

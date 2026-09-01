@@ -24,6 +24,9 @@ HEARTBEAT_PATH = BASE_DIR / "heartbeat.txt"
 # 自動判定のカウントダウン。"3" "2" "1" と書き、判定していない間は消す。
 COUNTDOWN_PATH = BASE_DIR / "countdown.txt"
 
+# いま見えているネタの一覧。タイトル画面で「寿司を置いて開始」に使う。
+DETECT_PATH = BASE_DIR / "detect.txt"
+
 print(f"共有フォルダ : {BASE_DIR}")
 
 
@@ -54,6 +57,10 @@ DEFAULTS = {
 
     # 生存確認を書き込む間隔（秒）
     "heartbeat_interval": 1.0,
+
+    # いま見えているネタを detect.txt に書き出す間隔（秒）。
+    # タイトル画面の「寿司を置いて開始」で使います。
+    "detect_interval": 0.2,
 
     # 映像が途切れたときに再接続を試みる回数と間隔（秒）
     "reconnect_attempts": 10,
@@ -131,6 +138,18 @@ def read_order():
 
 
 _last_countdown = None
+_last_detect = None
+_last_detect_at = 0.0
+
+
+def write_detect(names):
+    """いま見えているネタを Unity に伝える。内容が変わったときだけ書く。"""
+    global _last_detect
+    text = "\n".join(names)
+    if text == _last_detect:
+        return
+    _last_detect = text
+    safe_write(DETECT_PATH, text)
 
 
 def set_countdown(text):
@@ -411,6 +430,7 @@ def confirm_manual(manual):
 # ----------------------------
 TRIGGER_PATH.unlink(missing_ok=True)
 COUNTDOWN_PATH.unlink(missing_ok=True)
+DETECT_PATH.unlink(missing_ok=True)
 
 print()
 print("=" * 50)
@@ -431,6 +451,7 @@ dets = []
 frame_no = 0
 last_trigger_check = 0.0
 last_heartbeat = 0.0
+last_detect_write = 0.0
 last_order_mtime = None
 
 # ---- 自動判定の状態 ----
@@ -474,6 +495,11 @@ while True:
     if now - last_heartbeat > float(CFG["heartbeat_interval"]):
         last_heartbeat = now
         safe_write(HEARTBEAT_PATH, str(time.time()))
+
+    # ---- いま見えているネタを伝える（タイトルの「寿司で開始」用）----
+    if now - last_detect_write > float(CFG["detect_interval"]):
+        last_detect_write = now
+        write_detect(sorted(name for name, _, _ in dets))
 
     order_now = read_order()
 
@@ -615,4 +641,5 @@ cv2.destroyAllWindows()
 
 HEARTBEAT_PATH.unlink(missing_ok=True)
 COUNTDOWN_PATH.unlink(missing_ok=True)
+DETECT_PATH.unlink(missing_ok=True)
 print("終了しました")

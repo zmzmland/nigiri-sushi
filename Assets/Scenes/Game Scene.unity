@@ -242,8 +242,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.8395, y: 0.0010987}
-  m_SizeDelta: {x: 901.9595, y: 571.52}
+  m_AnchoredPosition: {x: -14.4817, y: 0.0010987}
+  m_SizeDelta: {x: 1000, y: 571}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &602746717
 MonoBehaviour:
@@ -533,8 +533,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.837, y: -223.16}
-  m_SizeDelta: {x: 901.96, y: 125.2035}
+  m_AnchoredPosition: {x: -14.4789, y: -223.16}
+  m_SizeDelta: {x: 1000, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1305279151
 MonoBehaviour:
@@ -884,7 +884,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 581, y: -30}
+  m_AnchoredPosition: {x: 658, y: -17}
   m_SizeDelta: {x: 189.9475, y: 374.6951}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2103205266
@@ -950,6 +950,9 @@ MonoBehaviour:
   orderFont: {fileID: 11400000, guid: 4494f5cd66f52489e9575b1c46d238ef, type: 2}
   orderBoard:
     show: 1
+    lifetime: 0
+    fadeDelay: 1
+    fadeTime: 1.2
     revealProgressively: 1
     boardSprite: {fileID: 3130519249551293970, guid: e58c6dcdfa7a14693aeb645214203101, type: 3}
     slotSprite: {fileID: -5553725807225320140, guid: 9bdc56d80b1bf4fcb8786c562f2bd2dc, type: 3}

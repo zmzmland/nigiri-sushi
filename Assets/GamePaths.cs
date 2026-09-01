@@ -33,6 +33,12 @@ public static class GamePaths
     public static string CountdownPath => Path.Combine(BaseDir, "countdown.txt");
 
     /// <summary>
+    /// いまカメラに見えているネタの一覧。Python が0.2秒ごとに書きます。
+    /// タイトルの「寿司を置いて開始」で使います。
+    /// </summary>
+    public static string DetectPath => Path.Combine(BaseDir, "detect.txt");
+
+    /// <summary>
     /// ランキングの保存先。ビルドしたアプリでも Editor でも同じ場所を見ます。
     /// 中身はただの JSON なので、テキストエディタで開いて確認・削除できます。
     /// </summary>
