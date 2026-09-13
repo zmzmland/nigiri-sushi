@@ -304,7 +304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 174, y: -72}
+  m_AnchoredPosition: {x: 174, y: -71}
   m_SizeDelta: {x: 216.8212, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &485115220
@@ -354,8 +354,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -578,7 +578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 186, y: -0.000014305}
+  m_AnchoredPosition: {x: 186, y: 4.209501}
   m_SizeDelta: {x: 130.686, y: 68.419}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &540535381
@@ -1444,26 +1444,14 @@ MonoBehaviour:
   seCorrect: {fileID: 0}
   seWrong: {fileID: 0}
   useResult: 1
-  useRankIn: 1
+  useRankIn: 0
   seRankIn: {fileID: 0}
   useBgm: 1
   bgmTitle: {fileID: 8300000, guid: 06c318c656f1244d9a3fa64a42f23af3, type: 3}
   bgmGame: {fileID: 8300000, guid: cd9410f1bc96f45439ac2b4b31e7a3a8, type: 3}
   bgmResult: {fileID: 8300000, guid: 22854fa663b3448d982bbc6f7cdbc84c, type: 3}
   bgmTable: []
-  resultTiers:
-  - name: "\u5927\u5165\u308A"
-    minScore: 6000
-    clip: {fileID: 8300000, guid: acf2f1d68a0904be08f852883bbceb25, type: 3}
-    clipName: 
-  - name: "\u307E\u305A\u307E\u305A"
-    minScore: 3000
-    clip: {fileID: 8300000, guid: cea76417691d0498793c49db23883dc9, type: 3}
-    clipName: 
-  - name: "\u3053\u308C\u304B\u3089"
-    minScore: 0
-    clip: {fileID: 8300000, guid: 9c779775cdd9247049d28e43fee91ddd, type: 3}
-    clipName: 
+  resultTiers: []
 --- !u!4 &1734564019
 Transform:
   m_ObjectHideFlags: 0

@@ -70,12 +70,24 @@ public class Customer2 : MonoBehaviour
     [Tooltip("判定を受け付け始めてからこの秒数、結果が来なければ警告を出す")]
     public float noResultWarnAfter = 90f;
 
-    [Header("Speed Bonus Table")]
-    [Tooltip("1面+2面の合計時間がこの値以下なら、下の金額をボーナスにする（昇順で並べること）")]
-    public float[] timeThresholds = { 50f, 60f, 75f, 90f, 105f };
+    [Header("Speed Bonus")]
+    [Tooltip("1貫あたりの持ち時間（秒）。" +
+             "基準 = この値 × 注文数。貫数が増える面ほど基準も伸びます。" +
+             "基準より早く終えた分だけがお金になります")]
+    public float secondsPerPiece = 8f;
 
-    [Tooltip("上の各段階でもらえるボーナス（円）")]
-    public int[] timeBonusAmounts = { 2000, 1500, 1000, 500, 0 };
+    [Tooltip("1秒早いごとにもらえる金額（円）")]
+    public int yenPerSecond = 100;
+
+    [Tooltip("この面を全問正解したときの追加ボーナス（円）。0 で無効")]
+    public int perfectBonus = 1000;
+
+    [Header("経過時間の表示")]
+    [Tooltip("画面の上に、経過秒数と残りボーナスを出す")]
+    public bool showTimer = true;
+
+    [Tooltip("画面の上端からの距離")]
+    public float timerTopMargin = 14f;
 
     [Header("Scene Flow")]
     // ★3面化に伴い、行き先は ResultScene から WaitScene に変わりました。
@@ -416,7 +428,7 @@ public class Customer2 : MonoBehaviour
 
             Debug.Log($"2面 正解 {point}/{orderCount}  time={elapsedTime:F1}s");
 
-            CalculateFinalScore();
+            CalculateFinalScore(point);
 
             GamePaths.SafeWrite(GamePaths.ResultPath, "");
 
@@ -462,25 +474,40 @@ public class Customer2 : MonoBehaviour
     /// 2面時点の暫定スコア。3面が終わったときに Customer3 が
     /// 3面合計で計算し直すので、ここの値は最終結果には残りません。
     /// </summary>
-    void CalculateFinalScore()
+    /// <summary>
+    /// この面の売上を確定する。
+    ///
+    /// スピードボーナスは「基準時間より早く終えた秒数 × 単価」です。
+    /// 段階式ではなく連続式なので、1秒の差がそのまま点差になります。
+    /// （以前は「30秒以内なら一律1000円」だったため、
+    ///   15秒で終える人も25秒の人も同額になっていました）
+    ///
+    /// 基準時間は 1貫あたりの秒数 × 注文数。
+    /// 注文が増える面ほど基準も伸びるので、面をまたいで公平です。
+    ///
+    /// 面ごとに足していくので、最後の面が全部を計算し直す必要はありません。
+    /// </summary>
+    void CalculateFinalScore(int point)
     {
-        float totalTime = ResultData.scene1Time + ResultData.scene2Time;
+        float limit = secondsPerPiece * Mathf.Max(1, orderCount);
+        float saved = limit - elapsedTime;
 
-        int bonus = 0;
-        int n = Mathf.Min(timeThresholds.Length, timeBonusAmounts.Length);
-        for (int i = 0; i < n; i++)
-        {
-            if (totalTime <= timeThresholds[i])
-            {
-                bonus = timeBonusAmounts[i];
-                break;
-            }
-        }
+        int speed = (saved <= 0f) ? 0 : Mathf.RoundToInt(saved * yenPerSecond);
 
-        ResultData.timeBonusYen = bonus;
-        ResultData.finalScore   = ResultData.score + bonus;
+        // 全問正解のごほうび。惜しい人との差をはっきりさせる
+        int perfect = (orderCount > 0 && point >= orderCount) ? perfectBonus : 0;
 
-        Debug.Log($"totalTime={totalTime:F1}  bonus=+{bonus}円  合計={ResultData.finalScore}円");
+        ResultData.timeBonusYen    += speed;
+        ResultData.perfectBonusYen += perfect;
+
+        ResultData.finalScore =
+            ResultData.score +
+            ResultData.timeBonusYen +
+            ResultData.perfectBonusYen;
+
+        Debug.Log(
+            $"2面 ボーナス  速さ +{speed}円（{elapsedTime:F1}秒 / 基準 {limit:F0}秒）" +
+            $"  全問正解 +{perfect}円  合計 {ResultData.finalScore}円");
     }
 
     void SaveOrderFile()
@@ -496,4 +523,65 @@ public class Customer2 : MonoBehaviour
     {
         if (resultWatchCoroutine != null) StopCoroutine(resultWatchCoroutine);
     }
+
+    // =====================================================
+    //  経過時間の表示
+    //
+    //  時計が見えないと、人は速くなろうとしません。
+    //  いま何秒か、あといくらもらえるかを常に見せます。
+    //
+    //  Canvas に何も置かなくてよいよう OnGUI で描いています。
+    // =====================================================
+    void OnGUI()
+    {
+        if (!showTimer || timerStart < 0f) return;
+
+        float t = judged ? elapsedTime : (Time.time - timerStart);
+        float limit = Mathf.Max(0.01f, secondsPerPiece * Mathf.Max(1, orderCount));
+        float saved = limit - t;
+
+        int yen = (saved <= 0f) ? 0 : Mathf.RoundToInt(saved * yenPerSecond);
+        float remain = Mathf.Clamp01(saved / limit);
+
+        float w = Mathf.Min(340f, Screen.width - 40f);
+        float h = 58f;
+        float x = (Screen.width - w) / 2f;
+        float y = timerTopMargin;
+
+        Color prev = GUI.color;
+
+        GUI.color = new Color(0f, 0f, 0f, 0.5f);
+        GUI.DrawTexture(new Rect(x, y, w, h), Texture2D.whiteTexture);
+
+        // 残りボーナスのバー。減っていくのが見えると人は急ぎます
+        GUI.color = (yen > 0)
+            ? new Color(1f, 0.84f, 0.35f, 0.9f)
+            : new Color(0.5f, 0.5f, 0.5f, 0.6f);
+        GUI.DrawTexture(new Rect(x, y + h - 7f, w * remain, 7f), Texture2D.whiteTexture);
+
+        GUI.color = Color.white;
+
+        var timeStyle = new GUIStyle(GUI.skin.label)
+        {
+            alignment = TextAnchor.MiddleLeft,
+            fontSize = 30,
+            fontStyle = FontStyle.Bold,
+        };
+        timeStyle.normal.textColor = Color.white;
+        GUI.Label(new Rect(x + 16f, y, w * 0.5f, h - 7f), $"{t:F1}秒", timeStyle);
+
+        var yenStyle = new GUIStyle(GUI.skin.label)
+        {
+            alignment = TextAnchor.MiddleRight,
+            fontSize = 22,
+        };
+        yenStyle.normal.textColor = (yen > 0)
+            ? new Color(1f, 0.9f, 0.55f)
+            : new Color(0.7f, 0.7f, 0.7f);
+        GUI.Label(new Rect(x + w * 0.42f, y, w * 0.58f - 16f, h - 7f),
+                  (yen > 0) ? $"+{yen:N0}円" : "ボーナスなし", yenStyle);
+
+        GUI.color = prev;
+    }
+
 }

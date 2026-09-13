@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// 売上に応じて鳴らすリザルトの音。
-/// Min Score 以上なら、その段の音が鳴ります。
+/// 売上に応じて変わるリザルトの「段」。
+/// 鳴らす音と、画面に出す称号の両方をここで決めます。
+/// Min Score 以上なら、その段になります。
 /// 上から順に判定するので、金額の大きいものを上に並べてください。
 /// </summary>
 [System.Serializable]
@@ -14,7 +15,7 @@ public class ResultTier
     [Tooltip("段の名前。表示には使いません。分かりやすさのためだけ")]
     public string name = "";
 
-    [Tooltip("この金額以上ならこの音")]
+    [Tooltip("この金額以上ならこの段")]
     public int minScore = 0;
 
     [Tooltip("鳴らす音。空なら Resources/Audio から自動で読み込みます")]
@@ -22,6 +23,15 @@ public class ResultTier
 
     [Tooltip("clip が空のときに Resources/Audio から探す名前")]
     public string clipName = "";
+
+    // ------ ここから称号 ------
+
+    [Tooltip("リザルトの最後に出す称号。空なら何も出しません")]
+    [TextArea(1, 3)]
+    public string title = "";
+
+    [Tooltip("称号の文字色")]
+    public Color titleColor = Color.white;
 }
 
 /// <summary>シーン名と、そこで流す BGM の対応。</summary>
@@ -119,8 +129,9 @@ public class GameAudio : MonoBehaviour
     [Tooltip("シーンごとの BGM。空のままなら既定の割り当てを使います")]
     public List<SceneBgm> bgmTable = new List<SceneBgm>();
 
-    [Header("リザルトの音（売上で変わる）")]
-    [Tooltip("上から順に「この金額以上か」を見ます。空のままなら既定の3段階を使います")]
+    [Header("リザルトの段（売上で音と称号が変わる）")]
+    [Tooltip("上から順に「この金額以上か」を見ます。空のままなら既定の3段階を使います。\n" +
+             "Title に文字を入れると、リザルトの最後にその称号が出ます")]
     public List<ResultTier> resultTiers = new List<ResultTier>();
 
     private AudioSource bgmSource;
@@ -204,29 +215,148 @@ public class GameAudio : MonoBehaviour
     /// <summary>
     /// リザルトの段が未設定なら、既定の3段階を作る。
     ///
-    /// 3面 × 3貫 × 500円 = 4,500円 に、スピードボーナス最大 3,000円 を足して
-    /// 満点は 7,500円。それを目安に区切っています。
+    /// 3面で 3+4+5 = 12貫、500円 ずつで 6,000円。
+    /// そこにスピードボーナス最大 3,000円 を足して満点は 9,000円です。
     /// 注文数を変えたら、この金額も Inspector で調整してください。
     /// </summary>
     private void BuildDefaultResultTiers()
     {
-        if (resultTiers != null && resultTiers.Count > 0)
+        if (resultTiers == null || resultTiers.Count == 0)
+            resultTiers = DefaultTiers();
+
+        NormalizeTiers(resultTiers);
+    }
+
+    /// <summary>
+    /// 空欄を既定値で補う。
+    ///
+    /// 称号の項目は後から足したので、それ以前に保存されたシーンでは
+    /// Title が空のまま入っています。そのままだと何も出ないので、
+    /// 金額が近い既定の段から文言と色を借りてきます。
+    ///
+    /// Inspector に文字を書けば、当然そちらが優先されます。
+    /// </summary>
+    private static void NormalizeTiers(List<ResultTier> list)
+    {
+        if (list == null) return;
+
+        List<ResultTier> fallback = DefaultTiers();
+
+        for (int i = 0; i < list.Count; i++)
         {
-            // 手で設定されている場合も、空の clip は名前から補う
-            foreach (ResultTier tr in resultTiers)
-            {
-                if (tr != null && tr.clip == null && !string.IsNullOrEmpty(tr.clipName))
-                    tr.clip = Load(tr.clipName);
-            }
-            return;
+            ResultTier tr = list[i];
+            if (tr == null) continue;
+
+            if (tr.clip == null && !string.IsNullOrEmpty(tr.clipName))
+                tr.clip = Load(tr.clipName);
+
+            if (!string.IsNullOrEmpty(tr.title)) continue;
+
+            // 称号が空 → 既定の段から借りる。
+            // 同じ名前があればそれを、無ければ同じ並び順のものを使います。
+            // （金額で探すと、しきい値を変えたときにずれるため）
+            ResultTier src = FindByName(fallback, tr.name);
+            if (src == null && fallback.Count > 0)
+                src = fallback[Mathf.Min(i, fallback.Count - 1)];
+
+            if (src == null) continue;
+
+            tr.title = src.title;
+
+            // 色も一緒に借りる。
+            // 白のままなら「まだ触っていない」とみなします
+            bool untouched =
+                tr.titleColor.a <= 0.01f ||
+                (Mathf.Approximately(tr.titleColor.r, 1f) &&
+                 Mathf.Approximately(tr.titleColor.g, 1f) &&
+                 Mathf.Approximately(tr.titleColor.b, 1f));
+
+            if (untouched) tr.titleColor = src.titleColor;
+
+            if (tr.clip == null && !string.IsNullOrEmpty(src.clipName))
+                tr.clip = Load(src.clipName);
+        }
+    }
+
+    private static ResultTier FindByName(List<ResultTier> list, string name)
+    {
+        if (list == null || string.IsNullOrEmpty(name)) return null;
+
+        foreach (ResultTier tr in list)
+        {
+            if (tr != null && tr.name == name) return tr;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 既定の3段階。Inspector が空のときと、
+    /// GameAudio がシーンに無いとき（Result だけを単体で再生したとき）に使います。
+    ///
+    /// 称号の文言・金額はここではなく Inspector で変えてください。
+    /// ここを書き換えても、すでに設定済みのシーンには反映されません。
+    /// </summary>
+    public static List<ResultTier> DefaultTiers()
+    {
+        // 色について:
+        //   リザルトの背景はクリーム色と薄い青波なので、
+        //   明るい色は沈んで読めません。すべて濃い色にしてあります。
+        //   赤 → 橙 → 緑 → 藍 → 墨 と、暖色から寒色へ下がる並びです。
+        return new List<ResultTier>
+        {
+            new ResultTier {
+                name = "銀座", minScore = 13000, clipName = "se_result_high",
+                title = "銀座の名店からスカウトが来た！",
+                titleColor = new Color(0.776f, 0.157f, 0.157f),  // 朱赤 #C62828
+            },
+            new ResultTier {
+                name = "行列", minScore = 10500, clipName = "se_result_high",
+                title = "行列ができる名店になった！",
+                titleColor = new Color(0.796f, 0.396f, 0.078f),  // 柿色 #CB6514
+            },
+            new ResultTier {
+                name = "評判", minScore = 8000, clipName = "se_result_mid",
+                title = "近所で評判の寿司屋だ",
+                titleColor = new Color(0.106f, 0.427f, 0.169f),  // 深緑 #1B6D2B
+            },
+            new ResultTier {
+                name = "常連", minScore = 5500, clipName = "se_result_mid",
+                title = "常連さんがついてきたね",
+                titleColor = new Color(0.122f, 0.306f, 0.475f),  // 藍  #1F4E79
+            },
+            new ResultTier {
+                name = "修業", minScore = 0, clipName = "se_result_low",
+                title = "修業はこれからだ！",
+                titleColor = new Color(0.216f, 0.255f, 0.286f),  // 墨  #374149
+            },
+        };
+    }
+
+    /// <summary>
+    /// 売上がどの段に当たるかを返す。当たらなければ null。
+    /// 音のオン・オフ（Use Result）とは無関係に働きます。
+    /// </summary>
+    public static ResultTier TierFor(int score)
+    {
+        List<ResultTier> list =
+            (I != null && I.resultTiers != null && I.resultTiers.Count > 0)
+                ? I.resultTiers
+                : DefaultTiers();
+
+        foreach (ResultTier tr in list)
+        {
+            if (tr == null) continue;
+            if (score >= tr.minScore) return tr;
         }
 
-        resultTiers = new List<ResultTier>
-        {
-            new ResultTier { name = "大入り",   minScore = 7000, clip = Load("se_result_high") },
-            new ResultTier { name = "まずまず", minScore = 4000, clip = Load("se_result_mid")  },
-            new ResultTier { name = "これから", minScore = 0,    clip = Load("se_result_low")  },
-        };
+        return null;
+    }
+
+    /// <summary>売上に対応する称号。無ければ空文字。</summary>
+    public static string TitleFor(int score)
+    {
+        ResultTier tr = TierFor(score);
+        return tr == null ? "" : tr.title;
     }
 
     // =====================================================
@@ -330,19 +460,12 @@ public class GameAudio : MonoBehaviour
     /// </summary>
     public static void Result(int score)
     {
-        if (I == null || !I.useResult || I.resultTiers == null) return;
+        if (I == null || !I.useResult) return;
 
-        ResultTier hit = null;
-
-        foreach (ResultTier tr in I.resultTiers)
-        {
-            if (tr == null) continue;
-            if (score >= tr.minScore) { hit = tr; break; }
-        }
-
+        ResultTier hit = TierFor(score);
         if (hit == null) return;
 
-        Debug.Log($"[Audio] 売上 {score:N0}円 → 「{hit.name}」");
+        Debug.Log($"[Audio] 売上 {score:N0}円 → 「{hit.name}」／称号「{hit.title}」");
         I.PlayOne(hit.clip);
     }
 

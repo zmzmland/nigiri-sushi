@@ -22,10 +22,26 @@ public static class ResultData
     public static float scene2Time = 0f;
     public static float scene3Time = 0f;
 
-    /// <summary>スピードボーナス（円）。売上に足される加算額。</summary>
+    /// <summary>
+    /// スピードボーナス（円）。面ごとに足していきます。
+    ///
+    /// 各面で「基準時間より早く終えた秒数 × 単価」を加算します。
+    /// 基準時間は 1貫あたりの秒数 × その面の注文数なので、
+    /// 注文が増える面ほど基準も伸びます。
+    /// 秒数と単価は各面の Customer の Inspector で変えられます。
+    /// </summary>
     public static int timeBonusYen = 0;
 
-    /// <summary>最終的な売上（円）。score + timeBonusYen。</summary>
+    /// <summary>
+    /// パーフェクトボーナス（円）。その面を全問正解すると加算されます。
+    /// 11/12 と 12/12 の差をはっきりさせるためのものです。
+    /// </summary>
+    public static int perfectBonusYen = 0;
+
+    /// <summary>
+    /// 最終的な売上（円）。
+    /// score + timeBonusYen + perfectBonusYen。
+    /// </summary>
     public static int finalScore = 0;
 
     /// <summary>今回の結果をランキングに登録済みか（二重登録を防ぐ）。</summary>
@@ -60,6 +76,7 @@ public static class ResultData
         scene2Time = 0f;
         scene3Time = 0f;
         timeBonusYen = 0;
+        perfectBonusYen = 0;
         finalScore = 0;
         scoreRegistered = false;
         lastRank = 0;

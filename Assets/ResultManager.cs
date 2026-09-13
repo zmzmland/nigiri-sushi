@@ -44,6 +44,24 @@ public class ResultManager : MonoBehaviour
     public Vector2 totalSize = new Vector2(520f, 320f);
     public float totalRightMargin = 80f;
 
+    [Header("称号")]
+    [Tooltip("合計のあとに「銀座の名店からスカウトが来た！」などを出す")]
+    public bool showTitle = true;
+
+    [Tooltip("称号を出すテキスト。空なら実行時に画面下へ作ります")]
+    public TextMeshProUGUI titleText;
+
+    [Tooltip("合計が出そろってから称号が出るまでの待ち（秒）")]
+    public float titleDelay = 0.6f;
+
+    [Tooltip("称号がポンと出る時間（秒）")]
+    public float titlePopTime = 0.45f;
+
+    [Header("称号テキストを自動で作るときの設定")]
+    public float titleFontSize = 40f;
+    public Vector2 titleSize = new Vector2(760f, 110f);
+    public float titleBottomMargin = 36f;
+
     [Header("ランキング")]
     [Tooltip("この順位以内に入ったら「番付入り」と出す")]
     public int highlightRank = 5;
@@ -57,6 +75,7 @@ public class ResultManager : MonoBehaviour
 
         if (scoreText != null) scoreText.text = "";
         if (totalText != null) totalText.text = "";
+        if (titleText != null) titleText.text = "";
 
         StartCoroutine(ShowResult());
     }
@@ -103,6 +122,13 @@ public class ResultManager : MonoBehaviour
             $"スピードボーナス : +{ResultData.timeBonusYen:N0}円",
         };
 
+        // 全問正解したときだけ、その行を足す。
+        // 0円の行を出しても「取れなかった」が目立つだけなので出しません。
+        if (ResultData.perfectBonusYen > 0)
+        {
+            lines.Add($"全問正解ボーナス : +{ResultData.perfectBonusYen:N0}円");
+        }
+
         yield return new WaitForSecondsRealtime(startDelay);
 
         // --- 明細を上から1行ずつ ---
@@ -122,6 +148,9 @@ public class ResultManager : MonoBehaviour
         // --- 合計を右側に ---
         EnsureTotalText();
         yield return StartCoroutine(ShowTotal());
+
+        // --- 最後に称号 ---
+        yield return StartCoroutine(ShowTitle());
     }
 
     private IEnumerator ShowTotal()
@@ -143,9 +172,125 @@ public class ResultManager : MonoBehaviour
         }
 
         totalText.text = BuildTotal(final, showRank: true);
+    }
 
-        // 売上に応じた音。段の区切りは GameAudio の Inspector で変えられます
+    // =====================================================
+    //  称号
+    // =====================================================
+    private IEnumerator ShowTitle()
+    {
+        int final = ResultData.finalScore;
+
+        ResultTier tier = GameAudio.TierFor(final);
+        string text = tier != null ? tier.title : "";
+
+        // 称号を出さない設定・文言が空・テキストを作れない、のどれかなら
+        // 音だけ鳴らして終わる（今までと同じ動き）
+        if (!showTitle || string.IsNullOrEmpty(text))
+        {
+            GameAudio.Result(final);
+            yield break;
+        }
+
+        yield return new WaitForSecondsRealtime(titleDelay);
+
+        EnsureTitleText();
+
+        if (titleText == null)
+        {
+            GameAudio.Result(final);
+            yield break;
+        }
+
+        Color target = tier.titleColor;
+        target.a = 1f;
+
+        titleText.text = text;
+        titleText.color = new Color(target.r, target.g, target.b, 0f);
+
+        RectTransform rt = titleText.rectTransform;
+
+        // 音と称号を同時に出す。ここが一番の見せ場なので重ねます
         GameAudio.Result(final);
+
+        if (titlePopTime <= 0f)
+        {
+            rt.localScale = Vector3.one;
+            titleText.color = target;
+            yield break;
+        }
+
+        float t = 0f;
+        while (t < titlePopTime)
+        {
+            t += Time.unscaledDeltaTime;
+            float p = Mathf.Clamp01(t / titlePopTime);
+
+            float s = Mathf.LerpUnclamped(0.65f, 1f, EaseOutBack(p));
+            rt.localScale = new Vector3(s, s, 1f);
+
+            titleText.color = new Color(target.r, target.g, target.b, p);
+            yield return null;
+        }
+
+        rt.localScale = Vector3.one;
+        titleText.color = target;
+    }
+
+    /// <summary>行き過ぎてから戻る動き。ポンと出た感じになります。</summary>
+    private static float EaseOutBack(float p)
+    {
+        const float c1 = 1.70158f;
+        const float c3 = c1 + 1f;
+        float x = p - 1f;
+        return 1f + c3 * x * x * x + c1 * x * x;
+    }
+
+    private void EnsureTitleText()
+    {
+        if (titleText != null) return;
+
+        Canvas canvas = FindCanvas();
+        if (canvas == null)
+        {
+            Debug.LogWarning("[ResultManager] Canvas が見つからないので称号を出せません");
+            return;
+        }
+
+        var go = new GameObject("TitleText", typeof(RectTransform), typeof(TextMeshProUGUI));
+        go.transform.SetParent(canvas.transform, false);
+        go.transform.SetAsLastSibling();
+
+        var rt = go.GetComponent<RectTransform>();
+        rt.anchorMin = new Vector2(0.5f, 0f);
+        rt.anchorMax = new Vector2(0.5f, 0f);
+        rt.pivot     = new Vector2(0.5f, 0f);
+        rt.sizeDelta = titleSize;
+        rt.anchoredPosition = new Vector2(0f, titleBottomMargin);
+
+        titleText = go.GetComponent<TextMeshProUGUI>();
+
+        if (scoreText != null && scoreText.font != null) titleText.font = scoreText.font;
+
+        titleText.fontSize = titleFontSize;
+        titleText.alignment = TextAlignmentOptions.Center;
+        titleText.textWrappingMode = TextWrappingModes.Normal;
+        titleText.raycastTarget = false;
+        titleText.text = "";
+    }
+
+    private Canvas FindCanvas()
+    {
+        if (scoreText != null)
+        {
+            Canvas c = scoreText.GetComponentInParent<Canvas>();
+            if (c != null) return c;
+        }
+
+        Canvas mine = GetComponentInParent<Canvas>();
+        if (mine != null) return mine;
+
+        return FindAnyObjectByType<Canvas>();
     }
 
     private string BuildTotal(int value, bool showRank)
@@ -174,9 +319,7 @@ public class ResultManager : MonoBehaviour
     {
         if (totalText != null) return;
 
-        Canvas canvas = scoreText != null
-            ? scoreText.GetComponentInParent<Canvas>()
-            : GetComponentInParent<Canvas>();
+        Canvas canvas = FindCanvas();
 
         if (canvas == null)
         {

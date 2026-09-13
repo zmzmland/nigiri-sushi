@@ -1,5 +1,6 @@
 from ultralytics import YOLO
 import cv2
+import numpy as np
 import os
 import json
 import time
@@ -83,6 +84,48 @@ DEFAULTS = {
 
     # 検出のちらつきを無視するための連続一致回数
     "auto_debounce": 3,
+
+    # ---- 明るさ・色の正規化 ----
+    #
+    # 周りの明るさが変わると、カメラが勝手に明るさと色を補正します。
+    # そのせいで同じ寿司でも見え方が変わり、認識がぶれます。
+    #
+    # ここでは YOLO に渡す直前に、映像の明るさを学習時と同じに
+    # 揃えます。カメラ側が何をしていても、モデルには毎回
+    # 同じ明るさの絵が届くようになります。
+    #
+    # 学習画像218枚の実測値:
+    #     明るさ 平均 127.7 / 標準偏差 9.2
+    # ほぼ1つの照明条件でしか撮られていないため、
+    # そこに寄せるほどモデルは本来の性能を出します。
+    #
+    # ★ 効かない・悪化する場合は enabled を false に戻してください。
+    #   実行中に n キーでも切り替えられます。
+    "normalize": {
+        "enabled": True,
+
+        # 目標の明るさ。学習画像の平均に合わせてあります
+        "target_luminance": 128.0,
+
+        # 色かぶりも補正する（グレーワールド補正）
+        # 照明の色が変わる会場では効きますが、
+        # まな板の色まで灰色に寄せてしまうので、
+        # 悪化するようなら false に
+        "gray_world": True,
+
+        # 補正の上限・下限。極端に暗い/明るいときに
+        # 画面が壊れるのを防ぎます
+        "max_gain": 2.5,
+        "min_gain": 0.4,
+
+        # 補正値のなめらかさ。0 = 即座に追従、0.9 = ゆっくり
+        # 大きいほど、人が横切ったときの跳ねに強くなります
+        "smooth": 0.7,
+
+        # 明るさを測る範囲。1.0 = 画面全体、0.6 = 中央60%
+        # まな板だけを測りたいときは小さくします
+        "roi": 1.0,
+    },
 }
 
 
@@ -114,6 +157,91 @@ AUTO_DEBOUNCE   = max(1, int(CFG["auto_debounce"]))
 print(f"判定方式     : {MATCH_MODE}")
 print(f"自動判定     : {'ON' if AUTO_JUDGE else 'OFF'}"
       f"（静止 {AUTO_STABLE:.1f}秒 → カウントダウン {AUTO_COUNTDOWN:.0f}秒）")
+
+
+# ----------------------------
+# 明るさ・色の正規化
+# ----------------------------
+_NORM = CFG.get("normalize") or {}
+
+NORM_ON       = bool(_NORM.get("enabled", False))
+NORM_TARGET   = float(_NORM.get("target_luminance", 128.0))
+NORM_GRAY     = bool(_NORM.get("gray_world", True))
+NORM_MAX_GAIN = float(_NORM.get("max_gain", 2.5))
+NORM_MIN_GAIN = float(_NORM.get("min_gain", 0.4))
+NORM_SMOOTH   = min(0.95, max(0.0, float(_NORM.get("smooth", 0.7))))
+NORM_ROI      = min(1.0, max(0.1, float(_NORM.get("roi", 1.0))))
+
+# 直前の補正値を覚えておき、フレームごとの跳ねをならす
+_norm = {
+    "on": NORM_ON,           # n キーで切り替えるのでここに持つ
+    "gain": 1.0,
+    "wb": [1.0, 1.0, 1.0],   # B, G, R
+    "lum": 0.0,              # 補正前の明るさ（画面表示用）
+}
+
+print(f"明るさ補正   : {'ON' if NORM_ON else 'OFF'}"
+      f"（目標 {NORM_TARGET:.0f}"
+      f"{' / 色かぶりも補正' if NORM_GRAY else ''}）  n キーで切替")
+
+
+def normalize_frame(frame):
+    """YOLO に渡す前に、明るさと色を学習時と同じに揃える。
+
+    カメラの自動露出・自動ホワイトバランスが働いていても、
+    出来上がる絵をこちらで一定に保つのが狙いです。
+
+    白飛び・黒つぶれした部分は元に戻せないので、
+    極端に明るい/暗い場所では効果が薄くなります。
+    """
+    if not _norm["on"]:
+        return frame
+
+    h, w = frame.shape[:2]
+
+    # 測る範囲を切り出す
+    if NORM_ROI < 0.999:
+        m = (1.0 - NORM_ROI) / 2.0
+        roi = frame[int(h * m):int(h * (1 - m)), int(w * m):int(w * (1 - m))]
+    else:
+        roi = frame
+
+    if roi.size == 0:
+        return frame
+
+    b, g, r = (float(roi[:, :, i].mean()) for i in range(3))
+    lum = 0.114 * b + 0.587 * g + 0.299 * r
+
+    # 真っ暗なフレームは触らない（0除算とノイズの増幅を避ける）
+    if lum < 1.0:
+        return frame
+
+    gain = NORM_TARGET / lum
+    gain = max(NORM_MIN_GAIN, min(NORM_MAX_GAIN, gain))
+
+    if NORM_GRAY:
+        # グレーワールド補正
+        # 「画面全体を平均すると灰色になるはず」という前提で色かぶりを取る
+        avg = (b + g + r) / 3.0
+        wb = [avg / max(b, 1.0), avg / max(g, 1.0), avg / max(r, 1.0)]
+        wb = [max(0.6, min(1.6, x)) for x in wb]
+    else:
+        wb = [1.0, 1.0, 1.0]
+
+    # 前回の値と混ぜてなめらかにする
+    s = NORM_SMOOTH
+    gain = _norm["gain"] * s + gain * (1.0 - s)
+    wb = [_norm["wb"][i] * s + wb[i] * (1.0 - s) for i in range(3)]
+
+    _norm["gain"] = gain
+    _norm["wb"] = wb
+    _norm["lum"] = lum
+
+    scale = np.array([gain * wb[0], gain * wb[1], gain * wb[2]],
+                     dtype=np.float32)
+
+    out = frame.astype(np.float32) * scale
+    return np.clip(out, 0, 255).astype(np.uint8)
 
 
 def safe_write(path, text):
@@ -290,9 +418,13 @@ print(model.names)
 
 
 def detect(frame):
-    """左→右に並べた検出結果 [(名前, (x1,y1,x2,y2), 信頼度), ...] を返す。"""
+    """左→右に並べた検出結果 [(名前, (x1,y1,x2,y2), 信頼度), ...] を返す。
+
+    推論の直前に明るさを揃えます。座標は変わらないので、
+    枠はそのまま元の映像に重ねて描けます。
+    """
     results = model(
-        frame,
+        normalize_frame(frame),
         conf=CFG["conf"],
         iou=CFG["iou"],
         agnostic_nms=CFG["agnostic_nms"],
@@ -336,10 +468,26 @@ def draw_hud(img, manual, order_len, det_count, auto_state, remain):
     h, w = img.shape[:2]
 
     help_text = ("SPACE=judge   a/s=manual +/-   ENTER=confirm manual   "
-                 "t=auto on/off   ESC=quit")
+                 "t=auto on/off   n=normalize on/off   ESC=quit")
     cv2.rectangle(img, (0, h - 34), (w, h), (0, 0, 0), -1)
     cv2.putText(img, help_text, (10, h - 12),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.45, (200, 200, 200), 1)
+
+    # ---- 明るさ補正の状態（左上）----
+    # 補正前の明るさが目標からどれだけ離れているかが見えます。
+    # gain が 1.00 に近いほど、カメラの状態が学習時に近いということ。
+    if _norm["on"]:
+        norm_text = (f"NORM on   lum {_norm['lum']:5.1f} -> {NORM_TARGET:.0f}"
+                     f"   gain {_norm['gain']:.2f}")
+        norm_color = (80, 230, 80)
+    else:
+        norm_text = "NORM off"
+        norm_color = (150, 150, 150)
+
+    cv2.putText(img, norm_text, (10, 26),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 0, 0), 3)
+    cv2.putText(img, norm_text, (10, 26),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.55, norm_color, 1)
 
     y = h - 34
 
@@ -631,6 +779,15 @@ while True:
         countdown_started = None
         set_countdown("")
         print(f"自動判定を {'ON' if auto_enabled else 'OFF'} にしました")
+
+    # ---- n キーで明るさ補正を切り替える ----
+    # 補正あり/なしを同じ寿司で見比べるための機能です。
+    # どちらが認識しやすいかは実測で決めてください。
+    if key == ord('n'):
+        _norm["on"] = not _norm["on"]
+        _norm["gain"] = 1.0
+        _norm["wb"] = [1.0, 1.0, 1.0]
+        print(f"明るさ補正を {'ON' if _norm['on'] else 'OFF'} にしました")
 
     # ---- ESCキーで終了 ----
     if key == 27:
