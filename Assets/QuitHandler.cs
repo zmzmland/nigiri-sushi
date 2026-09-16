@@ -55,13 +55,23 @@ public class QuitHandler : MonoBehaviour
 
     void OnGUI()
     {
+        // 画面の大きさに合わせて表示全体を拡大する。
+        // OnGUI はピクセルで描くので、これが無いとフルスクリーンで
+        // 文字だけ小さいままになります。倍率は UiScale.Extra。
+        Matrix4x4 __m = UiScale.Begin();
+        try { DrawGui(); }
+        finally { UiScale.End(__m); }
+    }
+
+    private void DrawGui()
+    {
         if (!showIndicator || heldFor <= 0.15f) return;
 
         float ratio = Mathf.Clamp01(heldFor / holdSeconds);
         float barW = 220f;
         float barH = 6f;
-        float x = (Screen.width - barW) / 2f;
-        float y = Screen.height - 70f;
+        float x = (UiScale.W - barW) / 2f;
+        float y = UiScale.H - 70f;
 
         GUI.color = new Color(0f, 0f, 0f, 0.45f);
         GUI.DrawTexture(new Rect(x, y, barW, barH), Texture2D.whiteTexture);
@@ -75,7 +85,7 @@ public class QuitHandler : MonoBehaviour
             fontSize = 13,
         };
         style.normal.textColor = Color.white;
-        GUI.Label(new Rect(x, y - 24f, barW, 20f), "終了しています…", style);
+        GUI.Label(new Rect(x, y - 24f, barW, 20f), GameMode.T("終了しています…", "Quitting…"), style);
 
         GUI.color = Color.white;
     }

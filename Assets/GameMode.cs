@@ -63,6 +63,22 @@ public static class GameMode
     /// <summary>番付を分けるための名前。ranking_日本語.json のように使われます。</summary>
     public static string RankingKey => Current.ToString();
 
+    /// <summary>いま英語モードか。</summary>
+    public static bool IsEnglish => Current == GameModeId.英語;
+
+    /// <summary>
+    /// 画面に出す文字を、モードに応じて選ぶ。
+    /// 日本語と英語を並べて書けるので、対応を見失いません。
+    ///     GameMode.T("へい、お待ち！", "Here you are!")
+    /// </summary>
+    public static string T(string ja, string en) => IsEnglish ? en : ja;
+
+    /// <summary>金額の書き方。日本語は「1,000円」、英語は「¥1,000」。</summary>
+    public static string Yen(int value) => IsEnglish ? $"¥{value:N0}" : $"{value:N0}円";
+
+    /// <summary>貫数の書き方。</summary>
+    public static string Kan(int n) => IsEnglish ? $"{n} pcs" : $"{n} 貫";
+
     /// <summary>画面に出すモード名。</summary>
     public static string DisplayName
     {
@@ -131,6 +147,40 @@ public static class GameMode
         { "natto",  "NATTO"     },
         { "makizusi", "SUSHI ROLL" },
     };
+
+    /// <summary>
+    /// 画面に出すときだけ、長い名前を2行に折り返す。
+    ///
+    /// 英語の「HORSE MACKEREL」「SEA URCHIN」などは、
+    /// 1行に押し込むと自動縮小が働いて非常に小さくなります。
+    /// 真ん中に近い空白で折ると、1行が短くなるぶん
+    /// 文字を大きく出せるようになります。
+    ///
+    /// 辞書そのものは1行のまま保ちます。
+    /// order.txt や判定には影響しません（表示だけの処理です）。
+    /// </summary>
+    /// <param name="maxLength">この文字数を超えたら折り返しを検討する</param>
+    public static string WrapForDisplay(string label, int maxLength = 8)
+    {
+        if (string.IsNullOrEmpty(label)) return label;
+        if (label.Length <= maxLength) return label;
+        if (label.Contains("\n")) return label;      // すでに折られている
+
+        // 真ん中に一番近い空白を探す
+        int mid = label.Length / 2;
+        int best = -1;
+
+        for (int i = 0; i < label.Length; i++)
+        {
+            if (label[i] != ' ') continue;
+            if (best < 0 || Mathf.Abs(i - mid) < Mathf.Abs(best - mid)) best = i;
+        }
+
+        // 空白の無い1語は折れない（そのまま返す）
+        if (best < 0) return label;
+
+        return label.Substring(0, best) + "\n" + label.Substring(best + 1);
+    }
 
     /// <summary>
     /// スプライト名を、いまのモードの表記に直す。

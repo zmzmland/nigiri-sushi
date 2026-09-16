@@ -101,14 +101,15 @@ public class RankingBoard : MonoBehaviour
 
         if (!string.IsNullOrEmpty(heading))
         {
-            sb.AppendLine(showModeInHeading
-                ? $"{GameMode.DisplayName} の{heading}"
-                : heading);
+            string head = GameMode.T(heading, "RANKING");
+            sb.AppendLine(showModeInHeading && !GameMode.IsEnglish
+                ? $"{GameMode.DisplayName} の{head}"
+                : head);
         }
 
         if (list.entries.Count == 0)
         {
-            sb.Append(emptyMessage);
+            sb.Append(GameMode.T(emptyMessage, "No records yet"));
             rankingText.text = sb.ToString();
             return;
         }
@@ -119,14 +120,15 @@ public class RankingBoard : MonoBehaviour
         {
             RankingEntry e = list.entries[i];
 
-            string rank = useKanjiNumbers && i < Kanji.Length
-                ? Kanji[i] + "位"
-                : (i + 1) + "位";
+            string rank = GameMode.IsEnglish
+                ? $"#{i + 1}"
+                : (useKanjiNumbers && i < Kanji.Length
+                    ? Kanji[i] + "位"
+                    : (i + 1) + "位");
 
             sb.Append(rank);
             sb.Append("　");
-            sb.Append(e.score.ToString("N0"));
-            sb.Append("円");
+            sb.Append(GameMode.Yen(e.score));
 
             if (i < n - 1) sb.AppendLine();
         }
@@ -136,14 +138,24 @@ public class RankingBoard : MonoBehaviour
 
     void OnGUI()
     {
+        // 画面の大きさに合わせて表示全体を拡大する。
+        // OnGUI はピクセルで描くので、これが無いとフルスクリーンで
+        // 文字だけ小さいままになります。倍率は UiScale.Extra。
+        Matrix4x4 __m = UiScale.Begin();
+        try { DrawGui(); }
+        finally { UiScale.End(__m); }
+    }
+
+    private void DrawGui()
+    {
         // 長押し中だけ進捗を出す（QuitHandler と同じ見た目）
         if (!allowOperatorReset || resetHeldFor <= 0.15f) return;
 
         float ratio = Mathf.Clamp01(resetHeldFor / resetHoldSeconds);
         float barW = 220f;
         float barH = 6f;
-        float x = (Screen.width - barW) / 2f;
-        float y = Screen.height - 110f;
+        float x = (UiScale.W - barW) / 2f;
+        float y = UiScale.H - 110f;
 
         GUI.color = new Color(0f, 0f, 0f, 0.45f);
         GUI.DrawTexture(new Rect(x, y, barW, barH), Texture2D.whiteTexture);
@@ -157,7 +169,7 @@ public class RankingBoard : MonoBehaviour
             fontSize = 13,
         };
         style.normal.textColor = Color.white;
-        GUI.Label(new Rect(x, y - 24f, barW, 20f), "ランキングを消去しています…", style);
+        GUI.Label(new Rect(x, y - 24f, barW, 20f), GameMode.T("ランキングを消去しています…", "Clearing the board…"), style);
 
         GUI.color = Color.white;
     }

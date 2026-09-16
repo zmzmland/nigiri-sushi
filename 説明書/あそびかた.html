@@ -1,0 +1,211 @@
+<title>にぎり寿司 あそびかた</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap">
+
+<style>
+  :root{
+    /* 暖簾の藍、お品書きの生成り、朱の判子 */
+    --ai:        #1B3A5C;
+    --ai-fuka:   #12293F;
+    --shu:       #B7332B;
+    --kinari:    #F4EDDC;
+    --kinari-in: #E4D8BE;
+    --sumi:      #24211D;
+    --usuzumi:   #5F5C55;
+
+    --jiban:     #D9D2C2;
+    --jiban-mozi:#3A3730;
+    --kage: 0 2px 4px rgba(27,58,92,.08), 0 12px 32px rgba(27,58,92,.10);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --jiban:      #191B1E;
+      --jiban-mozi: #B9B4A8;
+      --kage: 0 2px 4px rgba(0,0,0,.35), 0 18px 46px rgba(0,0,0,.45);
+    }
+  }
+  :root[data-theme="dark"]{
+    --jiban:      #191B1E;
+    --jiban-mozi: #B9B4A8;
+    --kage: 0 2px 4px rgba(0,0,0,.35), 0 18px 46px rgba(0,0,0,.45);
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background: var(--jiban);
+    color: var(--jiban-mozi);
+    font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+    padding-inline:16px; padding-block:28px;
+    display:flex; flex-direction:column; align-items:center; gap:18px;
+  }
+
+  .tejun{ font-size:13px; text-align:center; max-width:62ch; line-height:1.7; letter-spacing:.04em; }
+  .tejun b{ font-weight:700; }
+
+  .kami{
+    width:100%; max-width:800px;
+    background: var(--kinari); color: var(--sumi);
+    box-shadow: var(--kage);
+    display:flex; flex-direction:column;
+  }
+
+  /* ===== 暖簾 ===== */
+  .noren{
+    background: var(--ai); color: var(--kinari);
+    padding: clamp(20px,3.6vw,32px) clamp(18px,3.2vw,36px) clamp(24px,4vw,36px);
+    display:flex; flex-wrap:wrap; align-items:flex-end;
+    justify-content:space-between; gap:8px 24px; position:relative;
+  }
+  .noren::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:10px;
+    background: repeating-linear-gradient(90deg,
+      var(--ai) 0 calc(100% / 7 - 3px),
+      var(--kinari) calc(100% / 7 - 3px) calc(100% / 7));
+  }
+  .yagou{
+    font-family:"Yuji Syuku",serif; margin:0;
+    font-size: clamp(38px,7.4vw,66px); line-height:1; letter-spacing:.08em;
+  }
+  .midashi{
+    font-size: clamp(20px,3.2vw,30px); font-weight:900; letter-spacing:.18em;
+    padding-bottom:.3em;
+  }
+
+  /* ===== 三手 ===== */
+  .mittsu{ padding: clamp(22px,3.6vw,36px) clamp(18px,3.2vw,36px) clamp(10px,1.6vw,16px); }
+
+  .te{
+    display:grid;
+    grid-template-columns: clamp(58px,8.4vw,86px) 1fr;
+    gap: clamp(16px,2.8vw,30px);
+    align-items:start;
+    padding-block: clamp(16px,2.8vw,26px);
+  }
+  .te + .te{ border-top:1px solid var(--kinari-in); }
+
+  .ban{
+    font-family:"Yuji Syuku",serif; color: var(--shu);
+    font-size: clamp(46px,7.6vw,76px); line-height:.88;
+    text-align:center;
+  }
+  .te h2{
+    margin:0; color: var(--ai-fuka);
+    font-size: clamp(30px,5.8vw,52px);
+    font-weight:900; line-height:1.22; letter-spacing:.01em; text-wrap:balance;
+  }
+  .te p{
+    margin:.55em 0 0;
+    font-size: clamp(15px,2.3vw,21px);
+    font-weight:700; line-height:1.6; color: var(--sumi);
+  }
+  .tsuyo{ color: var(--shu); }
+
+  /* ===== 二段 ===== */
+  .nidan{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: clamp(16px,2.8vw,28px);
+    padding: clamp(8px,1.4vw,14px) clamp(18px,3.2vw,36px) clamp(20px,3.2vw,30px);
+  }
+  .maki{ border-top:3px solid var(--ai); padding-top: clamp(13px,2vw,18px); }
+  .maki h3{
+    margin:0 0 .75em; color: var(--ai);
+    font-size: clamp(17px,2.4vw,22px); font-weight:900; letter-spacing:.16em;
+  }
+  ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap: clamp(10px,1.6vw,15px); }
+  li{
+    font-size: clamp(15px,2.2vw,20px); font-weight:700; line-height:1.5;
+    padding-left:1.1em; position:relative;
+  }
+  li::before{
+    content:"・"; position:absolute; left:0; color: var(--ai); font-weight:900;
+  }
+  .neta{ color: var(--shu); font-weight:900; border-bottom:2px solid var(--shu); padding-bottom:1px; }
+
+  /* ===== 足元 ===== */
+  .ashimoto{
+    margin-top:auto; background: var(--ai-fuka); color: var(--kinari);
+    padding: clamp(14px,2.2vw,20px) clamp(18px,3.2vw,36px);
+    font-size: clamp(16px,2.3vw,21px); font-weight:900; letter-spacing:.08em;
+    text-align:center;
+  }
+
+  @media print{
+    @page{ size: A3 portrait; margin: 10mm; }
+    body{ background:#fff; padding:0; display:block; }
+    .tejun{ display:none; }
+    .kami{ max-width:none; width:100%; min-height:277mm; box-shadow:none; }
+  }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+
+<p class="tejun">
+  日本語版。A3たてで印刷できます ―
+  <b>⌘P → 用紙 A3 →「背景のグラフィックを印刷」にチェック</b><br>
+  ネタの名前は、別のお品書きをまな板の横に置いてください。
+</p>
+
+<div class="kami">
+
+  <header class="noren">
+    <h1 class="yagou">にぎり寿司</h1>
+    <div class="midashi">あそびかた</div>
+  </header>
+
+  <section class="mittsu">
+
+    <div class="te">
+      <div class="ban">壱</div>
+      <div>
+        <h2>まな板に お寿司を おく</h2>
+        <p>注文されたネタを、ひとつずつ 離して ならべてください。</p>
+      </div>
+    </div>
+
+    <div class="te">
+      <div class="ban">弐</div>
+      <div>
+        <h2>手を ひく</h2>
+        <p><span class="tsuyo">ボタンはありません。</span>手をどけると、3・2・1 と数えはじめます。</p>
+      </div>
+    </div>
+
+    <div class="te">
+      <div class="ban">参</div>
+      <div>
+        <h2>へい、お待ち！</h2>
+        <p>数えているあいだに お寿司にさわれば、やりなおせます。</p>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="nidan">
+
+    <div class="maki">
+      <h3>はじめかた</h3>
+      <ul>
+        <li><span class="neta">マグロ</span> を おくと はじまります</li>
+        <li><span class="neta">サーモン</span> で にほんご</li>
+        <li><span class="neta">エビ</span> で ENGLISH</li>
+      </ul>
+    </div>
+
+    <div class="maki">
+      <h3>おぼえておくこと</h3>
+      <ul>
+        <li>お客さんは 3人。ぜんぶで 2分ほど</li>
+        <li><span class="tsuyo">はやく出すほど 売上が あがります</span></li>
+        <li>3人目は 注文票が 出ません。おぼえて にぎってください</li>
+        <li>おわったら まな板を からに してください</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <footer class="ashimoto">うまくいかないときは、お気軽にスタッフへ</footer>
+
+</div>

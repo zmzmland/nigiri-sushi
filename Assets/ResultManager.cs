@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 /// <summary>
@@ -62,6 +63,21 @@ public class ResultManager : MonoBehaviour
     public Vector2 titleSize = new Vector2(760f, 110f);
     public float titleBottomMargin = 36f;
 
+
+    [Header("タイトルへ自動で戻る")]
+    [Tooltip("全部出そろったあと、ひとりでにタイトルへ戻る。\n" +
+             "展示では次のお客さんのために必ず戻しておきたいので、既定でオンです")]
+    public bool autoReturnToTitle = true;
+
+    [Tooltip("称号が出てから、タイトルへ戻るまでの秒数")]
+    public float autoReturnSeconds = 5f;
+
+    [Tooltip("戻る先のシーン名")]
+    public string titleSceneName = "SampleScene";
+
+    [Tooltip("あと何秒で戻るかを画面に出す")]
+    public bool showReturnCountdown = true;
+
     [Header("ランキング")]
     [Tooltip("この順位以内に入ったら「番付入り」と出す")]
     public int highlightRank = 5;
@@ -112,21 +128,27 @@ public class ResultManager : MonoBehaviour
 
         var lines = new List<string>
         {
-            $"提供数 : {ResultData.correctCount} / {ResultData.totalOrders} 貫",
+            GameMode.T($"提供数 : {ResultData.correctCount} / {ResultData.totalOrders} 貫",
+                       $"Served : {ResultData.correctCount} / {ResultData.totalOrders} pcs"),
 
-            $"売上 : {ResultData.score:N0}円" +
-            $"　（{ResultData.PricePerPiece}円 × {ResultData.correctCount}貫）",
+            GameMode.T($"売上 : {ResultData.score:N0}円" +
+                       $"　（{ResultData.PricePerPiece}円 × {ResultData.correctCount}貫）",
+                       $"Sales : ¥{ResultData.score:N0}" +
+                       $"  (¥{ResultData.PricePerPiece} × {ResultData.correctCount})"),
 
-            $"総対応時間 : {minutes}分 {seconds}秒",
+            GameMode.T($"総対応時間 : {minutes}分 {seconds}秒",
+                       $"Total time : {minutes}m {seconds}s"),
 
-            $"スピードボーナス : +{ResultData.timeBonusYen:N0}円",
+            GameMode.T($"スピードボーナス : +{ResultData.timeBonusYen:N0}円",
+                       $"Speed bonus : +¥{ResultData.timeBonusYen:N0}"),
         };
 
         // 全問正解したときだけ、その行を足す。
         // 0円の行を出しても「取れなかった」が目立つだけなので出しません。
         if (ResultData.perfectBonusYen > 0)
         {
-            lines.Add($"全問正解ボーナス : +{ResultData.perfectBonusYen:N0}円");
+            lines.Add(GameMode.T($"全問正解ボーナス : +{ResultData.perfectBonusYen:N0}円",
+                                 $"Perfect bonus : +¥{ResultData.perfectBonusYen:N0}"));
         }
 
         yield return new WaitForSecondsRealtime(startDelay);
@@ -151,6 +173,76 @@ public class ResultManager : MonoBehaviour
 
         // --- 最後に称号 ---
         yield return StartCoroutine(ShowTitle());
+
+        // --- タイトルへ戻る ---
+        yield return StartCoroutine(ReturnToTitle());
+    }
+
+    /// <summary>
+    /// しばらく見せてから、ひとりでにタイトルへ戻る。
+    ///
+    /// 展示では、遊び終わった画面が残ったままだと次の人が始められません。
+    /// 係員が何もしなくても待機状態に戻るようにしておきます。
+    /// 「営業再開」を押した場合は、そちらが先にシーンを変えるので
+    /// このコルーチンは自動的に止まります。
+    /// </summary>
+    private IEnumerator ReturnToTitle()
+    {
+        if (!autoReturnToTitle) yield break;
+        if (string.IsNullOrEmpty(titleSceneName)) yield break;
+
+        returnAt = Time.unscaledTime + Mathf.Max(0f, autoReturnSeconds);
+
+        while (Time.unscaledTime < returnAt)
+        {
+            returnRemain = returnAt - Time.unscaledTime;
+            yield return null;
+        }
+
+        returnRemain = 0f;
+        Debug.Log($"[ResultManager] {titleSceneName} へ戻ります");
+        SceneManager.LoadScene(titleSceneName);
+    }
+
+    // 残り秒数の表示用
+    private float returnAt = -1f;
+    private float returnRemain = -1f;
+
+    void OnGUI()
+    {
+        if (!showReturnCountdown || !autoReturnToTitle) return;
+        if (returnRemain <= 0f) return;
+
+        Matrix4x4 __m = UiScale.Begin();
+        try
+        {
+            string text = GameMode.T(
+                $"{Mathf.CeilToInt(returnRemain)} 秒後にタイトルへ戻ります",
+                $"Back to the title in {Mathf.CeilToInt(returnRemain)}s");
+
+            float w = Mathf.Min(420f, UiScale.W - 40f);
+            float h = 34f;
+            float x = (UiScale.W - w) / 2f;
+            float y = UiScale.H - h - 16f;
+
+            Color prev = GUI.color;
+
+            GUI.color = new Color(0f, 0f, 0f, 0.45f);
+            GUI.DrawTexture(new Rect(x, y, w, h), Texture2D.whiteTexture);
+
+            var style = new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                fontSize = 16,
+            };
+            style.normal.textColor = new Color(1f, 1f, 1f, 0.85f);
+
+            GUI.color = Color.white;
+            GUI.Label(new Rect(x, y, w, h), text, style);
+
+            GUI.color = prev;
+        }
+        finally { UiScale.End(__m); }
     }
 
     private IEnumerator ShowTotal()
@@ -182,7 +274,7 @@ public class ResultManager : MonoBehaviour
         int final = ResultData.finalScore;
 
         ResultTier tier = GameAudio.TierFor(final);
-        string text = tier != null ? tier.title : "";
+        string text = GameAudio.TitleOf(tier);
 
         // 称号を出さない設定・文言が空・テキストを作れない、のどれかなら
         // 音だけ鳴らして終わる（今までと同じ動き）
@@ -297,16 +389,17 @@ public class ResultManager : MonoBehaviour
     {
         var sb = new System.Text.StringBuilder();
 
-        sb.AppendLine("合計");
-        sb.Append($"{value:N0}円");
+        sb.AppendLine(GameMode.T("合計", "TOTAL"));
+        sb.Append(GameMode.Yen(value));
 
         if (showRank && ResultData.lastRank > 0)
         {
             sb.AppendLine();
             sb.AppendLine();
-            sb.Append($"{ResultData.lastRank}位");
+            sb.Append(GameMode.T($"{ResultData.lastRank}位", $"#{ResultData.lastRank}"));
 
-            if (ResultData.lastRank <= highlightRank) sb.Append("　★番付入り★");
+            if (ResultData.lastRank <= highlightRank)
+                sb.Append(GameMode.T("　★番付入り★", "  ★ ON THE BOARD ★"));
         }
 
         return sb.ToString();

@@ -82,12 +82,41 @@ public class Customer : MonoBehaviour
     [Tooltip("この面を全問正解したときの追加ボーナス（円）。0 で無効")]
     public int perfectBonus = 1000;
 
+    [Tooltip("直前の客が注文したネタを、この客の注文から外す。\n" +
+             "ネタの種類が足りないときは自動で解除されます")]
+    public bool avoidPreviousCustomer = true;
+
+    [Header("注文の文字の大きさ（吹き出し）")]
+    [Tooltip("吹き出しに文字で注文を出すときの大きさ。\n" +
+             "自動調整の下限と上限です。吹き出しに収まる範囲で\n" +
+             "できるだけ大きく表示されます。\n" +
+             "下限と上限を同じ値にすると、サイズが固定になります")]
+    public float orderFontMin = 14f;
+
+    public float orderFontMax = 90f;
+
+    [Header("判定結果の表示")]
+    [Tooltip("判定のあと、この面の正解数を出す秒数。0 にすると出しません。\n" +
+             "認識中はネタ名を隠しているので、ここが結果を知る唯一の場面です")]
+    public float judgeDisplaySeconds = 2.8f;
+
+    [Tooltip("札の上に出す絵。WaitScene で使っていた「へいお待ち」の画像を\n" +
+             "そのままドラッグできます。空なら文字で「へい、お待ち！」と出します")]
+    public Sprite judgeArt;
+
+    [Tooltip("その絵の高さ（ピクセル）")]
+    public float judgeArtHeight = 70f;
+
     [Header("経過時間の表示")]
     [Tooltip("画面の上に、経過秒数と残りボーナスを出す")]
     public bool showTimer = true;
 
     [Tooltip("画面の上端からの距離")]
     public float timerTopMargin = 14f;
+
+    [Tooltip("WaitScene を経由せず、判定結果の札を見せたあと直接次の面へ進む。\n" +
+             "「へいお待ち」を札に統合したので、既定では経由しません")]
+    public bool skipWaitScene = true;
 
     [Header("Scene Flow")]
     public string nextSceneName = "WaitScene";
@@ -103,6 +132,13 @@ public class Customer : MonoBehaviour
     private Vector2 baseSize;
 
     private readonly List<Sprite> orderHistory = new List<Sprite>();
+
+
+    // 判定結果の表示用（この面ぶん）
+    private bool  judgeShowing = false;
+    private int   judgePoint = 0;
+    private int   judgeSpeedYen = 0;
+    private int   judgePerfectYen = 0;
 
     private float timerStart = -1f;
     private float elapsedTime = 0f;
@@ -282,9 +318,12 @@ public class Customer : MonoBehaviour
 
         orderText.color = Color.black;   // 吹き出しは白なので黒文字
         orderText.alignment = TextAlignmentOptions.Center;
-        orderText.enableAutoSizing = true;
-        orderText.fontSizeMin = 14f;
-        orderText.fontSizeMax = 90f;
+        orderText.textWrappingMode = TextWrappingModes.Normal;
+        // 大きさは Inspector の「注文の文字の大きさ（吹き出し）」で変えられます
+        orderText.enableAutoSizing = (orderFontMax > orderFontMin);
+        orderText.fontSizeMin = orderFontMin;
+        orderText.fontSizeMax = Mathf.Max(orderFontMin, orderFontMax);
+        if (!orderText.enableAutoSizing) orderText.fontSize = orderFontMin;
         orderText.raycastTarget = false;
         orderText.text = "";
     }
@@ -317,7 +356,7 @@ public class Customer : MonoBehaviour
         // 3) 画像が無い文字モード → フォントで出す
         if (orderText != null)
         {
-            orderText.text = GameMode.LabelFor(order);
+            orderText.text = GameMode.WrapForDisplay(GameMode.LabelFor(order));
             if (orderImage != null) orderImage.enabled = false;
         }
         else if (orderImage != null)
@@ -350,7 +389,33 @@ public class Customer : MonoBehaviour
             return;
         }
 
-        var pool = new List<Sprite>(kinds);
+        // --- 直前の客と同じネタを避ける ---
+        // 「さっきも同じのを頼まれた」が続くと、単調に見えてしまうため。
+        // ただし種類が足りないときは、避けるより注文が成立するほうを優先します。
+        var candidates = new List<Sprite>(kinds);
+
+        if (avoidPreviousCustomer && ResultData.lastOrderNames.Count > 0)
+        {
+            var fresh = new List<Sprite>();
+            foreach (Sprite s in kinds)
+            {
+                if (!ResultData.lastOrderNames.Contains(s.name)) fresh.Add(s);
+            }
+
+            if (fresh.Count >= orderCount)
+            {
+                candidates = fresh;
+            }
+            else
+            {
+                Debug.LogWarning(
+                    $"直前の客のネタを除くと {fresh.Count} 種しか残らず、" +
+                    $"注文数 {orderCount} に足りません。今回は重複を許します。" +
+                    "Order Sprites を増やすか Order Count を減らしてください。");
+            }
+        }
+
+        var pool = new List<Sprite>(candidates);
         bool warned = false;
 
         for (int i = 0; i < orderCount; i++)
@@ -371,6 +436,10 @@ public class Customer : MonoBehaviour
             orderHistory.Add(pool[k]);
             pool.RemoveAt(k);
         }
+
+        // 次の客のために、今回のネタを覚えておく
+        ResultData.lastOrderNames.Clear();
+        foreach (Sprite s in orderHistory) ResultData.lastOrderNames.Add(s.name);
     }
 
     // =========================
@@ -438,7 +507,17 @@ public class Customer : MonoBehaviour
             // WaitScene に「次はここへ」と伝えてから移る
             ResultData.nextAfterWait = sceneAfterWait;
 
-            SceneManager.LoadScene(nextSceneName);
+            // この面の結果を見せてから次へ。
+            // 認識中はネタ名を隠しているので、
+            // 「合っていたか」を知る場面はここだけです。
+            yield return ShowJudgeResult(point);
+
+            // 「へいお待ち」は札に統合したので、WaitScene は既定では通りません
+            string go = (skipWaitScene && !string.IsNullOrEmpty(sceneAfterWait))
+                ? sceneAfterWait
+                : nextSceneName;
+
+            SceneManager.LoadScene(go);
             yield break;
         }
     }
@@ -503,6 +582,9 @@ public class Customer : MonoBehaviour
         // 全問正解のごほうび。惜しい人との差をはっきりさせる
         int perfect = (orderCount > 0 && point >= orderCount) ? perfectBonus : 0;
 
+        judgeSpeedYen   = speed;
+        judgePerfectYen = perfect;
+
         ResultData.timeBonusYen    += speed;
         ResultData.perfectBonusYen += perfect;
 
@@ -543,6 +625,19 @@ public class Customer : MonoBehaviour
     // =====================================================
     void OnGUI()
     {
+        // 画面の大きさに合わせて表示全体を拡大する。
+        // OnGUI はピクセルで描くので、これが無いとフルスクリーンで
+        // 文字だけ小さいままになります。倍率は UiScale.Extra。
+        Matrix4x4 __m = UiScale.Begin();
+        try { DrawGui(); }
+        finally { UiScale.End(__m); }
+    }
+
+    private void DrawGui()
+    {
+        // 判定結果が出ている間は、それだけを見せる
+        if (judgeShowing) { DrawJudgeResult(); return; }
+
         if (!showTimer || timerStart < 0f) return;
 
         float t = judged ? elapsedTime : (Time.time - timerStart);
@@ -552,9 +647,9 @@ public class Customer : MonoBehaviour
         int yen = (saved <= 0f) ? 0 : Mathf.RoundToInt(saved * yenPerSecond);
         float remain = Mathf.Clamp01(saved / limit);
 
-        float w = Mathf.Min(340f, Screen.width - 40f);
+        float w = Mathf.Min(340f, UiScale.W - 40f);
         float h = 58f;
-        float x = (Screen.width - w) / 2f;
+        float x = (UiScale.W - w) / 2f;
         float y = timerTopMargin;
 
         Color prev = GUI.color;
@@ -577,7 +672,8 @@ public class Customer : MonoBehaviour
             fontStyle = FontStyle.Bold,
         };
         timeStyle.normal.textColor = Color.white;
-        GUI.Label(new Rect(x + 16f, y, w * 0.5f, h - 7f), $"{t:F1}秒", timeStyle);
+        GUI.Label(new Rect(x + 16f, y, w * 0.5f, h - 7f),
+                  GameMode.T($"{t:F1}秒", $"{t:F1}s"), timeStyle);
 
         var yenStyle = new GUIStyle(GUI.skin.label)
         {
@@ -588,7 +684,128 @@ public class Customer : MonoBehaviour
             ? new Color(1f, 0.9f, 0.55f)
             : new Color(0.7f, 0.7f, 0.7f);
         GUI.Label(new Rect(x + w * 0.42f, y, w * 0.58f - 16f, h - 7f),
-                  (yen > 0) ? $"+{yen:N0}円" : "ボーナスなし", yenStyle);
+                  (yen > 0) ? "+" + GameMode.Yen(yen)
+                            : GameMode.T("ボーナスなし", "No bonus"), yenStyle);
+
+        GUI.color = prev;
+    }
+
+
+    // =====================================================
+    //  判定結果を見せる
+    //
+    //  認識中はネタの名前を隠しているので、
+    //  「合っていたか」を知る場面がここしかありません。
+    //  少し止めて、必ず目に入るようにします。
+    // =====================================================
+    private IEnumerator ShowJudgeResult(int point)
+    {
+        if (judgeDisplaySeconds <= 0f) yield break;
+
+        judgePoint = point;
+        judgeShowing = true;
+
+        yield return new WaitForSecondsRealtime(judgeDisplaySeconds);
+
+        judgeShowing = false;
+    }
+
+    /// <summary>
+    /// 判定結果の札。画面の中央に出します。
+    ///
+    /// もともと WaitScene が受け持っていた「へいお待ち」を、
+    /// この札に統合しました。シーンを切り替えないぶんテンポが良く、
+    /// 正解数と同時に見せられます。
+    /// </summary>
+    private void DrawJudgeResult()
+    {
+        bool perfect = (orderCount > 0 && judgePoint >= orderCount);
+
+        bool hasArt = (judgeArt != null && judgeArt.texture != null);
+        float artH = hasArt ? judgeArtHeight : 0f;
+
+        float w = Mathf.Min(520f, UiScale.W - 40f);
+        float h = 210f + artH;
+        float x = (UiScale.W - w) / 2f;
+        float y = (UiScale.H - h) / 2f;
+
+        Color prev = GUI.color;
+
+        GUI.color = new Color(0f, 0f, 0f, 0.72f);
+        GUI.DrawTexture(new Rect(x, y, w, h), Texture2D.whiteTexture);
+        GUI.color = Color.white;
+
+        float cursor = y + 12f;
+
+        // --- へいお待ちの絵（あれば）---
+        if (hasArt)
+        {
+            Rect tr = judgeArt.textureRect;
+            var uv = new Rect(tr.x / judgeArt.texture.width,
+                              tr.y / judgeArt.texture.height,
+                              tr.width / judgeArt.texture.width,
+                              tr.height / judgeArt.texture.height);
+
+            float aspect = (tr.height > 0f) ? tr.width / tr.height : 1f;
+            float artW = Mathf.Min(w - 40f, artH * aspect);
+
+            GUI.DrawTextureWithTexCoords(
+                new Rect(x + (w - artW) / 2f, cursor, artW, artH),
+                judgeArt.texture, uv);
+
+            cursor += artH + 6f;
+        }
+        else
+        {
+            var head = new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                fontSize = 26,
+            };
+            head.normal.textColor = new Color(1f, 1f, 1f, 0.9f);
+            GUI.Label(new Rect(x, cursor, w, 34f),
+                      GameMode.T("へい、お待ち！", "Here you are!"), head);
+            cursor += 38f;
+        }
+
+        // --- 正解数 ---
+        var big = new GUIStyle(GUI.skin.label)
+        {
+            alignment = TextAnchor.MiddleCenter,
+            fontSize = 56,
+            fontStyle = FontStyle.Bold,
+        };
+        big.normal.textColor = perfect
+            ? new Color(1f, 0.85f, 0.40f)
+            : Color.white;
+        GUI.Label(new Rect(x, cursor, w, 70f),
+                  GameMode.T($"{judgePoint} / {orderCount} 貫",
+                             $"{judgePoint} / {orderCount} pcs"), big);
+        cursor += 74f;
+
+        // --- 内訳 ---
+        var money = new GUIStyle(GUI.skin.label)
+        {
+            alignment = TextAnchor.MiddleCenter,
+            fontSize = 20,
+        };
+        money.normal.textColor = new Color(1f, 0.93f, 0.70f);
+
+        var sb = new System.Text.StringBuilder();
+        sb.Append(GameMode.T("売上 +", "Sales +") + GameMode.Yen(judgePoint * ResultData.PricePerPiece));
+        if (judgeSpeedYen > 0)   sb.Append(GameMode.T("　　速さ +", "   Speed +") + GameMode.Yen(judgeSpeedYen));
+        if (judgePerfectYen > 0) sb.Append(GameMode.T("　　全問 +", "   Perfect +") + GameMode.Yen(judgePerfectYen));
+
+        GUI.Label(new Rect(x, cursor, w, 30f), sb.ToString(), money);
+
+        var total = new GUIStyle(GUI.skin.label)
+        {
+            alignment = TextAnchor.MiddleCenter,
+            fontSize = 17,
+        };
+        total.normal.textColor = new Color(1f, 1f, 1f, 0.7f);
+        GUI.Label(new Rect(x, y + h - 40f, w, 26f),
+                  GameMode.T("ここまでの売上　", "Total so far  ") + GameMode.Yen(ResultData.finalScore), total);
 
         GUI.color = prev;
     }

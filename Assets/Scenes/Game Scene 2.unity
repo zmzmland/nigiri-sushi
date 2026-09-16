@@ -241,6 +241,9 @@ MonoBehaviour:
   cooldown: 0.5
   heartbeatTimeout: 8
   showStatus: 1
+  statusBottomMargin: 230
+  showDetect: 1
+  detectCheckInterval: 0.15
 --- !u!4 &290122844
 Transform:
   m_ObjectHideFlags: 0
@@ -290,8 +293,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.7312, y: -0.00061703}
-  m_SizeDelta: {x: 1000, y: 571}
+  m_AnchoredPosition: {x: -1.9105, y: -0.00061703}
+  m_SizeDelta: {x: 875.5593, y: 571}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &602746717
 MonoBehaviour:
@@ -581,8 +584,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.7317, y: -223.16}
-  m_SizeDelta: {x: 1000, y: 125}
+  m_AnchoredPosition: {x: -1.9101, y: -223.16}
+  m_SizeDelta: {x: 875.5593, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1305279151
 MonoBehaviour:
@@ -947,13 +950,18 @@ MonoBehaviour:
   fadeTime: 1.5
   resultCheckInterval: 0.2
   noResultWarnAfter: 90
-  timeThresholds:
-  - 40
-  - 50
-  - 60
-  - 70
-  - 80
-  timeBonusAmounts: d0070000dc050000e8030000f401000000000000
+  secondsPerPiece: 8
+  yenPerSecond: 100
+  perfectBonus: 1000
+  avoidPreviousCustomer: 1
+  orderFontMin: 14
+  orderFontMax: 90
+  judgeDisplaySeconds: 2.8
+  judgeArt: {fileID: 0}
+  judgeArtHeight: 70
+  showTimer: 1
+  timerTopMargin: 14
+  skipWaitScene: 1
   nextSceneName: WaitScene
   sceneAfterWait: Game Scene 3
 --- !u!1660057539 &9223372036854775807

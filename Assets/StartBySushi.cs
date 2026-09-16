@@ -46,11 +46,20 @@ public class StartBySushi : MonoBehaviour
     [Tooltip("待っているときの案内")]
     public string waitingText = "まな板に「マグロ」を置くと始まります";
 
+    [Tooltip("英語モードのときの案内")]
+    public string waitingTextEn = "Place the TUNA on the board to start";
+
     [Tooltip("見えているときの案内")]
     public string detectedText = "マグロを確認しました";
 
+    [Tooltip("英語モードのときの案内")]
+    public string detectedTextEn = "Tuna — got it";
+
     [Tooltip("画像認識が動いていないときの案内")]
     public string offlineText = "画像認識の準備中です（「始め」でも開始できます）";
+
+    [Tooltip("英語モードのときの案内")]
+    public string offlineTextEn = "Getting the camera ready…";
 
     [Tooltip("画面の下端からの距離")]
     public float bottomMargin = 90f;
@@ -144,6 +153,16 @@ public class StartBySushi : MonoBehaviour
     // =====================================================
     void OnGUI()
     {
+        // 画面の大きさに合わせて表示全体を拡大する。
+        // OnGUI はピクセルで描くので、これが無いとフルスクリーンで
+        // 文字だけ小さいままになります。倍率は UiScale.Extra。
+        Matrix4x4 __m = UiScale.Begin();
+        try { DrawGui(); }
+        finally { UiScale.End(__m); }
+    }
+
+    private void DrawGui()
+    {
         if (!showGuide || !enableSushiStart) return;
         if (ModeSelect.Instance != null && ModeSelect.Instance.IsOpen) return;
 
@@ -152,24 +171,24 @@ public class StartBySushi : MonoBehaviour
 
         if (!pythonAlive)
         {
-            message = offlineText;
+            message = GameMode.T(offlineText, offlineTextEn);
         }
         else if (seeing)
         {
-            message = detectedText;
+            message = GameMode.T(detectedText, detectedTextEn);
             progress = holdSeconds <= 0f
                 ? 1f
                 : Mathf.Clamp01((Time.time - seeingSince) / holdSeconds);
         }
         else
         {
-            message = waitingText;
+            message = GameMode.T(waitingText, waitingTextEn);
         }
 
-        float w = Mathf.Min(760f, Screen.width - 40f);
+        float w = Mathf.Min(760f, UiScale.W - 40f);
         float h = 54f;
-        float x = (Screen.width - w) / 2f;
-        float y = Screen.height - bottomMargin;
+        float x = (UiScale.W - w) / 2f;
+        float y = UiScale.H - bottomMargin;
 
         Color prev = GUI.color;
 

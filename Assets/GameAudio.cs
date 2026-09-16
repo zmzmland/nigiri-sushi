@@ -30,6 +30,10 @@ public class ResultTier
     [TextArea(1, 3)]
     public string title = "";
 
+    [Tooltip("英語モードのときの称号。空なら日本語のほうを出します")]
+    [TextArea(1, 3)]
+    public string titleEn = "";
+
     [Tooltip("称号の文字色")]
     public Color titleColor = Color.white;
 }
@@ -306,27 +310,27 @@ public class GameAudio : MonoBehaviour
         {
             new ResultTier {
                 name = "銀座", minScore = 13000, clipName = "se_result_high",
-                title = "銀座の名店からスカウトが来た！",
+                title = "銀座の名店からスカウトが来た！", titleEn = "Scouted by a top Ginza restaurant!",
                 titleColor = new Color(0.776f, 0.157f, 0.157f),  // 朱赤 #C62828
             },
             new ResultTier {
                 name = "行列", minScore = 10500, clipName = "se_result_high",
-                title = "行列ができる名店になった！",
+                title = "行列ができる名店になった！", titleEn = "People are queueing down the street!",
                 titleColor = new Color(0.796f, 0.396f, 0.078f),  // 柿色 #CB6514
             },
             new ResultTier {
                 name = "評判", minScore = 8000, clipName = "se_result_mid",
-                title = "近所で評判の寿司屋だ",
+                title = "近所で評判の寿司屋だ", titleEn = "The talk of the neighbourhood",
                 titleColor = new Color(0.106f, 0.427f, 0.169f),  // 深緑 #1B6D2B
             },
             new ResultTier {
                 name = "常連", minScore = 5500, clipName = "se_result_mid",
-                title = "常連さんがついてきたね",
+                title = "常連さんがついてきたね", titleEn = "You're getting regulars",
                 titleColor = new Color(0.122f, 0.306f, 0.475f),  // 藍  #1F4E79
             },
             new ResultTier {
                 name = "修業", minScore = 0, clipName = "se_result_low",
-                title = "修業はこれからだ！",
+                title = "修業はこれからだ！", titleEn = "Still in training — keep at it!",
                 titleColor = new Color(0.216f, 0.255f, 0.286f),  // 墨  #374149
             },
         };
@@ -355,8 +359,15 @@ public class GameAudio : MonoBehaviour
     /// <summary>売上に対応する称号。無ければ空文字。</summary>
     public static string TitleFor(int score)
     {
-        ResultTier tr = TierFor(score);
-        return tr == null ? "" : tr.title;
+        return TitleOf(TierFor(score));
+    }
+
+    /// <summary>その段の称号を、いまのモードの言語で返す。</summary>
+    public static string TitleOf(ResultTier tr)
+    {
+        if (tr == null) return "";
+        if (GameMode.IsEnglish && !string.IsNullOrEmpty(tr.titleEn)) return tr.titleEn;
+        return tr.title;
     }
 
     // =====================================================

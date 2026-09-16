@@ -1,0 +1,226 @@
+<title>Nigiri Sushi How to Play</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@500;600;700&family=Yuji+Syuku&display=swap">
+
+<style>
+  :root{
+    /* indigo noren, unbleached paper, vermilion seal */
+    --ai:        #1B3A5C;
+    --ai-fuka:   #12293F;
+    --shu:       #B7332B;
+    --kinari:    #F4EDDC;
+    --kinari-in: #E4D8BE;
+    --sumi:      #24211D;
+
+    --jiban:     #D9D2C2;
+    --jiban-mozi:#3A3730;
+    --kage: 0 2px 4px rgba(27,58,92,.08), 0 12px 32px rgba(27,58,92,.10);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --jiban:      #191B1E;
+      --jiban-mozi: #B9B4A8;
+      --kage: 0 2px 4px rgba(0,0,0,.35), 0 18px 46px rgba(0,0,0,.45);
+    }
+  }
+  :root[data-theme="dark"]{
+    --jiban:      #191B1E;
+    --jiban-mozi: #B9B4A8;
+    --kage: 0 2px 4px rgba(0,0,0,.35), 0 18px 46px rgba(0,0,0,.45);
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background: var(--jiban);
+    color: var(--jiban-mozi);
+    font-family:"Barlow","Helvetica Neue",Arial,sans-serif;
+    padding-inline:16px; padding-block:28px;
+    display:flex; flex-direction:column; align-items:center; gap:18px;
+  }
+
+  .note{ font-size:13px; text-align:center; max-width:62ch; line-height:1.7; }
+  .note b{ font-weight:700; }
+
+  .sheet{
+    width:100%; max-width:800px;
+    background: var(--kinari); color: var(--sumi);
+    box-shadow: var(--kage);
+    display:flex; flex-direction:column;
+  }
+
+  /* ===== noren header ===== */
+  .noren{
+    background: var(--ai); color: var(--kinari);
+    padding: clamp(20px,3.6vw,32px) clamp(18px,3.2vw,36px) clamp(24px,4vw,36px);
+    display:flex; flex-wrap:wrap; align-items:flex-end;
+    justify-content:space-between; gap:8px 24px; position:relative;
+  }
+  .noren::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:10px;
+    background: repeating-linear-gradient(90deg,
+      var(--ai) 0 calc(100% / 7 - 3px),
+      var(--kinari) calc(100% / 7 - 3px) calc(100% / 7));
+  }
+  .shop{
+    font-family:"Yuji Syuku",serif; margin:0;
+    font-size: clamp(38px,7.4vw,66px); line-height:1; letter-spacing:.08em;
+  }
+  .shop span{
+    display:block; font-family:"Barlow Condensed",sans-serif;
+    font-size:.26em; font-weight:600; letter-spacing:.42em;
+    opacity:.75; margin-top:.6em;
+  }
+  .kicker{
+    font-family:"Barlow Condensed",sans-serif;
+    font-size: clamp(24px,4vw,38px); font-weight:700;
+    letter-spacing:.14em; text-transform:uppercase; padding-bottom:.2em;
+  }
+
+  /* ===== three steps ===== */
+  .steps{ padding: clamp(22px,3.6vw,36px) clamp(18px,3.2vw,36px) clamp(10px,1.6vw,16px); }
+
+  .step{
+    display:grid;
+    grid-template-columns: clamp(58px,8.4vw,86px) 1fr;
+    gap: clamp(16px,2.8vw,30px);
+    align-items:start;
+    padding-block: clamp(16px,2.8vw,26px);
+  }
+  .step + .step{ border-top:1px solid var(--kinari-in); }
+
+  .num{
+    font-family:"Barlow Condensed",sans-serif; color: var(--shu);
+    font-size: clamp(50px,8.4vw,86px); font-weight:700; line-height:.85;
+    text-align:center; font-variant-numeric: tabular-nums;
+  }
+  .step h2{
+    margin:0; color: var(--ai-fuka);
+    font-family:"Barlow Condensed",sans-serif;
+    font-size: clamp(34px,6.6vw,60px);
+    font-weight:700; line-height:1.08; letter-spacing:.01em;
+    text-transform:uppercase; text-wrap:balance;
+  }
+  .step p{
+    margin:.5em 0 0;
+    font-size: clamp(15px,2.3vw,21px);
+    font-weight:500; line-height:1.55; color: var(--sumi);
+    max-width:46ch;
+  }
+  .hi{ color: var(--shu); font-weight:700; }
+
+  /* ===== two columns ===== */
+  .two{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: clamp(16px,2.8vw,28px);
+    padding: clamp(8px,1.4vw,14px) clamp(18px,3.2vw,36px) clamp(20px,3.2vw,30px);
+  }
+  .col{ border-top:3px solid var(--ai); padding-top: clamp(13px,2vw,18px); }
+  .col h3{
+    margin:0 0 .7em; color: var(--ai);
+    font-family:"Barlow Condensed",sans-serif;
+    font-size: clamp(19px,2.7vw,25px); font-weight:700;
+    letter-spacing:.16em; text-transform:uppercase;
+  }
+  ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap: clamp(10px,1.6vw,15px); }
+  li{
+    font-size: clamp(15px,2.2vw,20px); font-weight:500; line-height:1.5;
+    padding-left:1em; position:relative;
+  }
+  li::before{
+    content:""; position:absolute; left:0; top:.62em;
+    width:6px; height:6px; background: var(--ai); border-radius:50%;
+  }
+  .neta{
+    color: var(--shu); font-weight:700;
+    border-bottom:2px solid var(--shu); padding-bottom:1px;
+  }
+
+  /* ===== footer ===== */
+  .foot{
+    margin-top:auto; background: var(--ai-fuka); color: var(--kinari);
+    padding: clamp(14px,2.2vw,20px) clamp(18px,3.2vw,36px);
+    font-family:"Barlow Condensed",sans-serif;
+    font-size: clamp(18px,2.6vw,25px); font-weight:600; letter-spacing:.1em;
+    text-align:center; text-transform:uppercase;
+  }
+
+  @media print{
+    @page{ size: A3 portrait; margin: 10mm; }
+    body{ background:#fff; padding:0; display:block; }
+    .note{ display:none; }
+    .sheet{ max-width:none; width:100%; min-height:277mm; box-shadow:none; }
+  }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+
+<p class="note">
+  English sheet. Print at A3 portrait —
+  <b>⌘P → Paper size A3 → tick "Print backgrounds"</b><br>
+  Keep the separate fish list next to the cutting board.
+</p>
+
+<div class="sheet">
+
+  <header class="noren">
+    <h1 class="shop">にぎり寿司<span>Nigiri Sushi</span></h1>
+    <div class="kicker">How to play</div>
+  </header>
+
+  <section class="steps">
+
+    <div class="step">
+      <div class="num">1</div>
+      <div>
+        <h2>Put the sushi on the board</h2>
+        <p>Lay out what the customer ordered — one piece at a time, kept apart.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">2</div>
+      <div>
+        <h2>Take your hand away</h2>
+        <p><span class="hi">There is no button.</span> The moment your hand is clear, it counts down 3–2–1.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">3</div>
+      <div>
+        <h2>Here you are!</h2>
+        <p>Changed your mind? Touch a piece while it counts and the order resets.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="two">
+
+    <div class="col">
+      <h3>Getting started</h3>
+      <ul>
+        <li>Place the <span class="neta">TUNA</span> to open the shop</li>
+        <li>Place the <span class="neta">SALMON</span> for Japanese</li>
+        <li>Place the <span class="neta">SHRIMP</span> for English</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h3>Good to know</h3>
+      <ul>
+        <li>Three customers, about two minutes in all</li>
+        <li><span class="hi">The faster you serve, the more you earn</span></li>
+        <li>The third customer gets no order slip — you'll have to remember it</li>
+        <li>Please clear the board when you're done</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <footer class="foot">Need a hand? Just ask our staff</footer>
+
+</div>

@@ -31,7 +31,25 @@ public class ModeSelect : MonoBehaviour
     [Tooltip("ボタンの画像。空なら下の色で単色のボタンになります")]
     public Sprite buttonSprite;
 
+    [Tooltip("暗幕の色。画像を使わないときはこの単色で塗ります。\n" +
+             "文字が読みにくいときは、まず透明度（A）を上げてください")]
     public Color panelColor  = new Color(0f, 0f, 0f, 0.72f);
+
+    [Tooltip("暗幕に敷く画像。空なら上の単色。\n" +
+             "白い文字を載せるので、暗くて柄の少ない画像が向きます")]
+    public Sprite panelSprite;
+
+    [Tooltip("画像にかける色。白のままなら画像そのままの色。\n" +
+             "明るい画像しかないときは、ここを暗い灰色にすると落ち着きます")]
+    public Color panelSpriteTint = Color.white;
+
+    [Header("ボタンの小さい説明文")]
+    [Tooltip("「サーモンを置くと始まります」の濃さ。1 で主文字と同じ")]
+    [Range(0.5f, 1f)]
+    public float subAlpha = 1f;
+
+    [Tooltip("その文字の大きさの上限")]
+    public float subFontMax = 26f;
     public Color buttonColor = new Color(0.42f, 0.27f, 0.13f, 0.95f);
     public Color textColor   = Color.white;
 
@@ -236,7 +254,21 @@ public class ModeSelect : MonoBehaviour
         prt.offsetMin = Vector2.zero;
         prt.offsetMax = Vector2.zero;
 
-        panel.GetComponent<Image>().color = panelColor;
+        var panelImage = panel.GetComponent<Image>();
+
+        if (panelSprite != null)
+        {
+            // 画像を敷く。画面いっぱいに伸ばすので比率は保ちません
+            panelImage.sprite = panelSprite;
+            panelImage.type = Image.Type.Simple;
+            panelImage.preserveAspect = false;
+            panelImage.color = panelSpriteTint;
+        }
+        else
+        {
+            panelImage.sprite = null;
+            panelImage.color = panelColor;
+        }
 
         var vl = panel.GetComponent<VerticalLayoutGroup>();
         vl.childAlignment = TextAnchor.MiddleCenter;
@@ -361,11 +393,13 @@ public class ModeSelect : MonoBehaviour
         var subText = subGo.GetComponent<TextMeshProUGUI>();
         if (font != null) subText.font = font;
         subText.text = sub;
-        subText.color = new Color(textColor.r, textColor.g, textColor.b, 0.8f);
+        // ここは「何を置けば選べるか」という操作説明なので、
+        // 飾りではなく本体に近い。薄くしすぎない
+        subText.color = new Color(textColor.r, textColor.g, textColor.b, subAlpha);
         subText.alignment = TextAlignmentOptions.Center;
         subText.enableAutoSizing = true;
-        subText.fontSizeMin = 10f;
-        subText.fontSizeMax = 20f;
+        subText.fontSizeMin = 12f;
+        subText.fontSizeMax = subFontMax;
         subText.raycastTarget = false;
 
         return img;

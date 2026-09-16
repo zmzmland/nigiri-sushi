@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class ResultData
@@ -44,6 +45,13 @@ public static class ResultData
     /// </summary>
     public static int finalScore = 0;
 
+    /// <summary>
+    /// 直前の客が注文したネタの名前。
+    /// 次の客は、ここに入っているネタを避けて注文を組み立てます。
+    /// 「さっきと同じものばかり出る」を防ぐためのものです。
+    /// </summary>
+    public static readonly List<string> lastOrderNames = new List<string>();
+
     /// <summary>今回の結果をランキングに登録済みか（二重登録を防ぐ）。</summary>
     public static bool scoreRegistered = false;
 
@@ -78,6 +86,7 @@ public static class ResultData
         timeBonusYen = 0;
         perfectBonusYen = 0;
         finalScore = 0;
+        lastOrderNames.Clear();
         scoreRegistered = false;
         lastRank = 0;
         isProcessing = false;

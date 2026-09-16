@@ -122,24 +122,25 @@ public class DebugPanel : MonoBehaviour
     // -----------------------------------------------------------------
     //  描画
     // -----------------------------------------------------------------
-    private void OnGUI()
+    void OnGUI()
     {
-        if (!open)
-        {
-            // 閉じているときは右下に小さく出しておく
-            var hint = new GUIStyle(GUI.skin.label)
-            {
-                alignment = TextAnchor.MiddleRight,
-                fontSize = 12,
-            };
-            hint.normal.textColor = new Color(1f, 1f, 1f, 0.45f);
-            GUI.Label(new Rect(Screen.width - 210f, Screen.height - 22f, 200f, 18f),
-                      "Ctrl+Shift+D : デバッグ", hint);
-            return;
-        }
+        // 画面の大きさに合わせて表示全体を拡大する。
+        // OnGUI はピクセルで描くので、これが無いとフルスクリーンで
+        // 文字だけ小さいままになります。倍率は UiScale.Extra。
+        Matrix4x4 __m = UiScale.Begin();
+        try { DrawGui(); }
+        finally { UiScale.End(__m); }
+    }
 
-        float w = Mathf.Min(420f, Screen.width - 20f);
-        float h = Screen.height - 20f;
+    private void DrawGui()
+    {
+        // 閉じているときは何も出しません。
+        // お客さんの前に「デバッグ」の文字が見えないようにするためです。
+        // 開き方は Ctrl + Shift + D（このファイルの先頭に書いてあります）。
+        if (!open) return;
+
+        float w = Mathf.Min(420f, UiScale.W - 20f);
+        float h = UiScale.H - 20f;
         var area = new Rect(10f, 10f, w, h);
 
         GUI.color = new Color(0f, 0f, 0f, 0.88f);
@@ -156,6 +157,7 @@ public class DebugPanel : MonoBehaviour
         DrawSceneJump();
         DrawFakeRecognition();
         DrawMode();
+        DrawUiScale();
         DrawRanking();
 
         if (Time.unscaledTime < messageUntil && !string.IsNullOrEmpty(message))
@@ -305,6 +307,25 @@ public class DebugPanel : MonoBehaviour
             }
         }
         GUILayout.EndHorizontal();
+    }
+
+
+    /// <summary>表示の大きさを、遊びながら決めるためのもの。</summary>
+    private void DrawUiScale()
+    {
+        Section("表示の大きさ");
+
+        GUILayout.Label($"　いまの倍率 : {UiScale.Extra:F2} 倍" +
+                        $"（画面 {Screen.width}x{Screen.height} で実質 {UiScale.Factor:F2} 倍）",
+                        Small());
+
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("― 小さく")) { UiScale.Extra = Mathf.Max(0.6f, UiScale.Extra - 0.05f); }
+        if (GUILayout.Button("1.0 に戻す")) { UiScale.Extra = 1.0f; }
+        if (GUILayout.Button("＋ 大きく")) { UiScale.Extra = Mathf.Min(3.0f, UiScale.Extra + 0.05f); }
+        GUILayout.EndHorizontal();
+
+        GUILayout.Label("　決まったら教えてください。既定値に焼き込みます", Small());
     }
 
     private void DrawRanking()

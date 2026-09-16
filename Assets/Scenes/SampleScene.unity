@@ -737,8 +737,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.8116, y: -14.684192}
-  m_SizeDelta: {x: 1000, y: 542}
+  m_AnchoredPosition: {x: -0.0010719, y: -5.2520027}
+  m_SizeDelta: {x: 872.16, y: 560.86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &640129951
 MonoBehaviour:
@@ -1356,11 +1356,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ModeSelect
   font: {fileID: 11400000, guid: 4494f5cd66f52489e9575b1c46d238ef, type: 2}
   buttonSprite: {fileID: 7440981132975211316, guid: cdad000b521ec40b88e4d26d075b9b5a, type: 3}
-  panelColor: {r: 0, g: 0, b: 0, a: 0.72}
-  buttonColor: {r: 0.42, g: 0.27, b: 0.13, a: 0.95}
+  panelColor: {r: 0, g: 0, b: 0, a: 1}
+  panelSprite: {fileID: 21300000, guid: f4e557ff66b244787b8fc7b94881afb8, type: 3}
+  panelSpriteTint: {r: 1, g: 1, b: 1, a: 1}
+  subAlpha: 1
+  subFontMax: 26
+  buttonColor: {r: 1, g: 1, b: 1, a: 1}
   textColor: {r: 1, g: 1, b: 1, a: 1}
   buttonSize: {x: 520, y: 96}
-  spacing: 50
+  spacing: 30
   nextSceneName: Game Scene
   japaneseStyle: 1
   enableSushiSelect: 1
@@ -1395,8 +1399,11 @@ MonoBehaviour:
   nextSceneName: Game Scene
   showGuide: 1
   waitingText: "\u307E\u306A\u677F\u306B\u300C\u30DE\u30B0\u30ED\u300D\u3092\u7F6E\u304F\u3068\u59CB\u307E\u308A\u307E\u3059"
+  waitingTextEn: Place the TUNA on the board to start
   detectedText: "\u30DE\u30B0\u30ED\u3092\u78BA\u8A8D\u3057\u307E\u3057\u305F"
+  detectedTextEn: "Tuna \u2014 got it"
   offlineText: "\u753B\u50CF\u8A8D\u8B58\u306E\u6E96\u5099\u4E2D\u3067\u3059\uFF08\u300C\u59CB\u3081\u300D\u3067\u3082\u958B\u59CB\u3067\u304D\u307E\u3059\uFF09"
+  offlineTextEn: "Getting the camera ready\u2026"
   bottomMargin: 90
 --- !u!1 &1734564017
 GameObject:
@@ -1432,7 +1439,7 @@ MonoBehaviour:
   bgmFadeTime: 0.6
   useClick: 1
   seClick: {fileID: 0}
-  useCustomer: 0
+  useCustomer: 1
   seCustomer: {fileID: 0}
   useOrder: 0
   seOrder: {fileID: 0}

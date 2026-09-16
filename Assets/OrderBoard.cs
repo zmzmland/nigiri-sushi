@@ -352,7 +352,7 @@ public class OrderBoard : MonoBehaviour
         }
         else if (labels[index] != null)
         {
-            labels[index].text = GameMode.LabelFor(sprite);
+            labels[index].text = GameMode.WrapForDisplay(GameMode.LabelFor(sprite));
         }
 
         // 枠の画像を使っていない場合、埋まった枠は少し明るくする
