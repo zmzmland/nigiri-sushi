@@ -1458,7 +1458,42 @@ MonoBehaviour:
   bgmGame: {fileID: 8300000, guid: cd9410f1bc96f45439ac2b4b31e7a3a8, type: 3}
   bgmResult: {fileID: 8300000, guid: 22854fa663b3448d982bbc6f7cdbc84c, type: 3}
   bgmTable: []
-  resultTiers: []
+  resultTiers:
+  - name: "\u9280\u5EA7"
+    minScore: 13000
+    clip: {fileID: 8300000, guid: acf2f1d68a0904be08f852883bbceb25, type: 3}
+    clipName: 
+    title: 
+    titleEn: 
+    titleColor: {r: 0, g: 0, b: 0, a: 0}
+  - name: "\u884C\u5217"
+    minScore: 10500
+    clip: {fileID: 8300000, guid: 6b88283eab7d542cbb7985e002b213b4, type: 3}
+    clipName: 
+    title: 
+    titleEn: 
+    titleColor: {r: 0, g: 0, b: 0, a: 0}
+  - name: "\u8A55\u5224"
+    minScore: 8000
+    clip: {fileID: 8300000, guid: 9c779775cdd9247049d28e43fee91ddd, type: 3}
+    clipName: 
+    title: 
+    titleEn: 
+    titleColor: {r: 0, g: 0, b: 0, a: 0}
+  - name: "\u5E38\u9023"
+    minScore: 5500
+    clip: {fileID: 8300000, guid: 891db6d000a3f4c2e995cd369fcf361f, type: 3}
+    clipName: 
+    title: 
+    titleEn: 
+    titleColor: {r: 0, g: 0, b: 0, a: 0}
+  - name: "\u4FEE\u884C"
+    minScore: 0
+    clip: {fileID: 8300000, guid: cea76417691d0498793c49db23883dc9, type: 3}
+    clipName: 
+    title: 
+    titleEn: 
+    titleColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &1734564019
 Transform:
   m_ObjectHideFlags: 0

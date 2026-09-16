@@ -254,9 +254,7 @@ public class GameAudio : MonoBehaviour
             if (tr.clip == null && !string.IsNullOrEmpty(tr.clipName))
                 tr.clip = Load(tr.clipName);
 
-            if (!string.IsNullOrEmpty(tr.title)) continue;
-
-            // 称号が空 → 既定の段から借りる。
+            // 空欄を借りてくる先。
             // 同じ名前があればそれを、無ければ同じ並び順のものを使います。
             // （金額で探すと、しきい値を変えたときにずれるため）
             ResultTier src = FindByName(fallback, tr.name);
@@ -264,6 +262,13 @@ public class GameAudio : MonoBehaviour
                 src = fallback[Mathf.Min(i, fallback.Count - 1)];
 
             if (src == null) continue;
+
+            // --- 英語の称号だけは、日本語を自分で書いた場合でも補う ---
+            // Inspector で音だけ差し替えたい人が、英語の入力まで
+            // 強いられないようにするためです。
+            if (string.IsNullOrEmpty(tr.titleEn)) tr.titleEn = src.titleEn;
+
+            if (!string.IsNullOrEmpty(tr.title)) continue;
 
             tr.title = src.title;
 
