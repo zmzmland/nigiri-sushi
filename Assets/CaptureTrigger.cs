@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -48,6 +49,20 @@ public class CaptureTrigger : MonoBehaviour
     [Tooltip("detect.txt を読む間隔（秒）。Python は0.2秒ごとに書いています")]
     public float detectCheckInterval = 0.15f;
 
+    [Header("判定した瞬間の写真")]
+    [Tooltip("判定のときのカメラ画像を、画面の左上に出す。\n" +
+             "「自分が握った一皿」が結果と一緒に見られます")]
+    public bool showShot = true;
+
+    [Tooltip("写真の横幅（ピクセル）。縦は比率のまま")]
+    public float shotWidth = 200f;
+
+    [Tooltip("画面の左上からの距離")]
+    public float shotMargin = 14f;
+
+    [Tooltip("写真の上に小さく名前を出す")]
+    public bool showShotCaption = true;
+
     private float processingStartTime = -1f;
     private float lastTriggerTime = -999f;
 
@@ -68,6 +83,11 @@ public class CaptureTrigger : MonoBehaviour
     private float lastDetectCheck = -999f;
     private int orderCount = 0;
 
+    // 判定した瞬間の写真
+    private Texture2D shotTexture;
+    private long lastShotTicks = -1;
+    private float lastShotCheck = -999f;
+
     // 「止まっていない」ことを見せるための明滅。
     // 数字が動かない状態でも、これが動いていれば生きていると分かります。
     private float pulse = 0f;
@@ -76,6 +96,10 @@ public class CaptureTrigger : MonoBehaviour
     {
         ResultData.isProcessing = false;
         GamePaths.SafeDelete(GamePaths.TriggerPath);
+
+        // 前の面の写真を持ち越さない
+        GamePaths.SafeDelete(GamePaths.ShotPath);
+        lastShotTicks = -1;
     }
 
     void Update()
@@ -83,6 +107,7 @@ public class CaptureTrigger : MonoBehaviour
         WatchPython();
         WatchCountdown();
         WatchDetect();
+        WatchShot();
 
         pulse = (pulse + Time.unscaledDeltaTime) % 1f;
 
@@ -216,6 +241,83 @@ public class CaptureTrigger : MonoBehaviour
         orderCount = CountOrderLines();
     }
 
+    // =========================================================
+    //  判定した瞬間の写真
+    //
+    //  Python が判定のたびに shot.jpg を書き出します。
+    //  更新されていたら読み直して、画面の左上に出します。
+    //
+    //  ひとつの Texture2D を使い回すので、
+    //  一日中動かしてもメモリが増えません。
+    // =========================================================
+    private void WatchShot()
+    {
+        if (!showShot) return;
+        if (Time.time - lastShotCheck < 0.2f) return;
+        lastShotCheck = Time.time;
+
+        try
+        {
+            if (!File.Exists(GamePaths.ShotPath))
+            {
+                lastShotTicks = -1;
+                return;
+            }
+
+            long ticks = File.GetLastWriteTimeUtc(GamePaths.ShotPath).Ticks;
+            if (ticks == lastShotTicks) return;
+
+            byte[] bytes = File.ReadAllBytes(GamePaths.ShotPath);
+
+            // 書き込み途中だと中身が欠けていることがある
+            if (bytes == null || bytes.Length < 256) return;
+
+            if (shotTexture == null)
+                shotTexture = new Texture2D(2, 2, TextureFormat.RGB24, false);
+
+            if (shotTexture.LoadImage(bytes)) lastShotTicks = ticks;
+        }
+        catch (IOException)
+        {
+            // Python が書いている最中。次の確認でやり直す
+        }
+    }
+
+    /// <summary>画面の左上に写真を出す。</summary>
+    private void DrawShot()
+    {
+        if (shotTexture == null || shotTexture.width <= 2) return;
+
+        float w = shotWidth;
+        float h = w * shotTexture.height / Mathf.Max(1, shotTexture.width);
+
+        float x = shotMargin;
+        float y = shotMargin;
+
+        Color prev = GUI.color;
+
+        // 白い縁。写真らしく見せるため
+        GUI.color = new Color(1f, 1f, 1f, 0.92f);
+        GUI.DrawTexture(new Rect(x - 4f, y - 4f, w + 8f, h + 8f), Texture2D.whiteTexture);
+
+        GUI.color = Color.white;
+        GUI.DrawTexture(new Rect(x, y, w, h), shotTexture, ScaleMode.ScaleToFit);
+
+        if (showShotCaption)
+        {
+            var cap = new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                fontSize = 14,
+            };
+            cap.normal.textColor = new Color(0.15f, 0.15f, 0.15f);
+            GUI.Label(new Rect(x - 4f, y + h + 2f, w + 8f, 20f),
+                      GameMode.T("にぎった一皿", "Your plate"), cap);
+        }
+
+        GUI.color = prev;
+    }
+
     /// <summary>order.txt の行数 = いまの注文の貫数。</summary>
     private int CountOrderLines()
     {
@@ -271,6 +373,9 @@ public class CaptureTrigger : MonoBehaviour
 
     private void DrawGui()
     {
+        // 写真は他の表示と重ならないので、常に先に描く
+        if (showShot) DrawShot();
+
         if (!showStatus) return;
 
         var style = new GUIStyle(GUI.skin.label)

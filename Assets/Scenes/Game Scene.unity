@@ -610,6 +610,10 @@ MonoBehaviour:
   statusBottomMargin: 230
   showDetect: 1
   detectCheckInterval: 0.15
+  showShot: 1
+  shotWidth: 200
+  shotMargin: 14
+  showShotCaption: 1
 --- !u!4 &1373938867
 Transform:
   m_ObjectHideFlags: 0
@@ -1003,8 +1007,10 @@ MonoBehaviour:
   orderFontMin: 30
   orderFontMax: 90
   judgeDisplaySeconds: 2.8
-  judgeArt: {fileID: 0}
+  judgeArt: {fileID: 21300000, guid: 497c081812eb94780bd46b6c9c2ea8ac, type: 3}
   judgeArtHeight: 70
+  judgeArtPlate: 1
+  judgeArtPlateColor: {r: 0, g: 0, b: 0, a: 0}
   showTimer: 1
   timerTopMargin: 14
   skipWaitScene: 1

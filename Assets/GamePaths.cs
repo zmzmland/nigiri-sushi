@@ -39,6 +39,12 @@ public static class GamePaths
     public static string DetectPath => Path.Combine(BaseDir, "detect.txt");
 
     /// <summary>
+    /// 判定した瞬間のカメラ画像。Python が判定のたびに書き出します。
+    /// 枠も文字も描かれていない生の映像なので、そのまま見せられます。
+    /// </summary>
+    public static string ShotPath => Path.Combine(BaseDir, "shot.jpg");
+
+    /// <summary>
     /// ランキングの保存先。ビルドしたアプリでも Editor でも同じ場所を見ます。
     /// 中身はただの JSON なので、テキストエディタで開いて確認・削除できます。
     /// </summary>

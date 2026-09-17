@@ -4,6 +4,7 @@ import numpy as np
 import os
 import json
 import time
+import math
 from collections import Counter
 from pathlib import Path
 
@@ -27,6 +28,10 @@ COUNTDOWN_PATH = BASE_DIR / "countdown.txt"
 
 # いま見えているネタの一覧。タイトル画面で「寿司を置いて開始」に使う。
 DETECT_PATH = BASE_DIR / "detect.txt"
+
+# 判定した瞬間のカメラ画像。Unity が画面の左上に出します。
+# 枠も文字も描かれていない、生の映像をそのまま保存します。
+SHOT_PATH = BASE_DIR / "shot.jpg"
 
 print(f"共有フォルダ : {BASE_DIR}")
 
@@ -84,6 +89,16 @@ DEFAULTS = {
 
     # 検出のちらつきを無視するための連続一致回数
     "auto_debounce": 3,
+
+    # ---- 判定した瞬間の写真 ----
+    # 判定のたびに、そのときのカメラ画像を shot.jpg に保存します。
+    # Unity がそれを読んで画面の左上に出すので、
+    # 「自分が握った一皿」が結果と一緒に見られます。
+    # 枠や文字は描かれていない生の映像です。
+    "save_shot": True,
+
+    # 保存する画像の横幅（縦は比率を保ちます）。小さいほど軽い
+    "shot_width": 480,
 
     # ---- 明るさ・色の正規化 ----
     #
@@ -518,6 +533,32 @@ def draw_hud(img, manual, order_len, det_count, auto_state, remain):
 # ----------------------------
 # 判定1回分
 # ----------------------------
+def save_shot(frame):
+    """判定した瞬間の映像を残す。
+
+    枠を描く前の frame をそのまま使うので、緑の枠も文字も入りません。
+    書き込み途中を Unity に読まれないよう、別名で書いてから置き換えます。
+    """
+    if not CFG.get("save_shot", True):
+        return
+
+    try:
+        w = int(CFG.get("shot_width", 480))
+        h, src_w = frame.shape[:2]
+
+        if src_w > w:
+            small = cv2.resize(frame, (w, int(h * w / src_w)),
+                               interpolation=cv2.INTER_AREA)
+        else:
+            small = frame
+
+        tmp = SHOT_PATH.with_suffix(".tmp.jpg")
+        cv2.imwrite(str(tmp), small, [int(cv2.IMWRITE_JPEG_QUALITY), 85])
+        os.replace(tmp, SHOT_PATH)
+    except Exception as e:
+        print(f"写真の保存に失敗しました（続行します）: {e}")
+
+
 def run_judgement(frame, label="判定"):
     order = read_order()
 
@@ -538,6 +579,9 @@ def run_judgement(frame, label="判定"):
 
     # 判定時は必ずそのフレームで推論し直す（間引きの影響を受けない）
     dets = detect(frame)
+
+    # 枠を描く前に保存する（生の映像が残る）
+    save_shot(frame)
 
     detected = [name for name, _, _ in dets]
     ng_count = detected.count(NG_CLASS)
@@ -579,6 +623,7 @@ def confirm_manual(manual):
 TRIGGER_PATH.unlink(missing_ok=True)
 COUNTDOWN_PATH.unlink(missing_ok=True)
 DETECT_PATH.unlink(missing_ok=True)
+SHOT_PATH.unlink(missing_ok=True)
 
 print()
 print("=" * 50)
@@ -706,7 +751,10 @@ while True:
                 disarm_auto()
                 auto_state = None
             else:
-                set_countdown(str(int(remain) + 1))
+                # 残り時間を必ず 3 → 2 → 1 に割り当てる。
+                # カウントダウンを短くしても「3・2・1」の形は崩しません。
+                step = math.ceil(remain / AUTO_COUNTDOWN * 3) if AUTO_COUNTDOWN > 0 else 1
+                set_countdown(str(max(1, min(3, step))))
                 auto_state = "countdown"
         else:
             if countdown_started is not None:
@@ -799,4 +847,5 @@ cv2.destroyAllWindows()
 HEARTBEAT_PATH.unlink(missing_ok=True)
 COUNTDOWN_PATH.unlink(missing_ok=True)
 DETECT_PATH.unlink(missing_ok=True)
+SHOT_PATH.unlink(missing_ok=True)
 print("終了しました")

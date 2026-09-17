@@ -1439,7 +1439,7 @@ MonoBehaviour:
   bgmFadeTime: 0.6
   useClick: 1
   seClick: {fileID: 0}
-  useCustomer: 1
+  useCustomer: 0
   seCustomer: {fileID: 0}
   useOrder: 0
   seOrder: {fileID: 0}

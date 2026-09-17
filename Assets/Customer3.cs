@@ -108,6 +108,13 @@ public class Customer3 : MonoBehaviour
     [Tooltip("その絵の高さ（ピクセル）")]
     public float judgeArtHeight = 70f;
 
+    [Tooltip("絵の後ろに明るい札を敷く。\n" +
+             "hey!.png のような黒い筆文字は、暗い背景だと消えてしまうため")]
+    public bool judgeArtPlate = true;
+
+    [Tooltip("その札の色。生成りの紙のような色にしてあります")]
+    public Color judgeArtPlateColor = new Color(0.96f, 0.93f, 0.86f, 1f);
+
     [Header("経過時間の表示")]
     [Tooltip("画面の上に、経過秒数と残りボーナスを出す")]
     public bool showTimer = true;
@@ -716,13 +723,25 @@ public class Customer3 : MonoBehaviour
                               tr.height / judgeArt.texture.height);
 
             float aspect = (tr.height > 0f) ? tr.width / tr.height : 1f;
-            float artW = Mathf.Min(w - 40f, artH * aspect);
+            float artW = Mathf.Min(w - 48f, artH * aspect);
+            float artX = x + (w - artW) / 2f;
+
+            // 黒い筆文字は暗い背景では見えないので、明るい札を敷く
+            if (judgeArtPlate)
+            {
+                Color keep = GUI.color;
+                GUI.color = judgeArtPlateColor;
+                GUI.DrawTexture(
+                    new Rect(artX - 14f, cursor - 8f, artW + 28f, artH + 16f),
+                    Texture2D.whiteTexture);
+                GUI.color = keep;
+            }
 
             GUI.DrawTextureWithTexCoords(
-                new Rect(x + (w - artW) / 2f, cursor, artW, artH),
+                new Rect(artX, cursor, artW, artH),
                 judgeArt.texture, uv);
 
-            cursor += artH + 6f;
+            cursor += artH + (judgeArtPlate ? 18f : 6f);
         }
         else
         {
